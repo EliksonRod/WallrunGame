@@ -12,11 +12,11 @@ public class playerMovement : MonoBehaviour
     private float lastDesiredMoveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
-    public float slideSpeed;
     public float wallrunSpeed;
+    public float climbSpeed;
 
     public float speedIncreaseMultiplier;
-    public float slopeIncreaseMultiplier;
+    //public float slopeIncreaseMultiplier;
 
     public float groundDrag;
 
@@ -46,6 +46,9 @@ public class playerMovement : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
+    [Header("References")]
+    public Climbing climbingScript;
+
     [Header("CheckPoints")]
     public GameObject flag;
     Vector3 spawnPoint;
@@ -65,14 +68,14 @@ public class playerMovement : MonoBehaviour
         walking,
         sprinting,
         wallrunning,
+        climbing,
         crouching,
-        sliding,
         air
     }
 
-    public bool sliding;
     public bool crouching;
     public bool wallrunning;
+    public bool climbing;
 
     private void Start()
     {
@@ -143,29 +146,22 @@ public class playerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        //Mode - Wallrunning
-        if (wallrunning)
+        // Mode - Climbing
+        if (climbing)
+        {
+            state = MovementState.climbing;
+            desiredMoveSpeed = climbSpeed;
+        }
+
+        // Mode - Wallrunning
+        else if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
             //Debug.Log("wallrunning");
         }
 
-        //Mode - Sliding
-        else if (sliding)
-        {
-            //Debug.Log("sliding");
-
-            state = MovementState.sliding;
-
-            if (OnSlope() && rb.velocity.y < 0.1f)
-                desiredMoveSpeed = slideSpeed;
-
-            else
-                desiredMoveSpeed = sprintSpeed;
-        }
-
-        //Mode - Crouching
+        // Mode - Crouching
         else if (Input.GetKey(crouchKey))
         {
             //Debug.Log("crouching");
@@ -174,8 +170,8 @@ public class playerMovement : MonoBehaviour
             desiredMoveSpeed = crouchSpeed;
         }
 
-        //Mode - Sprinting
-        else if (grounded && Input.GetKey(sprintKey))//grounded &&
+        // Mode - Sprinting
+        else if (grounded && Input.GetKey(sprintKey))
         {
             //Debug.Log("sprinting");
 
@@ -225,13 +221,13 @@ public class playerMovement : MonoBehaviour
         while (time < difference)
         {
             moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-            
+
             if (OnSlope())
             {
                 float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 float slopeAngleIncrease = 1 + (slopeAngle / 90f);
 
-                time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease;
+                time += Time.deltaTime * speedIncreaseMultiplier * slopeAngleIncrease;//slopeIncreaseMultiplier 
             }
             else
                 time += Time.deltaTime * speedIncreaseMultiplier;
@@ -244,6 +240,8 @@ public class playerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (climbingScript.exitingWall) return;
+
         // calculate movement direction and walk in the direction you are looking
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
