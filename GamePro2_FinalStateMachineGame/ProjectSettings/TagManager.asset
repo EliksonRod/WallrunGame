@@ -14,6 +14,8 @@ TagManager:
   - LevelPart
   - Dummie
   - WallMenuTrigger
+  - MovementMenuTrigger
+  - ClimbingMenuTrigger
   layers:
   - Default
   - TransparentFX

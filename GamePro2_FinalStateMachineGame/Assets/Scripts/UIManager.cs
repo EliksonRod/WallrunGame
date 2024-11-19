@@ -3,15 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : GameManager
 {
     public GameObject dropdown;
-
-    private void Start()
-    {
-        //dropdown.SetActive(false);
-    }
-
     public void PlayScene()
     {
         SceneManager.LoadScene(1);

@@ -54,9 +54,6 @@ public class playerMovement : MonoBehaviour
     public GameObject flag;
     Vector3 spawnPoint;
 
-    [Header("UIPopUp")]
-    public GameObject WallrunMenu;
-
     [Tooltip("The audio clip that is played while walking.")]
     [SerializeField]
     private AudioClip audioClipWalking;
@@ -73,6 +70,13 @@ public class playerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    [Header("UIPopUp")]
+    public GameObject WallrunMenu;
+    public GameObject MovementMenu;
+    public GameObject ClimbingMenu;
+    public Animator GrowMenu;
+
 
     public MovementState state;
     public enum MovementState
@@ -346,6 +350,17 @@ public class playerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("WallMenuTrigger"))
         {
             WallrunMenu.SetActive(true);
+            GrowMenu.Play("PopUpMenu");
+        }
+        if (other.gameObject.CompareTag("MovementMenuTrigger"))
+        {
+            MovementMenu.SetActive(true);
+            GrowMenu.Play("PopUpMenu");
+        }
+        if (other.gameObject.CompareTag("ClibingMenuTrigger"))
+        {
+            ClimbingMenu.SetActive(true);
+            GrowMenu.Play("PopUpMenu");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -353,6 +368,14 @@ public class playerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("WallMenuTrigger"))
         {
             Destroy(WallrunMenu);
+        }
+        if (other.gameObject.CompareTag("MovementMenuTrigger"))
+        {
+            Destroy(MovementMenu);
+        }
+        if (other.gameObject.CompareTag("ClibingMenuTrigger"))
+        {
+            Destroy(ClimbingMenu);
         }
     }
 }

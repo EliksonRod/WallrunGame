@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //Would it be better to have stop/resume time on the UIManager Script then GameManager script?
 
     public GameObject WallRunMenu;
     //private bool isTimeStopped;
     private float originalTimeScale;
-    private void Start()
+    public void Start()
     {
         originalTimeScale = Time.timeScale;
     }
     // Update is called once per frame
     void Update()
     {
-        if(WallRunMenu.activeInHierarchy)
+        if (WallRunMenu.activeInHierarchy)
         {
-            StopTime();
+            //StopTime();
         }
         else
         {
             ResumeTime();
         }
     }
-    private void StopTime()
+    public void StopTime()
     {
         //isTimeStopped = true;
         //originalTimeScale = Time.timeScale;
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-    private void ResumeTime()
+    public void ResumeTime()
     {
         //isTimeStopped = false;
         Cursor.lockState = CursorLockMode.Locked;
