@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
@@ -52,6 +53,9 @@ public class playerMovement : MonoBehaviour
     [Header("CheckPoints")]
     public GameObject flag;
     Vector3 spawnPoint;
+
+    [Header("UIPopUp")]
+    public GameObject WallrunMenu;
 
     public Transform orientation;
 
@@ -319,6 +323,7 @@ public class playerMovement : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("CheckPoint"))
@@ -329,6 +334,17 @@ public class playerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Void"))
         {
             gameObject.transform.position = spawnPoint;
+        }
+        if (other.gameObject.CompareTag("WallMenuTrigger"))
+        {
+            WallrunMenu.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("WallMenuTrigger"))
+        {
+            Destroy(WallrunMenu);
         }
     }
 }

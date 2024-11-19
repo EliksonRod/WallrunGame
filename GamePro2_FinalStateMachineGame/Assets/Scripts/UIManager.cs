@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        dropdown.SetActive(false);
+        //dropdown.SetActive(false);
     }
 
     public void PlayScene()
@@ -23,6 +23,10 @@ public class UIManager : MonoBehaviour
     }
 
     public void ExitChooseMode()
+    {
+        dropdown.SetActive(false);
+    }
+    public void CloseMenu()
     {
         dropdown.SetActive(false);
     }

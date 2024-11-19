@@ -6,6 +6,14 @@ TagManager:
   tags:
   - CheckPoint
   - Void
+  - Music
+  - Button
+  - Weapon
+  - SecondCamera
+  - BulletSpawn
+  - LevelPart
+  - Dummie
+  - WallMenuTrigger
   layers:
   - Default
   - TransparentFX
