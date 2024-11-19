@@ -57,6 +57,14 @@ public class playerMovement : MonoBehaviour
     [Header("UIPopUp")]
     public GameObject WallrunMenu;
 
+    [Tooltip("The audio clip that is played while walking.")]
+    [SerializeField]
+    private AudioClip audioClipWalking;
+
+    [Tooltip("The audio clip that is played while running.")]
+    [SerializeField]
+    private AudioClip audioClipRunning;
+
     public Transform orientation;
 
     float horizontalInput;
