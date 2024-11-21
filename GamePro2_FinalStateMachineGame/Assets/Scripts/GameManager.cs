@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     //Would it be better to have stop/resume time on the UIManager Script then GameManager script?
 
     public GameObject WallRunMenu;
+    public GameObject MovementMenu;
+    public GameObject ClimbingMenu;
     //private bool isTimeStopped;
     private float originalTimeScale;
     public void Start()
@@ -16,7 +18,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (WallRunMenu.activeInHierarchy)
+        if (WallRunMenu.activeInHierarchy || ClimbingMenu.activeInHierarchy || MovementMenu.activeInHierarchy)
         {
             //StopTime();
         }

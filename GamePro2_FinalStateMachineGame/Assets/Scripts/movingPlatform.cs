@@ -10,6 +10,24 @@ public class movingPlatform : MonoBehaviour
     public float speed = 2f;
     public bool forward = true;
 
+    public GameObject Player;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == Player)
+        {
+            Player.transform.parent = transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == Player)
+        {
+            Player.transform.parent = null;
+        }
+    }
+
     void Update()
     {
         //gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y,gameObject.transform.position.z + 1);

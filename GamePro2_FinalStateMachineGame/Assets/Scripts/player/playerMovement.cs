@@ -256,6 +256,7 @@ public class playerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        
         if (climbingScript.exitingWall) return;
 
         // calculate movement direction and walk in the direction you are looking
@@ -273,7 +274,7 @@ public class playerMovement : MonoBehaviour
         // on ground
         else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
+        
         // in air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);

@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Animator animWhenHoverOver;
+    private bool mouse_over = false;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -16,5 +20,22 @@ public class MainMenuManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        if (mouse_over)
+        {
+            Debug.Log("Mouse Over");
+        }
     }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        mouse_over = true;
+        Debug.Log("Mouse enter");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mouse_over = false;
+        Debug.Log("Mouse exit");
+    }
+
 }
