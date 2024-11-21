@@ -10,7 +10,6 @@ public class movingPlatform : MonoBehaviour
     public float speed = 2f;
     public bool forward = true;
 
-    // Update is called once per frame
     void Update()
     {
         //gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y,gameObject.transform.position.z + 1);
@@ -37,4 +36,7 @@ public class movingPlatform : MonoBehaviour
             gameObject.transform.position = new Vector3(gameObject.transform.position.x - (Time.deltaTime * speed), gameObject.transform.position.y, gameObject.transform.position.z);
         }
     }
+
+
+
 }

@@ -357,7 +357,7 @@ public class playerMovement : MonoBehaviour
             MovementMenu.SetActive(true);
             GrowMenu.Play("PopUpMenu");
         }
-        if (other.gameObject.CompareTag("ClibingMenuTrigger"))
+        if (other.gameObject.CompareTag("ClimbingMenuTrigger"))
         {
             ClimbingMenu.SetActive(true);
             GrowMenu.Play("PopUpMenu");
