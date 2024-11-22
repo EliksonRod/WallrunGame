@@ -2834,6 +2834,7 @@ MonoBehaviour:
   speed: 3.4
   forward: 1
   Player: {fileID: 659555084}
+  platMode: 1
 --- !u!65 &1384551313
 BoxCollider:
   m_ObjectHideFlags: 0
