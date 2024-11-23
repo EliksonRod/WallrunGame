@@ -77,6 +77,10 @@ public class playerMovement : MonoBehaviour
     public GameObject ClimbingMenu;
     public Animator GrowMenu;
 
+    [Header("Blob Shadow")]
+    public GameObject shadow;
+    public RaycastHit hit;
+    public float offset;
 
     public MovementState state;
     public enum MovementState
@@ -129,6 +133,19 @@ public class playerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        
+        Ray downRay = new Ray(new Vector3(this.transform.position.x, this.transform.position.y - offset, this.transform.position.z), -Vector3.up);
+
+        //gets the hit from the raycast and converts it unto a vector3
+        Vector3 hitPosition = hit.point;
+        //transform the shadow to the location
+        shadow.transform.position = hitPosition;
+
+        //Cast a ray straight downwards, reads back where it leads
+        if (Physics.Raycast(downRay, out hit))
+        {
+            print(hit.transform);
+        }
     }
 
     private void MyInput()
