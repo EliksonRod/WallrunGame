@@ -99,6 +99,7 @@ public class movingPlatform : MonoBehaviour
     void MoveForward()
     {
         //Add speed when moving forward
+        if(gameObject.transform.position.x <= myEndPosition.x)
         gameObject.transform.position = new Vector3(gameObject.transform.position.x + (Time.deltaTime * speed), gameObject.transform.position.y, gameObject.transform.position.z);
     }
     void GoBackward()

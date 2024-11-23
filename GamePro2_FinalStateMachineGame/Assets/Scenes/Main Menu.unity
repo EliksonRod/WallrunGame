@@ -692,6 +692,7 @@ GameObject:
   - component: {fileID: 908764647}
   - component: {fileID: 908764646}
   - component: {fileID: 908764650}
+  - component: {fileID: 908764651}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -835,7 +836,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bf2a5849431c75a4693eda39fc5ea21e, type: 2}
-  m_CullingMode: 2
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -845,6 +846,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &908764651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908764644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animWhenHoverOver: {fileID: 908764650}
 --- !u!1 &1167598318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,9 +1158,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6f833f7c3d2c2924fb4f45ae0ccb6c0c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 60f201befcc1bec4cb40cebd49f9550d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1976,6 +1990,7 @@ GameObject:
   - component: {fileID: 1964489548}
   - component: {fileID: 1964489547}
   - component: {fileID: 1964489551}
+  - component: {fileID: 1964489552}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -2129,6 +2144,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1964489552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964489545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animWhenHoverOver: {fileID: 1964489551}
 --- !u!1 &2030713931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,6 +2171,7 @@ GameObject:
   - component: {fileID: 2030713936}
   - component: {fileID: 2030713937}
   - component: {fileID: 2030713938}
+  - component: {fileID: 2030713939}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -2296,6 +2325,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2030713939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030713931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animWhenHoverOver: {fileID: 2030713938}
 --- !u!1 &2031898290
 GameObject:
   m_ObjectHideFlags: 0

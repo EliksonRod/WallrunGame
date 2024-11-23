@@ -374,7 +374,7 @@ public class playerMovement : MonoBehaviour
         {
             Destroy(MovementMenu);
         }
-        if (other.gameObject.CompareTag("ClibingMenuTrigger"))
+        if (other.gameObject.CompareTag("ClimbingMenuTrigger"))
         {
             Destroy(ClimbingMenu);
         }
