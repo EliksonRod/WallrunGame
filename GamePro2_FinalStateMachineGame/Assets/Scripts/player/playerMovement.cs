@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
@@ -36,6 +35,9 @@ public class playerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode pauseKey = KeyCode.Escape;
+
+    public GameObject pauseMenu;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -70,12 +72,6 @@ public class playerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-
-    [Header("UIPopUp")]
-    public GameObject WallrunMenu;
-    public GameObject MovementMenu;
-    public GameObject ClimbingMenu;
-    public Animator GrowMenu;
 
     [Header("Blob Shadow")]
     public GameObject shadow;
@@ -174,6 +170,12 @@ public class playerMovement : MonoBehaviour
         if (Input.GetKeyUp(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        }
+
+        //Pause
+        if (Input.GetKeyDown(pauseKey))
+        {
+            pauseMenu.SetActive(true);
         }
     }
 
@@ -364,36 +366,6 @@ public class playerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Void"))
         {
             gameObject.transform.position = spawnPoint;
-        }
-        if (other.gameObject.CompareTag("WallMenuTrigger"))
-        {
-            WallrunMenu.SetActive(true);
-            GrowMenu.Play("PopUpMenu");
-        }
-        if (other.gameObject.CompareTag("MovementMenuTrigger"))
-        {
-            MovementMenu.SetActive(true);
-            GrowMenu.Play("PopUpMenu");
-        }
-        if (other.gameObject.CompareTag("ClimbingMenuTrigger"))
-        {
-            ClimbingMenu.SetActive(true);
-            GrowMenu.Play("PopUpMenu");
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("WallMenuTrigger"))
-        {
-            Destroy(WallrunMenu);
-        }
-        if (other.gameObject.CompareTag("MovementMenuTrigger"))
-        {
-            Destroy(MovementMenu);
-        }
-        if (other.gameObject.CompareTag("ClimbingMenuTrigger"))
-        {
-            Destroy(ClimbingMenu);
         }
     }
 }

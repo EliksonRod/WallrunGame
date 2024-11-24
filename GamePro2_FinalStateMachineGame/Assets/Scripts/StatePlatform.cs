@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
@@ -31,7 +30,7 @@ public class StatePlatform : MonoBehaviour
         switch (platMode)
         {
             case platformMode.IDLE:
-                Debug.Log("Idle");
+                //Debug.Log("Idle");
                 break;
             case platformMode.MOVING:
                 PlatformActive();
@@ -92,7 +91,7 @@ public class StatePlatform : MonoBehaviour
                 CurrentDest = 0;
         }
 
-        Debug.Log("Active");
+        //Debug.Log("Active");
     }
 
     void PlatformMoveBack()
@@ -114,7 +113,7 @@ public class StatePlatform : MonoBehaviour
                 CurrentDest = 0;
         }
 
-        Debug.Log("Returning");
+        //Debug.Log("Returning");
     }
 
 

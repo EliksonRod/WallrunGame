@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject WallRunMenu;
     public GameObject MovementMenu;
     public GameObject ClimbingMenu;
+    public GameObject PauseMenu;
     //private bool isTimeStopped;
     private float originalTimeScale;
     public void Start()
@@ -21,6 +23,10 @@ public class GameManager : MonoBehaviour
         if (WallRunMenu.activeInHierarchy || ClimbingMenu.activeInHierarchy || MovementMenu.activeInHierarchy)
         {
             //StopTime();
+        }
+        else if (PauseMenu.activeInHierarchy)
+        {
+            StopTime();
         }
         else
         {

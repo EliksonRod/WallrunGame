@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
     public void ExitGame()
     {
         Application.Quit();
