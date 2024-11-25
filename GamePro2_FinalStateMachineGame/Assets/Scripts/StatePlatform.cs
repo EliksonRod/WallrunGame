@@ -90,7 +90,6 @@ public class StatePlatform : MonoBehaviour
             if (CurrentDest >= Destinations.Count)
                 CurrentDest = 0;
         }
-
         //Debug.Log("Active");
     }
 
@@ -101,12 +100,14 @@ public class StatePlatform : MonoBehaviour
         Vector3 old = transform.position;
         transform.position = Vector3.MoveTowards(dest, transform.position, Speed);
         Vector3 movement = transform.position - old;
-        /*foreach (Transform tra in Riders)
+
+
+        foreach (Transform tra in Riders)
         {
             tra.position += movement;
-        }*/
+        }
 
-        if (Vector3.Distance(transform.position, dest) < 0.01f)
+        if (Vector3.Distance(dest, transform.position) < 0.01f)
         {
             CurrentDest++;
             if (CurrentDest >= Destinations.Count)
@@ -115,66 +116,4 @@ public class StatePlatform : MonoBehaviour
 
         //Debug.Log("Returning");
     }
-
-
-
-    /*
-    // Platform starting and end position values
-    public Vector3 myStartPosition;
-    public Vector3 myEndPosition;
-    public float speed = 2f;
-    public GameObject Player;
-
-    public enum platformMode
-    {
-        IDLE,
-        MOVING,
-        RETURN
-    }
-    private void Start()
-    {
-        platMode = platformMode.IDLE;
-
-    }
-    public platformMode platMode;
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        platMode = platformMode.RETURN;
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        platMode = platformMode.MOVING;
-    }
-
-    void Update()
-    {
-        switch (platMode)
-        {
-            case platformMode.IDLE:
-                break;
-            case platformMode.MOVING:
-                MoveForward();
-                break;
-
-            case platformMode.RETURN:
-                GoBackward();
-                break;
-        }
-
-        
-    }
-    void MoveForward()
-    {
-        //Add speed when moving forward
-        if(gameObject.transform.position.x <= myEndPosition.x)
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (Time.deltaTime * speed), gameObject.transform.position.y, gameObject.transform.position.z);
-    }
-    void GoBackward()
-    {
-        //Subtract speed when moving backward
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x - (Time.deltaTime * speed), gameObject.transform.position.y, gameObject.transform.position.z);
-    }*/
 }
