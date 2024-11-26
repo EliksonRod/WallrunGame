@@ -229,7 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050ed11467438a147aa04ae9e99a0f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
 --- !u!1 &391748767
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +692,7 @@ GameObject:
   - component: {fileID: 908764646}
   - component: {fileID: 908764650}
   - component: {fileID: 908764651}
+  - component: {fileID: 908764652}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -859,6 +859,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animWhenHoverOver: {fileID: 908764650}
+--- !u!111 &908764652
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908764644}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 0}
+  - {fileID: 0}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1167598318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,6 +2685,8 @@ MonoBehaviour:
   jumpKey: 32
   sprintKey: 304
   crouchKey: 99
+  pauseKey: 27
+  pauseMenu: {fileID: 0}
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -2675,14 +2694,12 @@ MonoBehaviour:
   grounded: 0
   maxSlopeAngle: 40
   climbingScript: {fileID: 659555086}
-  flag: {fileID: 0}
+  spawnPoint: {x: 0, y: 0, z: 0}
   audioClipWalking: {fileID: 0}
   audioClipRunning: {fileID: 0}
   orientation: {fileID: 7439496107192889905}
-  WallrunMenu: {fileID: 1885364903}
-  MovementMenu: {fileID: 0}
-  ClimbingMenu: {fileID: 0}
-  GrowMenu: {fileID: 0}
+  shadow: {fileID: 0}
+  offset: 0
   state: 0
   crouching: 0
   wallrunning: 0

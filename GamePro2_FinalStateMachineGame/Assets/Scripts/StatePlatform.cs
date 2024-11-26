@@ -70,6 +70,10 @@ public class StatePlatform : MonoBehaviour
         Riders.Remove(other.transform);
 
         platMode = platformMode.RETURN;
+
+        CurrentDest--;
+        if (CurrentDest < 0)
+            CurrentDest = Destinations.Count - 1;
     }
 
     void PlatformActive()
@@ -98,7 +102,7 @@ public class StatePlatform : MonoBehaviour
         if (Destinations.Count == 0) return;
         Vector3 dest = Destinations[CurrentDest];
         Vector3 old = transform.position;
-        transform.position = Vector3.MoveTowards(dest, transform.position, Speed);
+        transform.position = Vector3.MoveTowards(transform.position, dest, Speed);
         Vector3 movement = transform.position - old;
 
 
@@ -107,13 +111,15 @@ public class StatePlatform : MonoBehaviour
             tra.position += movement;
         }
 
-        if (Vector3.Distance(dest, transform.position) < 0.01f)
+        if (Vector3.Distance(transform.position,dest) < 0.01f)
         {
-            CurrentDest++;
-            if (CurrentDest >= Destinations.Count)
-                CurrentDest = 0;
+            CurrentDest--;
+        if (CurrentDest < 0)
+        {
+            CurrentDest = 0;
+            platMode = platformMode.IDLE;
         }
-
-        //Debug.Log("Returning");
     }
+        //Debug.Log("Returning");
+}
 }

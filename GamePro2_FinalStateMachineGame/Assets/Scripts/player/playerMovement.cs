@@ -53,8 +53,7 @@ public class playerMovement : MonoBehaviour
     public Climbing climbingScript;
 
     [Header("CheckPoints")]
-    public GameObject flag;
-    Vector3 spawnPoint;
+    public Vector3 spawnPoint;
 
     [Tooltip("The audio clip that is played while walking.")]
     [SerializeField]
@@ -95,7 +94,9 @@ public class playerMovement : MonoBehaviour
 
     private void Start()
     {
-        spawnPoint = gameObject.transform.position;
+        //spawnPoint = gameObject.transform.position;
+        spawnPoint = transform.position;
+
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -356,16 +357,18 @@ public class playerMovement : MonoBehaviour
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 
+    public void UpdateCheckpoint(Vector3 pos)
+    {
+        spawnPoint = pos;
+    } 
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("CheckPoint"))
-        {
-            spawnPoint = flag.transform.position;
-            Destroy(flag);
-        }
+        //Death
         if (other.gameObject.CompareTag("Void"))
         {
-            gameObject.transform.position = spawnPoint;
+            //gameObject.transform.position = spawnPoint;
+            transform.position = spawnPoint;
         }
     }
 }

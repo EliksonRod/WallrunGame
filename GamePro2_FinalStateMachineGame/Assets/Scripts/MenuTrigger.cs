@@ -12,6 +12,7 @@ public class MenuTrigger : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        Destroy(menuPopUp); 
+        //Destroy(menuPopUp);
+        this.gameObject.SetActive(false);
     }
 }
