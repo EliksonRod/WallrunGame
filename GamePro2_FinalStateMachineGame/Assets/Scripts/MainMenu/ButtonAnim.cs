@@ -10,15 +10,15 @@ public class ButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Animator animWhenHoverOver;
     private void Start()
     {
-        gameObject.GetComponent<Animator>().enabled = false;
+        animWhenHoverOver.enabled = false;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        gameObject.GetComponent<Animator>().enabled = true;
+        animWhenHoverOver.enabled = true;
+        animWhenHoverOver.Play("HoverOverGrowShrink");
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        gameObject.GetComponent<Animator>().enabled = false;
+        animWhenHoverOver.Play("ReturnToNormalSize");   
     }
-
 }

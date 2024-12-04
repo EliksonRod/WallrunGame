@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (WallRunMenu.activeInHierarchy || ClimbingMenu.activeInHierarchy || MovementMenu.activeInHierarchy)
+        if ((WallRunMenu != null && WallRunMenu.activeInHierarchy) || (ClimbingMenu != null && ClimbingMenu.activeInHierarchy) || (MovementMenu != null && MovementMenu.activeInHierarchy))
         {
             //StopTime();
         }
@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
         {
             ResumeTime();
         }
+
+        
+
+
     }
     public void StopTime()
     {

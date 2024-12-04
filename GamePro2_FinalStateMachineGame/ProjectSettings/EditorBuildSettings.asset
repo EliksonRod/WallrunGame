@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Freerun 1.unity
     guid: be6b85a8be0c6e647a60bf9cf5783942
   - enabled: 1
-    path: Assets/Scenes/Freerun 2.unity
+    path: Assets/Scenes/Jumping Jamboree.unity
     guid: cd42f5e02ecd1cb43ae8f590da1093f1
   - enabled: 1
     path: Assets/Scenes/Freerun 3.unity
