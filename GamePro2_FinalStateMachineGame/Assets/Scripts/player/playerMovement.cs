@@ -55,13 +55,7 @@ public class playerMovement : MonoBehaviour
     [Header("CheckPoints")]
     public Vector3 spawnPoint;
 
-    [Tooltip("The audio clip that is played while walking.")]
-    [SerializeField]
-    private AudioClip audioClipWalking;
-
-    [Tooltip("The audio clip that is played while running.")]
-    [SerializeField]
-    private AudioClip audioClipRunning;
+    public AudioSource JumpSound;
 
     public Transform orientation;
 
@@ -329,6 +323,8 @@ public class playerMovement : MonoBehaviour
     private void Jump()
     {
         exitingSlope = true;
+
+        JumpSound.Play();
 
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
