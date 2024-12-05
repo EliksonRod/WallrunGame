@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatformBehavior : MonoBehaviour
+public class LoopingPlatform : MonoBehaviour
 {
+    //Will MOVE at start, NOT activated, does NOT wait
+    //Will MOVE between destinations (back and forth) forever
+
     public List<Vector3> Destinations;
     private int CurrentDest;
     public float Speed = 0.1f;
