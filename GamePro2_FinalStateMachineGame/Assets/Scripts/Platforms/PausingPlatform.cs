@@ -16,8 +16,10 @@ public class PausingLoopPlatform : MonoBehaviour
     public float Speed = 0.1f;
     private List<Transform> Riders = new List<Transform>();
     private bool playerIsOn = false;
+    public float timer = 4;
     public enum platformMode
     {
+        WAITING,
         IDLE,
         MOVING,
         RETURN,
@@ -33,6 +35,17 @@ public class PausingLoopPlatform : MonoBehaviour
     {
         switch (platMode)
         {
+            case platformMode.WAITING:
+                timer -= Time.deltaTime;
+                if (timer <= 0 && playerIsOn == false)
+                {
+                    platMode = platformMode.RETURN;
+
+                    CurrentDest--;
+                    if (CurrentDest < 0)
+                        CurrentDest = Destinations.Count - 1;
+                }
+                break;
             case platformMode.IDLE:
                 break;
             case platformMode.MOVING:
@@ -47,15 +60,12 @@ public class PausingLoopPlatform : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        StopCoroutine(StartReturn());
-
         if (!Riders.Contains(other.transform))
             Riders.Add(other.transform);
      
         platMode = platformMode.MOVING;
 
         playerIsOn = true;
-
     }
 
     private void OnCollisionExit(Collision other)
@@ -64,7 +74,9 @@ public class PausingLoopPlatform : MonoBehaviour
 
         playerIsOn = false;
 
-        StartCoroutine(StartReturn());
+        timer = 4;
+
+        platMode = platformMode.WAITING;
     }
 
     void PlatformActive()
@@ -117,19 +129,5 @@ public class PausingLoopPlatform : MonoBehaviour
                 platMode = platformMode.IDLE;
             }
         }
-    }
-
-    private IEnumerator StartReturn()
-    {
-        platMode = platformMode.IDLE;
-
-        yield return new WaitForSeconds(4);
-
-            platMode = platformMode.RETURN;
-
-            CurrentDest--;
-            if (CurrentDest < 0)
-                CurrentDest = Destinations.Count - 1;
-     
     }
 }
