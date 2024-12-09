@@ -6,7 +6,7 @@ using UnityEngine.XR;
 using static StateRotation;
 using System.Linq;
 
-public class PausingLoopPlatform : MonoBehaviour
+public class PausingPlatform : MonoBehaviour
 {
     //Will NOT MOVE at start, activated by player collision, does NOT wait ATSTOP
     //It will loop between destinations (back and forth) as long as player is on it and will pause in its tracks when jumped off/exited
@@ -17,6 +17,7 @@ public class PausingLoopPlatform : MonoBehaviour
     private List<Transform> Riders = new List<Transform>();
     private bool playerIsOn = false;
     public float timer = 4;
+    public float DestTimer = 4;
     public enum platformMode
     {
         WAITING,
@@ -35,6 +36,8 @@ public class PausingLoopPlatform : MonoBehaviour
     {
         switch (platMode)
         {
+            case platformMode.IDLE:
+                break;
             case platformMode.WAITING:
                 timer -= Time.deltaTime;
                 if (timer <= 0 && playerIsOn == false)
@@ -46,8 +49,6 @@ public class PausingLoopPlatform : MonoBehaviour
                         CurrentDest = Destinations.Count - 1;
                 }
                 break;
-            case platformMode.IDLE:
-                break;
             case platformMode.MOVING:
                 PlatformActive();
                 break;
@@ -55,6 +56,15 @@ public class PausingLoopPlatform : MonoBehaviour
                 PlatformMoveBack();
                 break;
             case platformMode.ATSTOP:
+                DestTimer -= Time.deltaTime;
+                if (DestTimer <= 0 && playerIsOn == false)
+                {
+                    platMode = platformMode.RETURN;
+
+                    CurrentDest--;
+                    if (CurrentDest < 0)
+                        CurrentDest = Destinations.Count - 1;
+                }
                 break;
         }
     }
@@ -102,6 +112,7 @@ public class PausingLoopPlatform : MonoBehaviour
             }
             if (Vector3.Distance(transform.position, lastStop) < 0.01f)
             {
+                DestTimer = 4;
                 platMode = platformMode.ATSTOP;
             }
         }

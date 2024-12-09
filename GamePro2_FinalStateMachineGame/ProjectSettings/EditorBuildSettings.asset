@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 28d60fbf6d9e72e4083bb6b996dedb63
   - enabled: 1
-    path: Assets/Scenes/Freerun 1.unity
+    path: Assets/Scenes/Tutorial.unity
     guid: be6b85a8be0c6e647a60bf9cf5783942
   - enabled: 1
     path: Assets/Scenes/Jumping Jamboree.unity
     guid: cd42f5e02ecd1cb43ae8f590da1093f1
   - enabled: 1
-    path: Assets/Scenes/Freerun 3.unity
+    path: Assets/Scenes/Shoddy Footing.unity
     guid: 31d65cc9c68e9e54aa3dc9c15132f3ae
   - enabled: 1
     path: Assets/Scenes/End Menu.unity
