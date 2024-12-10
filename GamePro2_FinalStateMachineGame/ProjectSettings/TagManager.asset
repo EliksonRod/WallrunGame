@@ -13,9 +13,6 @@ TagManager:
   - BulletSpawn
   - LevelPart
   - Dummie
-  - WallMenuTrigger
-  - MovementMenuTrigger
-  - ClimbingMenuTrigger
   layers:
   - Default
   - TransparentFX

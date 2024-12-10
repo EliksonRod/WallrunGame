@@ -20,7 +20,7 @@ public class Trap : MonoBehaviour
     public enum platformMode
     {
         IDLE,
-        TRAPACTIVE,
+        TRAPTRIGGERED,
         RESET,
         TRAPUSED
     }
@@ -36,7 +36,7 @@ public class Trap : MonoBehaviour
         {
             case platformMode.IDLE:
                 break;
-            case platformMode.TRAPACTIVE:
+            case platformMode.TRAPTRIGGERED:
                 TrapActive();
                 break;
             case platformMode.RESET:
@@ -57,7 +57,7 @@ public class Trap : MonoBehaviour
     }
     public void OnCollisionEnter(Collision other)
     {
-        platMode = platformMode.TRAPACTIVE;
+        platMode = platformMode.TRAPTRIGGERED;
     }
 
     void TrapActive()
