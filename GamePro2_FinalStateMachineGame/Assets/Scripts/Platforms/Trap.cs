@@ -17,6 +17,7 @@ public class Trap : MonoBehaviour
     private List<Transform> Riders = new List<Transform>();
     public float timer = 4;
     public float DestTimer = 4;
+    public bool playerDetected = false;
     public enum platformMode
     {
         IDLE,
@@ -32,9 +33,15 @@ public class Trap : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(playerDetected == true)
+         {
+         platMode = platformMode.TRAPTRIGGERED;
+         }
+
         switch (platMode)
         {
             case platformMode.IDLE:
+                playerDetected = false;
                 break;
             case platformMode.TRAPTRIGGERED:
                 TrapActive();
