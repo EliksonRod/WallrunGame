@@ -15,7 +15,6 @@ public class Trap : MonoBehaviour
     private int CurrentDest;
     public float Speed = 0.1f;
     private List<Transform> Riders = new List<Transform>();
-    private bool playerDetected = false;
     public float timer = 4;
     public float DestTimer = 4;
     public enum platformMode
@@ -56,11 +55,9 @@ public class Trap : MonoBehaviour
                 break;
         }
     }
-    private void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter(Collision other)
     {
         platMode = platformMode.TRAPACTIVE;
-
-        playerDetected = true;
     }
 
     void TrapActive()
