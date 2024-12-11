@@ -88,7 +88,6 @@ public class playerMovement : MonoBehaviour
 
     private void Start()
     {
-        //spawnPoint = gameObject.transform.position;
         spawnPoint = transform.position;
 
 
@@ -135,7 +134,7 @@ public class playerMovement : MonoBehaviour
         //Cast a ray straight downwards, reads back where it leads
         if (Physics.Raycast(downRay, out hit))
         {
-            print(hit.transform);
+            //print(hit.transform);
         }
     }
 
@@ -228,7 +227,7 @@ public class playerMovement : MonoBehaviour
         }
 
         //check if desiredMoveSpeed has changed drastically
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 6f && moveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 7f && moveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());

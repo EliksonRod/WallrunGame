@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class StateRotation : MonoBehaviour
@@ -8,10 +9,13 @@ public class StateRotation : MonoBehaviour
     public float rotateY = 100f;
     public float rotateZ = 100f;
     private Transform itemTransform;
+    public float timer = 3;
+    private bool playerIsOn = false;
     public enum rotateMode
     {
         IDLE,
-        MOVING
+        ROTATING,
+        PAUSE
     }
     private void Start()
     {
@@ -26,19 +30,27 @@ public class StateRotation : MonoBehaviour
         {
             case rotateMode.IDLE:
                 break;
-            case rotateMode.MOVING:
+            case rotateMode.PAUSE:
+                timer -= Time.deltaTime;
+                if (timer <= 0 && playerIsOn == false)
+                {
+                    rotatingMode = rotateMode.IDLE;
+                }
+                break;
+            case rotateMode.ROTATING:
                 Rotate();
                 break;
         }
     }
-    private void OnTriggerExit(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        rotatingMode = rotateMode.IDLE;
+        rotatingMode = rotateMode.ROTATING;
+        playerIsOn = true;
     }
-
-    void OnTriggerStay(Collider other)
+    private void OnCollisionExit(Collision other)
     {
-        rotatingMode = rotateMode.MOVING;
+        rotatingMode = rotateMode.PAUSE;
+        playerIsOn = false;
     }
 
     void Rotate()

@@ -32,10 +32,6 @@ public class GameManager : MonoBehaviour
         {
             ResumeTime();
         }
-
-        
-
-
     }
     public void StopTime()
     {
