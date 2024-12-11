@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public GameObject dropdown;
     public GameObject popUpMenu;
 
-    private void Awake()
+private void Awake()
     {
         //audioSource.Play();
         //DontDestroyOnLoad(this.gameObject);
@@ -42,4 +42,6 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    
 }
