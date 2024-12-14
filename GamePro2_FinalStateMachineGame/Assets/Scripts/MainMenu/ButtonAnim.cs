@@ -8,17 +8,29 @@ using UnityEngine.WSA;
 public class ButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Animator animWhenHoverOver;
-    private void Start()
+
+    bool mouseIsOverUI = false;
+    private void FixedUpdate()
     {
-        animWhenHoverOver.enabled = false;
+        if (mouseIsOverUI == false)
+        {
+            animWhenHoverOver.enabled = false;
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        mouseIsOverUI = true;
         animWhenHoverOver.enabled = true;
         animWhenHoverOver.Play("HoverOverGrowShrink");
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        mouseIsOverUI = false;
         animWhenHoverOver.Play("ReturnToNormalSize");   
+    }
+    public void returnSize()
+    {
+        mouseIsOverUI = false;
+        animWhenHoverOver.Play("ReturnToNormalSize");
     }
 }
