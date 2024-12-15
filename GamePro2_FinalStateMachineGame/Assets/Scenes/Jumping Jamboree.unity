@@ -5394,6 +5394,14 @@ PrefabInstance:
       propertyPath: airMultiplier
       value: 0.17
       objectReference: {fileID: 0}
+    - target: {fileID: 6254659885144625216, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
+      propertyPath: sensX
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6254659885144625216, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
+      propertyPath: sensY
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 6806109467315775251, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
       propertyPath: climbSpeed
       value: 9

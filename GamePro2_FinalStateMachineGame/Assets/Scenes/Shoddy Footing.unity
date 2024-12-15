@@ -8583,6 +8583,14 @@ PrefabInstance:
       propertyPath: airMultiplier
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6254659885144625216, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
+      propertyPath: sensX
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6254659885144625216, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
+      propertyPath: sensY
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 7630411603292169407, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -81.21

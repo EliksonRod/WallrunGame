@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.8781127, g: 0.9032437, b: 0.95851964, a: 1}
+  m_IndirectSpecularColor: {r: 0.5141043, g: 0.6269444, b: 0.75597245, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10727,6 +10727,14 @@ PrefabInstance:
       propertyPath: climbingScript
       value: 
       objectReference: {fileID: 1160291189}
+    - target: {fileID: 6254659885144625216, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
+      propertyPath: sensX
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6254659885144625216, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
+      propertyPath: sensY
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 7630411603292169407, guid: 6eb98c29c1353d841bce7b17bab1b72a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 473.33
