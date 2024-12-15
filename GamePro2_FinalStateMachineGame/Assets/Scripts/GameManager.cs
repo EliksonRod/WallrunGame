@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //Would it be better to have stop/resume time on the UIManager Script then GameManager script?
-
     public GameObject WallRunMenu;
     public GameObject MovementMenu;
     public GameObject ClimbingMenu;
     public GameObject PauseMenu;
-    //private bool isTimeStopped;
     private float originalTimeScale;
     public void Start()
     {
@@ -35,8 +32,6 @@ public class GameManager : MonoBehaviour
     }
     public void StopTime()
     {
-        //isTimeStopped = true;
-        //originalTimeScale = Time.timeScale;
         Time.timeScale = 0f;
 
         Cursor.lockState = CursorLockMode.None;
@@ -44,7 +39,6 @@ public class GameManager : MonoBehaviour
     }
     public void ResumeTime()
     {
-        //isTimeStopped = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 

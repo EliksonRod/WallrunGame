@@ -8,6 +8,9 @@ using UnityEngine.WSA;
 public class LvlButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Animator animWhenHoverOver;
+    public GameObject levelMenu;
+    bool menuIsActive = false;
+    public GameObject levelCanvas;
 
     bool mouseIsOverUI = false;
 
@@ -15,11 +18,22 @@ public class LvlButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         animWhenHoverOver.enabled = false;
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        if (mouseIsOverUI == false)
+        if (mouseIsOverUI == false && menuIsActive == false)
         {
-            animWhenHoverOver.enabled = false;
+            //animWhenHoverOver.enabled = false;
+            animWhenHoverOver.Play("NormalSize");
+        }
+
+        if (levelCanvas.activeInHierarchy){}
+        else 
+        {
+            mouseIsOverUI = false;
+            menuIsActive = false;
+            //animWhenHoverOver.enabled = false;
+            animWhenHoverOver.Play("NormalSize");
+            Debug.Log("mainMenu");
         }
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -30,7 +44,15 @@ public class LvlButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        mouseIsOverUI = false;
-        animWhenHoverOver.Play("NormalSize");
+        if (levelMenu.activeInHierarchy)
+        {
+            menuIsActive = true;
+            animWhenHoverOver.Play("LevelButtons");
+        }
+        else
+        {
+            mouseIsOverUI = false;
+            animWhenHoverOver.Play("NormalSize");
+        }
     }
 }

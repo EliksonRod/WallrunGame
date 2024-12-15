@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LvlSelectUIManager : MonoBehaviour
+public class LvlSelectUIManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public Animator animWhenHoverOver;
+    public GameObject levelMenu;
+    bool mouseIsOverUI = false;
+
+
     public GameObject MainMenuCanvas; 
     public GameObject LvlSelectCanvas;
     public GameObject SettingsCanvas;
@@ -17,6 +23,48 @@ public class LvlSelectUIManager : MonoBehaviour
     public GameObject clockWorkMenu;
     public GameObject dawningMenu;
 
+    private void Start()
+    {
+        if (animWhenHoverOver != null)
+        {
+            animWhenHoverOver.enabled = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (mouseIsOverUI == false && animWhenHoverOver != null)
+        {
+            animWhenHoverOver.Play("NormalSize");
+            animWhenHoverOver.enabled = false;
+        }
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (animWhenHoverOver != null) 
+        {
+            mouseIsOverUI = true;
+            animWhenHoverOver.enabled = true;
+            animWhenHoverOver.Play("LevelButtons"); 
+        }
+        
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (animWhenHoverOver != null)
+        {
+            animWhenHoverOver.Play("NormalSize");
+            mouseIsOverUI = false;
+        }
+    }
+    private void OnEnable()
+    {
+        if (animWhenHoverOver != null)
+        {
+            animWhenHoverOver.Play("NormalSize");
+        }
+    }
+
     public void OpenLevelMenu()
     {
         MainMenuCanvas.SetActive(false);
@@ -24,7 +72,7 @@ public class LvlSelectUIManager : MonoBehaviour
         defaultMenu.SetActive(true);
     }
     public void OpenMainMenu()
-    {
+    {        
         MainMenuCanvas.SetActive(true);
         LvlSelectCanvas.SetActive(false);
         tutorialMenu.SetActive(false);

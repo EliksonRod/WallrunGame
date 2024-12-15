@@ -9,6 +9,5 @@ public class TrapTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         trapScript.playerDetected = true;
-        Debug.Log(trapScript.playerDetected);
     }
 }

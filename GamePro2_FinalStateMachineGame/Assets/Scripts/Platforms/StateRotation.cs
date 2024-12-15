@@ -9,13 +9,10 @@ public class StateRotation : MonoBehaviour
     public float rotateY = 100f;
     public float rotateZ = 100f;
     private Transform itemTransform;
-    public float timer = 3;
-    private bool playerIsOn = false;
     public enum rotateMode
     {
         IDLE,
         ROTATING,
-        PAUSE
     }
     private void Start()
     {
@@ -30,13 +27,6 @@ public class StateRotation : MonoBehaviour
         {
             case rotateMode.IDLE:
                 break;
-            case rotateMode.PAUSE:
-                timer -= Time.deltaTime;
-                if (timer <= 0 && playerIsOn == false)
-                {
-                    rotatingMode = rotateMode.IDLE;
-                }
-                break;
             case rotateMode.ROTATING:
                 Rotate();
                 break;
@@ -45,12 +35,6 @@ public class StateRotation : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         rotatingMode = rotateMode.ROTATING;
-        playerIsOn = true;
-    }
-    private void OnCollisionExit(Collision other)
-    {
-        rotatingMode = rotateMode.PAUSE;
-        playerIsOn = false;
     }
 
     void Rotate()

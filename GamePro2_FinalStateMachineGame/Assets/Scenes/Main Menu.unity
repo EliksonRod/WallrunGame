@@ -385,6 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animWhenHoverOver: {fileID: 0}
+  levelMenu: {fileID: 0}
   MainMenuCanvas: {fileID: 1909127657}
   LvlSelectCanvas: {fileID: 0}
   SettingsCanvas: {fileID: 640624968}
@@ -2120,7 +2122,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -460.00006, y: -20.000002}
+  m_AnchoredPosition: {x: -460.00006, y: 105}
   m_SizeDelta: {x: 272, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1141070053
@@ -2226,9 +2228,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuCanvas: {fileID: 0}
-  LvlSelectCanvas: {fileID: 0}
-  SettingsCanvas: {fileID: 0}
+  animWhenHoverOver: {fileID: 1141070057}
+  levelMenu: {fileID: 1071299268}
+  MainMenuCanvas: {fileID: 1909127657}
+  LvlSelectCanvas: {fileID: 1646525890}
+  SettingsCanvas: {fileID: 640624968}
   defaultMenu: {fileID: 627205447}
   tutorialMenu: {fileID: 8463312}
   shoddyMenu: {fileID: 1071299268}
@@ -2264,12 +2268,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141070048}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animWhenHoverOver: {fileID: 1141070057}
+  levelMenu: {fileID: 262196634}
+  levelCanvas: {fileID: 1646525890}
 --- !u!1 &1334110133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2414,9 +2420,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuCanvas: {fileID: 0}
-  LvlSelectCanvas: {fileID: 0}
-  SettingsCanvas: {fileID: 0}
+  animWhenHoverOver: {fileID: 1334110142}
+  levelMenu: {fileID: 1073749981}
+  MainMenuCanvas: {fileID: 1909127657}
+  LvlSelectCanvas: {fileID: 1646525890}
+  SettingsCanvas: {fileID: 640624968}
   defaultMenu: {fileID: 627205447}
   tutorialMenu: {fileID: 8463312}
   shoddyMenu: {fileID: 1071299268}
@@ -2452,12 +2460,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334110133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animWhenHoverOver: {fileID: 1334110142}
+  levelMenu: {fileID: 1073749981}
+  levelCanvas: {fileID: 1646525890}
 --- !u!1 &1519645548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2730,9 +2740,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuCanvas: {fileID: 0}
-  LvlSelectCanvas: {fileID: 0}
-  SettingsCanvas: {fileID: 0}
+  animWhenHoverOver: {fileID: 1643461290}
+  levelMenu: {fileID: 945414901}
+  MainMenuCanvas: {fileID: 1909127657}
+  LvlSelectCanvas: {fileID: 1646525890}
+  SettingsCanvas: {fileID: 640624968}
   defaultMenu: {fileID: 627205447}
   tutorialMenu: {fileID: 8463312}
   shoddyMenu: {fileID: 1071299268}
@@ -2768,12 +2780,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643461281}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animWhenHoverOver: {fileID: 1643461290}
+  levelMenu: {fileID: 945414901}
+  levelCanvas: {fileID: 1646525890}
 --- !u!1 &1646525890
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,6 +2984,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animWhenHoverOver: {fileID: 0}
+  levelMenu: {fileID: 0}
   MainMenuCanvas: {fileID: 1909127657}
   LvlSelectCanvas: {fileID: 1646525890}
   SettingsCanvas: {fileID: 640624968}
@@ -3230,9 +3246,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuCanvas: {fileID: 0}
-  LvlSelectCanvas: {fileID: 0}
-  SettingsCanvas: {fileID: 0}
+  animWhenHoverOver: {fileID: 1759709941}
+  levelMenu: {fileID: 2102052772}
+  MainMenuCanvas: {fileID: 1909127657}
+  LvlSelectCanvas: {fileID: 1646525890}
+  SettingsCanvas: {fileID: 640624968}
   defaultMenu: {fileID: 627205447}
   tutorialMenu: {fileID: 8463312}
   shoddyMenu: {fileID: 1071299268}
@@ -3268,12 +3286,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759709932}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animWhenHoverOver: {fileID: 1759709941}
+  levelMenu: {fileID: 2102052772}
+  levelCanvas: {fileID: 1646525890}
 --- !u!1 &1815608589
 GameObject:
   m_ObjectHideFlags: 0
@@ -3286,8 +3306,6 @@ GameObject:
   - component: {fileID: 1815608595}
   - component: {fileID: 1815608594}
   - component: {fileID: 1815608593}
-  - component: {fileID: 1815608592}
-  - component: {fileID: 1815608591}
   - component: {fileID: 1815608596}
   m_Layer: 5
   m_Name: BackButton
@@ -3315,38 +3333,6 @@ RectTransform:
   m_AnchoredPosition: {x: 840, y: -490}
   m_SizeDelta: {x: 154, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &1815608591
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815608589}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
---- !u!114 &1815608592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815608589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  dropdown: {fileID: 0}
-  popUpMenu: {fileID: 0}
 --- !u!114 &1815608593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3450,9 +3436,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animWhenHoverOver: {fileID: 0}
+  levelMenu: {fileID: 1815608589}
   MainMenuCanvas: {fileID: 1909127657}
   LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 0}
+  SettingsCanvas: {fileID: 640624968}
   defaultMenu: {fileID: 627205447}
   tutorialMenu: {fileID: 8463312}
   shoddyMenu: {fileID: 1071299268}
@@ -4001,9 +3989,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuCanvas: {fileID: 0}
-  LvlSelectCanvas: {fileID: 0}
-  SettingsCanvas: {fileID: 0}
+  animWhenHoverOver: {fileID: 1931283042}
+  levelMenu: {fileID: 8463312}
+  MainMenuCanvas: {fileID: 1909127657}
+  LvlSelectCanvas: {fileID: 1646525890}
+  SettingsCanvas: {fileID: 640624968}
   defaultMenu: {fileID: 627205447}
   tutorialMenu: {fileID: 8463312}
   shoddyMenu: {fileID: 1071299268}
@@ -4039,12 +4029,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931283032}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animWhenHoverOver: {fileID: 1931283042}
+  levelMenu: {fileID: 8463312}
+  levelCanvas: {fileID: 1646525890}
 --- !u!1 &1997856200
 GameObject:
   m_ObjectHideFlags: 0
@@ -4083,7 +4075,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -466, y: 105}
+  m_AnchoredPosition: {x: -466, y: -20}
   m_SizeDelta: {x: 348, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1997856205
@@ -4189,9 +4181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuCanvas: {fileID: 0}
-  LvlSelectCanvas: {fileID: 0}
-  SettingsCanvas: {fileID: 0}
+  animWhenHoverOver: {fileID: 1997856209}
+  levelMenu: {fileID: 1071299268}
+  MainMenuCanvas: {fileID: 1909127657}
+  LvlSelectCanvas: {fileID: 1646525890}
+  SettingsCanvas: {fileID: 640624968}
   defaultMenu: {fileID: 627205447}
   tutorialMenu: {fileID: 8463312}
   shoddyMenu: {fileID: 1071299268}
@@ -4227,12 +4221,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997856200}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animWhenHoverOver: {fileID: 1997856209}
+  levelMenu: {fileID: 1071299268}
+  levelCanvas: {fileID: 1646525890}
 --- !u!1 &2023347766
 GameObject:
   m_ObjectHideFlags: 0
@@ -4519,6 +4515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animWhenHoverOver: {fileID: 0}
+  levelMenu: {fileID: 0}
   MainMenuCanvas: {fileID: 1909127657}
   LvlSelectCanvas: {fileID: 1646525890}
   SettingsCanvas: {fileID: 0}
