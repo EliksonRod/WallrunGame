@@ -103,6 +103,7 @@ public class StatePlatDoesNotWait4Return: MonoBehaviour
                 CurrentDest = 0;
             }
         }
+        //If plat reaches last stop in array:
         if (Vector3.Distance(transform.position, lastStop) < 0.01f)
         {
             DestTimer = 3;
