@@ -5,61 +5,47 @@ using UnityEngine.UIElements;
 using UnityEngine.XR;
 using System.Linq;
 
-public class Elevator : MonoBehaviour
+public class OneTimeUseTrap : MonoBehaviour
 {
+    //Will NOT MOVE at start, activated by player collision, does NOT wait ATSTOP
+    //It will loop between destinations (back and forth) as long as player is on it and will pause in its tracks when jumped off/exited
+
     public List<Vector3> Destinations;
-    List<Transform> Riders = new List<Transform>();
-    int CurrentDest;
-    bool playerIsOn = false;
-
+    private int CurrentDest;
     public float Speed = 0.1f;
-
+    private List<Transform> Riders = new List<Transform>();
+    public float timer = 4;
     public float DestTimer = 4;
-    float destTimer;
-
+    public bool playerDetected = false;
     public enum platformMode
     {
         IDLE,
-        MOVING,
-        ATSTOP,
-        RETURN
+        TRAPTRIGGERED,
     }
     private void Start()
     {
-        destTimer = DestTimer;
         platMode = platformMode.IDLE;
     }
     public platformMode platMode;
 
     void FixedUpdate()
     {
-        //Different modes the platform will switch through
+        if (playerDetected == true)
+        {
+            platMode = platformMode.TRAPTRIGGERED;
+        }
+
         switch (platMode)
         {
             case platformMode.IDLE:
+                playerDetected = false;
                 break;
-            case platformMode.MOVING:
-                PlatformActive();
+            case platformMode.TRAPTRIGGERED:
+                TrapActive();
                 break;
         }
     }
-    private void OnCollisionEnter(Collision other)
-    {
-        if (!Riders.Contains(other.transform))
-            Riders.Add(other.transform);
-
-        platMode = platformMode.MOVING;
-
-        playerIsOn = true;
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        Riders.Remove(other.transform);
-        playerIsOn = false;
-    }
-
-    void PlatformActive()
+    void TrapActive()
     {
         if (Destinations.Count == 0) return;
         Vector3 dest = Destinations[CurrentDest];
@@ -75,11 +61,12 @@ public class Elevator : MonoBehaviour
         if (Vector3.Distance(transform.position, dest) < 0.01f)
         {
             CurrentDest++;
-        }
-        if (Vector3.Distance(transform.position, lastStop) < 0.01f)
-        {
-            destTimer = DestTimer;
-            platMode = platformMode.IDLE;
+
+            if (Vector3.Distance(transform.position, lastStop) < 0.01f)
+            {
+                platMode = platformMode.IDLE;
+
+            }
         }
     }
 }

@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class TrapTrigger : MonoBehaviour
 {
-    public Trap trapScript;
+    public OneTimeUseTrap trapScript;
+    bool used = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        trapScript.playerDetected = true;
+        if (used == false)
+        {
+            trapScript.playerDetected = true;
+            used = true;
+        }
     }
 }
