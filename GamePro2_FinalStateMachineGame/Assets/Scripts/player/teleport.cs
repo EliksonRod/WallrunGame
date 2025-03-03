@@ -17,14 +17,14 @@ public class teleport : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            Vector3 coords = new Vector3();
-            coords = hit.transform.localScale / 2f + Vector3.Scale(hit.transform.InverseTransformPoint(hit.point), hit.transform.localScale);
             if (Physics.Raycast(ray, out hit))
             {
+                var localHit = transform.InverseTransformPoint(hit.point);
                 Transform hitTransform = hit.transform;
                 if (hit.collider.gameObject.tag == "Ground")
                 {
-                    transform.position = hitTransform.position;
+                    //transform.position = hitTransform.position;
+                    transform.position = localHit;
                 }
             }
         }

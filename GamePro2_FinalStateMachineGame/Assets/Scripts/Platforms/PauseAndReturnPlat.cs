@@ -18,6 +18,7 @@ public class PauseAndReturnPlat : MonoBehaviour
     private bool playerIsOn = false;
     public float timer = 4;
     public float DestTimer = 4;
+    bool used = false;
     public enum platformMode
     {
         WAITING,
@@ -37,8 +38,9 @@ public class PauseAndReturnPlat : MonoBehaviour
         switch (platMode)
         {
             case platformMode.IDLE:
+                used = false;
                 break;
-            case platformMode.WAITING:
+            /*case platformMode.WAITING:
                 timer -= Time.deltaTime;
                 if (timer <= 0 && playerIsOn == false)
                 {
@@ -48,7 +50,11 @@ public class PauseAndReturnPlat : MonoBehaviour
                     if (CurrentDest < 0)
                         CurrentDest = Destinations.Count - 1;
                 }
-                break;
+                if(playerIsOn == true)
+                {
+                    platMode = platformMode.MOVING;
+                }
+                break;*/
             case platformMode.MOVING:
                 PlatformActive();
                 break;
@@ -72,8 +78,12 @@ public class PauseAndReturnPlat : MonoBehaviour
     {
         if (!Riders.Contains(other.transform))
             Riders.Add(other.transform);
-     
-        platMode = platformMode.MOVING;
+
+        if (used == false)
+        {
+            platMode = platformMode.MOVING;
+            used = true;
+        }
 
         playerIsOn = true;
     }
@@ -86,7 +96,7 @@ public class PauseAndReturnPlat : MonoBehaviour
 
         timer = 4;
 
-        platMode = platformMode.WAITING;
+        //platMode = platformMode.WAITING;
     }
 
     void PlatformActive()
@@ -138,6 +148,7 @@ public class PauseAndReturnPlat : MonoBehaviour
             {
                 CurrentDest = 0;
                 platMode = platformMode.IDLE;
+                used = false;
             }
         }
     }
