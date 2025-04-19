@@ -9,14 +9,32 @@ public class GameManager : MonoBehaviour
     public GameObject MovementMenu;
     public GameObject ClimbingMenu;
     public GameObject PauseMenu;
-    private float originalTimeScale;
+    //GameObject[] menus;
+    float originalTimeScale;
+
     public void Start()
     {
         originalTimeScale = Time.timeScale;
     }
-    // Update is called once per frame
     void Update()
     {
+        /*menus = GameObject.FindGameObjectsWithTag("Menu");
+        if (menus.Length > 0)
+        {
+            foreach (GameObject menu in menus)
+            {
+                if (menu.activeInHierarchy)
+                {
+                    StopTime();
+                    return;
+                }
+            }
+        }
+        else 
+        {
+            ResumeTime();
+        }  */         
+
         if ((WallRunMenu != null && WallRunMenu.activeInHierarchy) || (ClimbingMenu != null && ClimbingMenu.activeInHierarchy) || (MovementMenu != null && MovementMenu.activeInHierarchy))
         {
             //StopTime();
