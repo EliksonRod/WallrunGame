@@ -15,7 +15,6 @@ public class Checkpoints : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerScript.UpdateCheckpoint(transform.position);
         }
     }
 

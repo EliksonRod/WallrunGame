@@ -15,6 +15,7 @@ TagManager:
   - Dummie
   - Ground
   - Menu
+  - Hazard
   layers:
   - Default
   - TransparentFX
