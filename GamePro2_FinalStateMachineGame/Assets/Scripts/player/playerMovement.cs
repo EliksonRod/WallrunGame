@@ -11,7 +11,6 @@ public class playerMovement : MonoBehaviour
     float desiredMoveSpeed;
     float lastDesiredMoveSpeed;
     public float walkSpeed;
-    public float sprintSpeed;
     public float wallrunSpeed;
     public float climbSpeed;
 
@@ -54,6 +53,7 @@ public class playerMovement : MonoBehaviour
     public GameObject pauseMenu;
     public Transform orientation;
     [SerializeField] Animator deathAnim;
+    [SerializeField] Animator Checkpoint;
 
     Rigidbody rb;
     Vector3 spawnPoint;
@@ -65,10 +65,8 @@ public class playerMovement : MonoBehaviour
     public enum MovementState
     {
         walking,
-        sprinting,
         wallrunning,
         climbing,
-        crouching,
         air
     }
     public bool walking, inAir, sprinting, crouching, wallrunning, climbing, playerIsMoving;
@@ -166,15 +164,6 @@ public class playerMovement : MonoBehaviour
             crouching = false;
         }
 
-        // Mode - Sprinting
-        else if (grounded && Input.GetKey(sprintKey))
-        {
-            sprinting = true;
-            //Debug.Log("sprinting");
-            state = MovementState.sprinting;
-            desiredMoveSpeed = sprintSpeed;
-        }
-
         // Mode - Walking
         else if (grounded)
         {
@@ -191,7 +180,7 @@ public class playerMovement : MonoBehaviour
         }
 
         //check if desiredMoveSpeed has changed drastically
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 7f && currentMoveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 8f && currentMoveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
@@ -326,6 +315,7 @@ public class playerMovement : MonoBehaviour
    void UpdateCheckpoint(Vector3 pos)
     {
         spawnPoint = pos;
+        Checkpoint.Play("CheckpointReached");
     } 
     void RespawnPlayer()
     {

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4203111106576530605}
   - component: {fileID: 7928584043309349140}
   - component: {fileID: 4579925335809455034}
+  - component: {fileID: 3840717325898092055}
+  - component: {fileID: 4594194629229588439}
   m_Layer: 0
   m_Name: FlagBase
   m_TagString: CheckPoint
@@ -27,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 3370232651247823382}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 130, y: 3.3, z: 25}
-  m_LocalScale: {x: 0.5, y: 0.2, z: 0.5}
+  m_LocalPosition: {x: -0.05544026, y: -1.0449982, z: 0}
+  m_LocalScale: {x: 1.6666665, y: 0.1, z: 2.7777777}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8117895334337973801}
@@ -58,6 +60,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -83,6 +88,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3840717325898092055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370232651247823382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e3aeb437f05c740961e66536990ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+--- !u!65 &4594194629229588439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370232651247823382}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.6047077, y: 22.358019, z: 1.6189569}
+  m_Center: {x: 1.6882293, y: 10.67901, z: 0.08090623}
 --- !u!1 &3380327667822677907
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,8 +150,8 @@ Transform:
   m_GameObject: {fileID: 3380327667822677907}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 130, y: 6.563, z: 26.160889}
-  m_LocalScale: {x: 0.22024567, y: 1, z: 0.1408135}
+  m_LocalPosition: {x: -0.05544026, y: 0.5865021, z: 3.8696284}
+  m_LocalScale: {x: 0.7341522, y: 5.555555, z: 0.07040675}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8117895334337973801}
@@ -142,6 +181,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -463,10 +505,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8117895334337973801}
-  - component: {fileID: 3737809396065918160}
   m_Layer: 0
   m_Name: CheckPoint
-  m_TagString: CheckPoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -480,8 +521,8 @@ Transform:
   m_GameObject: {fileID: 5575635971932499062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 407.36, y: -15.230003, z: -75}
+  m_LocalScale: {x: 0.18, y: 2, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4203111106576530605}
@@ -490,18 +531,6 @@ Transform:
   - {fileID: 6191074123392505102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3737809396065918160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5575635971932499062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e3aeb437f05c740961e66536990ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6315692568028010756
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,8 +542,6 @@ GameObject:
   - component: {fileID: 6191074123392505102}
   - component: {fileID: 2588837633146135963}
   - component: {fileID: 541038195749938350}
-  - component: {fileID: 2489432320622160557}
-  - component: {fileID: 368322800270079326}
   m_Layer: 0
   m_Name: FlagPole
   m_TagString: CheckPoint
@@ -530,9 +557,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6315692568028010756}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 130.01, y: 5.39, z: 25}
-  m_LocalScale: {x: 0.18, y: 2, z: 0.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8117895334337973801}
@@ -562,6 +589,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -587,39 +617,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2489432320622160557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315692568028010756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e3aeb437f05c740961e66536990ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &368322800270079326
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315692568028010756}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 11.005488, y: 2.1512995, z: 10.599435}
-  m_Center: {x: -0.1346151, y: 0.07564998, z: 2.778101}
 --- !u!1 &8512201610614044951
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,8 +644,8 @@ Transform:
   m_GameObject: {fileID: 8512201610614044951}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 130, y: 7.468, z: 25}
-  m_LocalScale: {x: 0.4499999, y: 0.45, z: 0.44999993}
+  m_LocalPosition: {x: -0.05544026, y: 1.0390015, z: 0}
+  m_LocalScale: {x: 1.4999996, y: 0.225, z: 2.4999995}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8117895334337973801}
@@ -678,6 +675,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
