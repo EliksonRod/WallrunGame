@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         {
             //StopTime();
         }
-        else if (PauseMenu.activeInHierarchy)
+        else if (PauseMenu != null && PauseMenu.activeInHierarchy)
         {
             StopTime();
         }

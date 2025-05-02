@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class playerMovement : MonoBehaviour
 {
@@ -25,7 +26,6 @@ public class playerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode pauseKey = KeyCode.Escape;
 
     [Header("Timers")]
@@ -53,7 +53,7 @@ public class playerMovement : MonoBehaviour
     public GameObject pauseMenu;
     public Transform orientation;
     [SerializeField] Animator deathAnim;
-    [SerializeField] Animator Checkpoint;
+    //[SerializeField] Animator Checkpoint;
 
     Rigidbody rb;
     Vector3 spawnPoint;
@@ -88,7 +88,7 @@ public class playerMovement : MonoBehaviour
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
 
         MyInput();
-        SpeedControl();
+        //SpeedControl();
         StateHandler();
 
         // handle drag
@@ -119,6 +119,8 @@ public class playerMovement : MonoBehaviour
         {
             //print(hit.transform);
         }
+
+        QuadraticDrag();
     }
 
     void MyInput()
@@ -278,12 +280,65 @@ public class playerMovement : MonoBehaviour
             }
         }
     }
+    /*
+    double Mass = 1.0; // kg
+    double DragCoefficient = 1.0; // dimensionless
+    double Area = 0.5; // m^2
+    double AirDensity = 1.225; // kg/m^3
+
+    public void QuadraticDrag(double mass, double dragCoefficient, double area, double airDensity)
+    {
+        Mass = mass;
+        DragCoefficient = dragCoefficient;
+        Area = area;
+        AirDensity = airDensity;
+    }
+
+    public double CalculateDragForce(double velocity)
+    {
+        return 0.5 * DragCoefficient * AirDensity * Area * Math.Pow(velocity, 2);
+    }
+
+    public double CalculateAcceleration(double velocity)
+    {
+        double dragForce = CalculateDragForce(velocity);
+        return -dragForce / Mass;
+    }*/
+
+
+
+    // Method to calculate drag force
+    public static double CalculateDragForce(double dragCoefficient, double airDensity, double crossSectionalArea, double velocity)
+    {
+        // Applying the drag equation: Fd = 0.5 * Cd * rho * A * v^2
+        double dragForce = 0.5 * dragCoefficient * airDensity * crossSectionalArea * Math.Pow(velocity, 2);
+        return dragForce;
+    }
+
+    public double QuadraticDrag()
+    {
+        // Example values for the drag force calculation
+        double dragCoefficient = 1;//0.47; // for a typical car
+        double airDensity = 1.225;     // air density at sea level in kg/m³
+        double crossSectionalArea = 2.5;  // in m² (example car)
+            double velocity = currentMoveSpeed;      // speed in m/s
+
+        double dragForce = CalculateDragForce(dragCoefficient, airDensity, crossSectionalArea, velocity);
+        return -dragForce / 1;
+
+    }
+
+
+void QuadraticDrag43(float massCoeff)
+    {
+        //run code that slows down the player here
+    }
 
     void Jump()
     {
         exitingSlope = true;
 
-        SoundManager.PlaySound(SoundSource.Player, SoundType.Player_Jumping, 0.2f, Random.Range(0.9f, 1.2f));
+        //SoundManager.PlaySound(SoundSource.Player, SoundType.Player_Jumping, 0.2f, System.Random(0.9f, 1.2f);
 
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
@@ -312,10 +367,9 @@ public class playerMovement : MonoBehaviour
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 
-   void UpdateCheckpoint(Vector3 pos)
+   public void UpdateCheckpoint(Vector3 pos)
     {
         spawnPoint = pos;
-        Checkpoint.Play("CheckpointReached");
     } 
     void RespawnPlayer()
     {
@@ -334,10 +388,6 @@ public class playerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Hazard"))
         {
             RespawnPlayer();
-        }
-        if (other.gameObject.CompareTag("CheckPoint"))
-        {
-            UpdateCheckpoint(other.transform.position);
         }
     }
 }
