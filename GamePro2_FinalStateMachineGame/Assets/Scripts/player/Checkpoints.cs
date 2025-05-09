@@ -15,7 +15,6 @@ public class Checkpoints : MonoBehaviour
         CheckpointAnim.enabled = false;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class changeLevel : MonoBehaviour
 {
     int buildindex;
+    public static int ParticleAmount;
+    [SerializeField] GameObject Goal_Barrier;
     void Start()
     {
         buildindex = SceneManager.GetActiveScene().buildIndex;
@@ -13,6 +15,16 @@ public class changeLevel : MonoBehaviour
 
     void OnTriggerEnter(Collider myCollision)
     {
-        SceneManager.LoadScene(buildindex + 1);
+        if (ParticleAmount >= 3)
+        {
+            SceneManager.LoadScene(buildindex + 1);
+        }
+    }
+    void Update()
+    {
+        if (ParticleAmount >= 3)
+        {
+            Goal_Barrier.SetActive(false);
+        }
     }
 }

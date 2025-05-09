@@ -14,6 +14,7 @@ public class playerMovement : MonoBehaviour
     public float walkSpeed;
     public float wallrunSpeed;
     public float climbSpeed;
+    float drag;
 
     public float speedIncreaseMultiplier;
     public float groundDrag;
@@ -120,7 +121,7 @@ public class playerMovement : MonoBehaviour
             //print(hit.transform);
         }
 
-        QuadraticDrag();
+        QuadraticDrag(drag);
     }
 
     void MyInput()
@@ -154,6 +155,7 @@ public class playerMovement : MonoBehaviour
             desiredMoveSpeed = climbSpeed;
             sprinting = false;
             crouching = false;
+            drag = 1f;
         }
 
         // Mode - Wallrunning
@@ -164,6 +166,7 @@ public class playerMovement : MonoBehaviour
             //Debug.Log("wallrunning");
             sprinting = false;
             crouching = false;
+            drag = 10f;
         }
 
         // Mode - Walking
@@ -172,6 +175,7 @@ public class playerMovement : MonoBehaviour
             //Debug.Log("walking");
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+            drag = 1f;
         }
 
         // Mode - Air
@@ -179,6 +183,7 @@ public class playerMovement : MonoBehaviour
         {
             //Debug.Log("in air");
             state = MovementState.air;
+            drag = 2f;
         }
 
         //check if desiredMoveSpeed has changed drastically
@@ -280,32 +285,6 @@ public class playerMovement : MonoBehaviour
             }
         }
     }
-    /*
-    double Mass = 1.0; // kg
-    double DragCoefficient = 1.0; // dimensionless
-    double Area = 0.5; // m^2
-    double AirDensity = 1.225; // kg/m^3
-
-    public void QuadraticDrag(double mass, double dragCoefficient, double area, double airDensity)
-    {
-        Mass = mass;
-        DragCoefficient = dragCoefficient;
-        Area = area;
-        AirDensity = airDensity;
-    }
-
-    public double CalculateDragForce(double velocity)
-    {
-        return 0.5 * DragCoefficient * AirDensity * Area * Math.Pow(velocity, 2);
-    }
-
-    public double CalculateAcceleration(double velocity)
-    {
-        double dragForce = CalculateDragForce(velocity);
-        return -dragForce / Mass;
-    }*/
-
-
 
     // Method to calculate drag force
     public static double CalculateDragForce(double dragCoefficient, double airDensity, double crossSectionalArea, double velocity)
@@ -315,23 +294,16 @@ public class playerMovement : MonoBehaviour
         return dragForce;
     }
 
-    public double QuadraticDrag()
+    public double QuadraticDrag(double dragCoefficient)
     {
         // Example values for the drag force calculation
-        double dragCoefficient = 1;//0.47; // for a typical car
+        //double dragCoefficient = 1;//0.47; // for a typical car
         double airDensity = 1.225;     // air density at sea level in kg/m³
         double crossSectionalArea = 2.5;  // in m² (example car)
-            double velocity = currentMoveSpeed;      // speed in m/s
+        double velocity = currentMoveSpeed;      // speed in m/s
 
         double dragForce = CalculateDragForce(dragCoefficient, airDensity, crossSectionalArea, velocity);
         return -dragForce / 1;
-
-    }
-
-
-void QuadraticDrag43(float massCoeff)
-    {
-        //run code that slows down the player here
     }
 
     void Jump()
@@ -371,7 +343,7 @@ void QuadraticDrag43(float massCoeff)
     {
         spawnPoint = pos;
     } 
-    void RespawnPlayer()
+    public void RespawnPlayer()
     {
         gameObject.transform.position = spawnPoint;
         rb.linearVelocity = Vector3.zero;

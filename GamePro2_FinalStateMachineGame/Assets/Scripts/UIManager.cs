@@ -6,26 +6,22 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public AudioSource audioSource;
-    public GameObject dropdown;
-    public GameObject popUpMenu;
+    public GameObject UI_Menu;
+    [SerializeField] playerMovement playerScript;
 
 private void Awake()
     {
         //audioSource.Play();
         //DontDestroyOnLoad(this.gameObject);
     }
-    public void ChooseMode()
+    public void OpenUI()
     {
-        dropdown.SetActive(true);
+        UI_Menu.SetActive(true);
     }
 
-    public void ExitChooseMode()
+    public void CloseUI()
     {
-        dropdown.SetActive(false);
-    }
-    public void CloseMenu()
-    {
-        popUpMenu.SetActive(false);
+        UI_Menu.SetActive(false);
     }
 
     public void PlayScene()
@@ -41,6 +37,11 @@ private void Awake()
     public void ExitGame()
     {
         Application.Quit();
+    }
+    public void ResetToCheckpoint()
+    {
+        playerScript.RespawnPlayer();
+        UI_Menu.SetActive(false);
     }
 
     

@@ -141,7 +141,7 @@ public class WallRunning : MonoBehaviour
             wallForward = -wallForward;
 
         // forward force
-        rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+        rb.AddForce(wallForward * wallRunForce / 2 , ForceMode.Force);
 
         // upwards/downwards force
         if (upwardsRunning)
