@@ -89,7 +89,7 @@ public class playerMovement : MonoBehaviour
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
 
         MyInput();
-        //SpeedControl();
+        SpeedControl();
         StateHandler();
 
         // handle drag
@@ -121,7 +121,7 @@ public class playerMovement : MonoBehaviour
             //print(hit.transform);
         }
 
-        QuadraticDrag(drag);
+        //QuadraticDrag(drag);
     }
 
     void MyInput()
@@ -166,7 +166,7 @@ public class playerMovement : MonoBehaviour
             //Debug.Log("wallrunning");
             sprinting = false;
             crouching = false;
-            drag = 10f;
+            drag = 12.5f;
         }
 
         // Mode - Walking
@@ -175,7 +175,7 @@ public class playerMovement : MonoBehaviour
             //Debug.Log("walking");
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
-            drag = 1f;
+            drag = 1.5f;
         }
 
         // Mode - Air
@@ -183,11 +183,11 @@ public class playerMovement : MonoBehaviour
         {
             //Debug.Log("in air");
             state = MovementState.air;
-            drag = 2f;
+            drag = 15f;
         }
 
         //check if desiredMoveSpeed has changed drastically
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 8f && currentMoveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 20f && currentMoveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
@@ -285,7 +285,7 @@ public class playerMovement : MonoBehaviour
             }
         }
     }
-
+/*
     // Method to calculate drag force
     public static double CalculateDragForce(double dragCoefficient, double airDensity, double crossSectionalArea, double velocity)
     {
@@ -305,7 +305,7 @@ public class playerMovement : MonoBehaviour
         double dragForce = CalculateDragForce(dragCoefficient, airDensity, crossSectionalArea, velocity);
         return -dragForce / 1;
     }
-
+*/
     void Jump()
     {
         exitingSlope = true;

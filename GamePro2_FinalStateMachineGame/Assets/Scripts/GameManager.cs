@@ -5,11 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject WallRunMenu;
-    public GameObject MovementMenu;
-    public GameObject ClimbingMenu;
-    public GameObject PauseMenu;
-    //GameObject[] menus;
+    [SerializeField] GameObject Pause_Menu;
     float originalTimeScale;
 
     public void Start()
@@ -18,34 +14,9 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        /*menus = GameObject.FindGameObjectsWithTag("Menu");
-        if (menus.Length > 0)
-        {
-            foreach (GameObject menu in menus)
-            {
-                if (menu.activeInHierarchy)
-                {
-                    StopTime();
-                    return;
-                }
-            }
-        }
-        else 
-        {
-            ResumeTime();
-        }  */         
-
-        if ((WallRunMenu != null && WallRunMenu.activeInHierarchy) || (ClimbingMenu != null && ClimbingMenu.activeInHierarchy) || (MovementMenu != null && MovementMenu.activeInHierarchy))
-        {
-            //StopTime();
-        }
-        else if (PauseMenu != null && PauseMenu.activeInHierarchy)
+        if (Pause_Menu != null && Pause_Menu.activeInHierarchy)
         {
             StopTime();
-        }
-        else
-        {
-            ResumeTime();
         }
     }
     public void StopTime()

@@ -3,9 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class UnlockLevelEnd : MonoBehaviour
 {
+    [SerializeField] changeLevel GoalScript;
     void OnTriggerEnter(Collider myCollision)
     {
-        changeLevel.ParticleAmount += 1;
+        GoalScript.ParticleAmount += 1;
         gameObject.SetActive(false);
     }
 }

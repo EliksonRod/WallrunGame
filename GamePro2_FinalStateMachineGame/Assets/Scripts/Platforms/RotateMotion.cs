@@ -9,12 +9,6 @@ public class RotateMotion : MonoBehaviour
     public float rotateZ = 100f;
     public Transform itemTransform;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //itemTransform = GetComponent<Transform>();
-    }
-
     // Update is called once per frame
     void Update()
     {

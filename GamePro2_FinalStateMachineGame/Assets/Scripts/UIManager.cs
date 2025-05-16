@@ -8,12 +8,8 @@ public class UIManager : MonoBehaviour
     public AudioSource audioSource;
     public GameObject UI_Menu;
     [SerializeField] playerMovement playerScript;
+    [SerializeField] GameManager gameManager;
 
-private void Awake()
-    {
-        //audioSource.Play();
-        //DontDestroyOnLoad(this.gameObject);
-    }
     public void OpenUI()
     {
         UI_Menu.SetActive(true);
@@ -21,6 +17,7 @@ private void Awake()
 
     public void CloseUI()
     {
+        gameManager.ResumeTime();
         UI_Menu.SetActive(false);
     }
 
