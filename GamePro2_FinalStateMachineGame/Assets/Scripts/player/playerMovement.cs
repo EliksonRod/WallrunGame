@@ -56,6 +56,10 @@ public class playerMovement : MonoBehaviour
     [SerializeField] Animator deathAnim;
     //[SerializeField] Animator Checkpoint;
 
+    public float gravity = -9.81f;
+    public float verticalVelocity = 0f;
+    //public float groundY = 0f;
+
     Rigidbody rb;
     Vector3 spawnPoint;
     Vector3 moveDirection;
@@ -92,6 +96,9 @@ public class playerMovement : MonoBehaviour
         SpeedControl();
         StateHandler();
 
+        //if (!grounded)
+            //Gravity();
+
         // handle drag
         if (grounded)
             rb.linearDamping = groundDrag;
@@ -121,7 +128,7 @@ public class playerMovement : MonoBehaviour
             //print(hit.transform);
         }
 
-        //QuadraticDrag(drag);
+        QuadraticDrag(drag);
     }
 
     void MyInput()
@@ -166,7 +173,7 @@ public class playerMovement : MonoBehaviour
             //Debug.Log("wallrunning");
             sprinting = false;
             crouching = false;
-            drag = 12.5f;
+            drag = 3f;
         }
 
         // Mode - Walking
@@ -285,7 +292,7 @@ public class playerMovement : MonoBehaviour
             }
         }
     }
-/*
+
     // Method to calculate drag force
     public static double CalculateDragForce(double dragCoefficient, double airDensity, double crossSectionalArea, double velocity)
     {
@@ -305,7 +312,7 @@ public class playerMovement : MonoBehaviour
         double dragForce = CalculateDragForce(dragCoefficient, airDensity, crossSectionalArea, velocity);
         return -dragForce / 1;
     }
-*/
+
     void Jump()
     {
         exitingSlope = true;
@@ -361,5 +368,11 @@ public class playerMovement : MonoBehaviour
         {
             RespawnPlayer();
         }
+    }
+    void Gravity()
+    {
+        verticalVelocity += gravity * Time.deltaTime;
+
+        transform.Translate(new Vector3(0, verticalVelocity * Time.deltaTime, 0));
     }
 }

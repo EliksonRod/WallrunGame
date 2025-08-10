@@ -55,3 +55,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40112
+  packageName: PBR Materials Sampler Pack
+  packageVersion: 1.1.1
+  assetPath: Assets/Materials/Materials/PBS Materials Variety Pack/Rocks/Textures/Rocks6_AO.png
+  uploadId: 521211
