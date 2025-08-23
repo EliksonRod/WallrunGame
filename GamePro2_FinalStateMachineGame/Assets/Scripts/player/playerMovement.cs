@@ -110,7 +110,6 @@ public class playerMovement : MonoBehaviour
             StartCoroutine(DeathScene());
         }
     }
-
     void FixedUpdate()
     {
         MovePlayer();
@@ -255,7 +254,7 @@ public class playerMovement : MonoBehaviour
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * currentMoveSpeed * 20f, ForceMode.Force);
 
             if(rb.linearVelocity.y > 0)
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 250f, ForceMode.Force);
         }
 
         // on ground

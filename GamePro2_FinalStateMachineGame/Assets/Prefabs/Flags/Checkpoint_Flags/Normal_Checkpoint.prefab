@@ -187,7 +187,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 440da5c0faf02a54d8d475a1f3ea652a, type: 2}
+  - {fileID: 2100000, guid: 6a0975ef26bf6db4a8faa53ddcc80f4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -506,7 +506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8117895334337973801}
   m_Layer: 0
-  m_Name: CheckPoint
+  m_Name: Normal_Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
