@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 6204864487868922143}
   - component: {fileID: 2773503758013532636}
   m_Layer: 0
-  m_Name: Player_Object
+  m_Name: Player_Body
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,8 +352,8 @@ Transform:
   m_GameObject: {fileID: 3477083018395109268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 699.7, y: 0.48, z: 15.8}
-  m_LocalScale: {x: 0.8, y: 1.25, z: 0.8}
+  m_LocalPosition: {x: 762.88, y: 0.76, z: 15.8}
+  m_LocalScale: {x: 0.8, y: 1, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5035063127206434613}
@@ -368,7 +368,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3477083018395109268}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1545631393882504475
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -445,7 +445,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3477083018395109268}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 1.05
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -476,23 +476,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e49b837a13e0f4382611821d88c943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 13.25
-  wallrunSpeed: 14.6
+  walkSpeed: 12
+  wallrunSpeed: 12
   climbSpeed: 3.9
   speedIncreaseMultiplier: 1.5
   groundDrag: 5
   jumpForce: 7.5
   jumpCooldown: 0.25
-  airMultiplier: 0.11
+  airMultiplier: 0.152
   jumpKey: 32
   pauseKey: 27
   walkingSound_Timer: 0
   sprintSound_Timer: 0
   maxSprintTime: 5
-  playerHeight: 2.5
+  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   grounded: 0
   maxSlopeAngle: 40
   shadow: {fileID: 9093230529710757857}
@@ -501,7 +501,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 9054908129097497408}
   orientation: {fileID: 5035063127206434613}
   deathAnim: {fileID: 4633010787541606869}
-  gravity: -1
+  gravity: 0
   verticalVelocity: 0
   state: 0
   walking: 0
@@ -525,12 +525,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatIsWall:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 320
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 320
   wallRunForce: 125
-  wallJumpUpForce: 4.25
+  wallJumpUpForce: 4.2
   wallJumpSideForce: 7
   wallClimbSpeed: 4.5
   maxWallRunTime: 4
@@ -560,7 +560,7 @@ MonoBehaviour:
   pm: {fileID: 8602052650158907580}
   whatIsWall:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
   climbSpeed: 7
   maxClimbTime: 3
   climbJumpUpForce: 2
@@ -835,6 +835,7 @@ GameObject:
   - component: {fileID: 8402843279059293105}
   - component: {fileID: 919447005203990076}
   - component: {fileID: 1540192589228721150}
+  - component: {fileID: 6220487253406146870}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1008,6 +1009,50 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &6220487253406146870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6087169319807452672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &8094777160007184995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1185,7 @@ Transform:
   m_GameObject: {fileID: 9093230529710757857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.43, y: 19.526804, z: 4.49}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1177,7 +1222,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c0535d47eea523f448e152a8bf8bc4f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
