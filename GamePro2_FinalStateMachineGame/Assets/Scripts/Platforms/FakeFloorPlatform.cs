@@ -18,7 +18,7 @@ public class FakeFloorPlatform : MonoBehaviour
     private List<Transform> Riders = new List<Transform>();
 
     [SerializeField] Transform Player_Transform;
-    Vector3 Original_Position;
+    [SerializeField]Vector3 Original_Position;
     [SerializeField] Vector3 Target_Position;
     float distanceFromPlayer;
 

@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4203111106576530605}
   - component: {fileID: 7928584043309349140}
   - component: {fileID: 4579925335809455034}
-  - component: {fileID: 3840717325898092055}
-  - component: {fileID: 4594194629229588439}
   m_Layer: 0
   m_Name: FlagBase
   m_TagString: CheckPoint
@@ -88,40 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3840717325898092055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370232651247823382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e3aeb437f05c740961e66536990ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CheckpointAnim: {fileID: 0}
---- !u!65 &4594194629229588439
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370232651247823382}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.833234, y: 24.288008, z: 3.736876}
-  m_Center: {x: 1.6180158, y: 11.644005, z: 0.070396736}
 --- !u!1 &3380327667822677907
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +506,8 @@ GameObject:
   - component: {fileID: 6191074123392505102}
   - component: {fileID: 2588837633146135963}
   - component: {fileID: 541038195749938350}
+  - component: {fileID: 5495692198882323910}
+  - component: {fileID: 8598499266106497463}
   m_Layer: 0
   m_Name: FlagPole
   m_TagString: CheckPoint
@@ -617,6 +583,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5495692198882323910
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315692568028010756}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.270894, y: 2.1903358, z: 10.459466}
+  m_Center: {x: 0.016869273, y: 0.07659316, z: 3.4316897}
+--- !u!114 &8598499266106497463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315692568028010756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e3aeb437f05c740961e66536990ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CheckpointAnim: {fileID: 0}
 --- !u!1 &8512201610614044951
 GameObject:
   m_ObjectHideFlags: 0

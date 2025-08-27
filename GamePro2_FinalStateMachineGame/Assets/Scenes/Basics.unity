@@ -9914,6 +9914,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8598499266106497463, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
+      propertyPath: CheckpointAnim
+      value: 
+      objectReference: {fileID: 967383095872601992}
     m_RemovedComponents:
     - {fileID: 99553468487162523, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
     - {fileID: 3737809396065918160, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
@@ -10170,6 +10174,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8598499266106497463, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
+      propertyPath: CheckpointAnim
+      value: 
+      objectReference: {fileID: 967383095872601992}
     m_RemovedComponents:
     - {fileID: 99553468487162523, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
     - {fileID: 3737809396065918160, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
@@ -19255,6 +19263,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8598499266106497463, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
+      propertyPath: CheckpointAnim
+      value: 
+      objectReference: {fileID: 967383095872601992}
     m_RemovedComponents:
     - {fileID: 99553468487162523, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
     - {fileID: 3737809396065918160, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
@@ -20989,7 +21001,7 @@ PrefabInstance:
       objectReference: {fileID: 2039229026}
     - target: {fileID: 8602052650158907580, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: walkSpeed
-      value: 12.15
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8602052650158907580, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: climbSpeed
@@ -21005,7 +21017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8602052650158907580, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: wallrunSpeed
-      value: 12.35
+      value: 13.25
       objectReference: {fileID: 0}
     - target: {fileID: 8602052650158907580, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: airMultiplier
@@ -21024,6 +21036,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+--- !u!95 &967383095872601992 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 210149074764421494, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+  m_PrefabInstance: {fileID: 967383095872601991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!136 &2248021713045093398
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21278,7 +21295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8117895334337973801, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.379997
+      value: 8.49
       objectReference: {fileID: 0}
     - target: {fileID: 8117895334337973801, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21312,6 +21329,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8598499266106497463, guid: 630d70b9e000ec5428ff40eed7e088dc, type: 3}
+      propertyPath: CheckpointAnim
+      value: 
+      objectReference: {fileID: 967383095872601992}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

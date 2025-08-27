@@ -132,6 +132,8 @@ GameObject:
   - component: {fileID: 7337953912470266606}
   - component: {fileID: 4779054728242186166}
   - component: {fileID: 2822112530734695293}
+  - component: {fileID: 2024459733842634185}
+  - component: {fileID: 2164942981106954511}
   m_Layer: 0
   m_Name: FlagPole
   m_TagString: CheckPoint
@@ -185,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 90d5f6bb0fa253d4c9a1aaff63938eca, type: 2}
+  - {fileID: 2100000, guid: 0325dbec1aa482a468e0994f26ebdb08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -207,6 +209,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2024459733842634185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880920569246657202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e3aeb437f05c740961e66536990ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CheckpointAnim: {fileID: 0}
+--- !u!65 &2164942981106954511
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880920569246657202}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.332517, y: 2.1776314, z: 12.302967}
+  m_Center: {x: -0.01168825, y: 0.050661087, z: 3.960749}
 --- !u!1 &2146141798378450838
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,8 +628,6 @@ GameObject:
   - component: {fileID: 3765167426393992358}
   - component: {fileID: 7485990245848083742}
   - component: {fileID: 7160246907050917553}
-  - component: {fileID: 7881457889050142750}
-  - component: {fileID: 3184830339601504016}
   m_Layer: 0
   m_Name: FlagBase
   m_TagString: CheckPoint
@@ -610,7 +644,7 @@ Transform:
   m_GameObject: {fileID: 5642553671541644023}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.05544026, y: -1.0449982, z: 0}
+  m_LocalPosition: {x: -0.05544026, y: -1.038, z: 0}
   m_LocalScale: {x: 1.6666665, y: 0.1, z: 2.7777777}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -669,37 +703,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7881457889050142750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5642553671541644023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e3aeb437f05c740961e66536990ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CheckpointAnim: {fileID: 0}
---- !u!65 &3184830339601504016
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5642553671541644023}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.833234, y: 24.288008, z: 3.736876}
-  m_Center: {x: 1.6180158, y: 11.644005, z: 0.070396736}
