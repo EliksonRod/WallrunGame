@@ -1262,15 +1262,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1158967744775080663, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 768.8
+      value: -20.4
       objectReference: {fileID: 0}
     - target: {fileID: 1158967744775080663, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.09
+      value: 176.3
       objectReference: {fileID: 0}
     - target: {fileID: 1158967744775080663, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.28
+      value: -40.18
       objectReference: {fileID: 0}
     - target: {fileID: 1292694696980698803, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: gameManager
