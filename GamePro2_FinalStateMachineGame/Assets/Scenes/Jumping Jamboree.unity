@@ -1262,24 +1262,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1158967744775080663, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.4
+      value: 771.29
       objectReference: {fileID: 0}
     - target: {fileID: 1158967744775080663, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 176.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1158967744775080663, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -40.18
+      value: 16.41
       objectReference: {fileID: 0}
     - target: {fileID: 1292694696980698803, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 657728012}
+    - target: {fileID: 6204864487868922143, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: exitWallTime
+      value: 0.18
+      objectReference: {fileID: 0}
     - target: {fileID: 7329790323916533900, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 657728012}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: exitWallTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: wallRunForce
       value: 105
@@ -1291,6 +1299,14 @@ PrefabInstance:
     - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: wallJumpUpForce
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: wallCheckDistance
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: wallJumpSideForce
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8094777160007184995, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_Name

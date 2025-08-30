@@ -20971,6 +20971,30 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 534927855}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: orientation
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: wallRunForce
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: wallClimbSpeed
+      value: 4.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: wallJumpUpForce
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: wallCheckDistance
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401623951203679334, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+      propertyPath: wallJumpSideForce
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8094777160007184995, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
       propertyPath: m_Name
       value: Player
