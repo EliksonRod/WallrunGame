@@ -56,7 +56,7 @@ public class playerMovement : MonoBehaviour
     [SerializeField] Animator deathAnim;
     //[SerializeField] Animator Checkpoint;
 
-    public float gravity = -9.81f;
+    //public float gravity = -9.81f;
     public float verticalVelocity = 0f;
     //public float groundY = 0f;
 
@@ -367,11 +367,5 @@ public class playerMovement : MonoBehaviour
         {
             RespawnPlayer();
         }
-    }
-    void Gravity()
-    {
-        verticalVelocity += gravity * Time.deltaTime;
-
-        transform.Translate(new Vector3(0, verticalVelocity * Time.deltaTime, 0));
     }
 }
