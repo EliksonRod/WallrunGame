@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Checkpoints : MonoBehaviour
 {
-    playerMovement playerScript;
+    PlayerMovement playerScript;
     [SerializeField] Animator CheckpointAnim;
 
     void Awake()
@@ -13,7 +13,7 @@ public class Checkpoints : MonoBehaviour
         if (CheckpointAnim != null)
         {
         CheckpointAnim.enabled = false;
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         }
     }
 

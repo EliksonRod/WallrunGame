@@ -332,10 +332,10 @@ GameObject:
   - component: {fileID: 1545631393882504475}
   - component: {fileID: 5136552766418619005}
   - component: {fileID: 5254912206817392876}
-  - component: {fileID: 8602052650158907580}
   - component: {fileID: 7401623951203679334}
   - component: {fileID: 6204864487868922143}
   - component: {fileID: 2773503758013532636}
+  - component: {fileID: 1572570571710959831}
   m_Layer: 0
   m_Name: Player_Body
   m_TagString: Player
@@ -352,7 +352,7 @@ Transform:
   m_GameObject: {fileID: 3477083018395109268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 762.88, y: 0.76, z: 15.8}
+  m_LocalPosition: {x: 658.3, y: 0.36, z: 22.4}
   m_LocalScale: {x: 0.8, y: 1, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -464,53 +464,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &8602052650158907580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3477083018395109268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e49b837a13e0f4382611821d88c943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 12
-  wallrunSpeed: 12
-  climbSpeed: 3.9
-  speedIncreaseMultiplier: 1.5
-  groundDrag: 5
-  jumpForce: 7.5
-  jumpCooldown: 0.25
-  airMultiplier: 0.152
-  jumpKey: 32
-  pauseKey: 27
-  walkingSound_Timer: 0
-  sprintSound_Timer: 0
-  maxSprintTime: 5
-  playerHeight: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 320
-  grounded: 0
-  maxSlopeAngle: 40
-  shadow: {fileID: 9093230529710757857}
-  offset: 0
-  climbingScript: {fileID: 6204864487868922143}
-  pauseMenu: {fileID: 9054908129097497408}
-  orientation: {fileID: 5035063127206434613}
-  deathAnim: {fileID: 4633010787541606869}
-  gravity: 0
-  verticalVelocity: 0
-  state: 0
-  walking: 0
-  inAir: 0
-  sprinting: 0
-  crouching: 0
-  wallrunning: 0
-  climbing: 0
-  playerIsMoving: 0
 --- !u!114 &7401623951203679334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,15 +482,15 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 320
-  wallRunForce: 125
-  wallJumpUpForce: 4.2
-  wallJumpSideForce: 7
-  wallClimbSpeed: 4.5
+  wallRunForce: 105
+  wallJumpUpForce: 4
+  wallJumpSideForce: 8
+  wallClimbSpeed: 4.25
   maxWallRunTime: 4
   jumpKey: 32
   upwardsRunKey: 304
   downwardsRunKey: 306
-  wallCheckDistance: 0.8
+  wallCheckDistance: 0.6
   minJumpHeight: 2
   exitWallTime: 0.2
   useGravity: 0
@@ -557,7 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 5035063127206434613}
   rb: {fileID: 5254912206817392876}
-  pm: {fileID: 8602052650158907580}
+  pm: {fileID: 1572570571710959831}
   whatIsWall:
     serializedVersion: 2
     m_Bits: 64
@@ -583,7 +536,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3b5e2ed0ac9953145811922ecc75c05b, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 3b5e2ed0ac9953145811922ecc75c05b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -670,6 +623,54 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1572570571710959831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3477083018395109268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dcce8fe96b6fcd48afe26cccf75da78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 12
+  wallrunSpeed: 12.35
+  climbSpeed: 3.9
+  speedIncreaseMultiplier: 1.5
+  speedBoostMultiplier: 2
+  groundDrag: 5
+  jumpForce: 7
+  jumpCooldown: 0.25
+  airMultiplier: 0.152
+  jumpKey: 32
+  pauseKey: 27
+  walkingSound_Timer: 0
+  Boost_Timer: 5
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 832
+  bounceLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  grounded: 0
+  On_Bounce_Pad: 0
+  maxSlopeAngle: 40
+  shadow: {fileID: 9093230529710757857}
+  offset: 0
+  climbingScript: {fileID: 6204864487868922143}
+  pauseMenu: {fileID: 9054908129097497408}
+  orientation: {fileID: 5035063127206434613}
+  deathAnim: {fileID: 4633010787541606869}
+  verticalVelocity: 0
+  state: 0
+  walking: 0
+  inAir: 0
+  wallrunning: 0
+  climbing: 0
+  playerIsMoving: 0
 --- !u!1 &3967503269111093314
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkBobSpeed: 0.12
   walkBobAmount: 0.09
-  sprintBobSpeed: 0.16
+  sprintBobSpeed: 0.2
   sprintBobAmount: 0.155
   midpoint: 0.96
 --- !u!114 &1540192589228721150
@@ -1419,7 +1420,7 @@ PrefabInstance:
     - target: {fileID: 2441992389230395264, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: playerScript
       value: 
-      objectReference: {fileID: 8602052650158907580}
+      objectReference: {fileID: 1572570571710959831}
     - target: {fileID: 2929080726108681732, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1431,7 +1432,7 @@ PrefabInstance:
     - target: {fileID: 3510543711251627464, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: playerScript
       value: 
-      objectReference: {fileID: 8602052650158907580}
+      objectReference: {fileID: 1572570571710959831}
     - target: {fileID: 4971907379882974199, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: UI_Menu
       value: 
@@ -1439,7 +1440,7 @@ PrefabInstance:
     - target: {fileID: 4971907379882974199, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: playerScript
       value: 
-      objectReference: {fileID: 8602052650158907580}
+      objectReference: {fileID: 1572570571710959831}
     - target: {fileID: 6240050731313063564, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: UI_Menu
       value: 
@@ -1447,7 +1448,7 @@ PrefabInstance:
     - target: {fileID: 6240050731313063564, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: playerScript
       value: 
-      objectReference: {fileID: 8602052650158907580}
+      objectReference: {fileID: 1572570571710959831}
     - target: {fileID: 7609681303890473477, guid: 7bc43e714bfdeac4cb049dabdd4357a2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseUI

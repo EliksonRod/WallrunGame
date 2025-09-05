@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public GameObject UI_Menu;
-    [SerializeField] playerMovement playerScript;
+    [SerializeField] PlayerMovement playerScript;
     [SerializeField] GameManager gameManager;
 
     public void OpenUI()

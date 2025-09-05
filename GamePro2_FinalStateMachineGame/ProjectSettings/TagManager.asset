@@ -16,6 +16,7 @@ TagManager:
   - Ground
   - Menu
   - Hazard
+  - Boost
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Ground
   - 
   - WallRun
-  - 
+  - Bounce
   - 
   - Character
   - Post

@@ -14,14 +14,14 @@ public class Headbob : MonoBehaviour
     public float sprintBobSpeed = 0.16f;
     public float sprintBobAmount = 0.155f;
 
-    playerMovement pm;  
+    PlayerMovement pm;  
 
     //Y scale of the camera(height of the cam)
     public float midpoint = 0.96f;
 
     void Start()
     {
-        pm = GetComponentInParent<playerMovement>();
+        pm = GetComponentInParent<PlayerMovement>();
     }
     void FixedUpdate()
     {
@@ -30,7 +30,7 @@ public class Headbob : MonoBehaviour
         {
             normalHeadBob();
         }
-        if (pm.sprinting == true && pm.grounded)
+        if (pm.state == PlayerMovement.MovementState.boosted && pm.grounded)
         {
             sprintingHeadBob();
         }

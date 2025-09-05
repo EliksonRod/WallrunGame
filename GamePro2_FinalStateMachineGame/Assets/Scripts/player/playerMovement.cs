@@ -4,8 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using Unity.Burst;
 
-public class playerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     float currentMoveSpeed;
@@ -17,6 +18,7 @@ public class playerMovement : MonoBehaviour
     float drag;
 
     public float speedIncreaseMultiplier;
+    public float speedBoostMultiplier;
     public float groundDrag;
 
     [Header("Jumping")]
@@ -30,14 +32,14 @@ public class playerMovement : MonoBehaviour
     public KeyCode pauseKey = KeyCode.Escape;
 
     [Header("Timers")]
-    public float walkingSound_Timer = 0, sprintSound_Timer = 0;
-    public float maxSprintTime = 5;
-    float sprintTime;
+    public float walkingSound_Timer = 0f, Boost_Timer = 5f;
+    float BoostTimeLeft;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     public bool grounded;
+    Bounce_Pad Standing_On;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -54,11 +56,8 @@ public class playerMovement : MonoBehaviour
     public GameObject pauseMenu;
     public Transform orientation;
     [SerializeField] Animator deathAnim;
-    //[SerializeField] Animator Checkpoint;
 
-    //public float gravity = -9.81f;
     public float verticalVelocity = 0f;
-    //public float groundY = 0f;
 
     Rigidbody rb;
     Vector3 spawnPoint;
@@ -72,10 +71,10 @@ public class playerMovement : MonoBehaviour
         walking,
         wallrunning,
         climbing,
-        air
+        air,
+        boosted
     }
-    public bool walking, inAir, sprinting, crouching, wallrunning, climbing, playerIsMoving;
-
+    public bool walking, inAir, wallrunning, climbing, playerIsMoving;
     void Start()
     {
         spawnPoint = transform.position;
@@ -86,8 +85,7 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        GroundDetection();
 
         walking = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
@@ -95,9 +93,6 @@ public class playerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
         StateHandler();
-
-        //if (!grounded)
-            //Gravity();
 
         // handle drag
         if (grounded)
@@ -124,7 +119,7 @@ public class playerMovement : MonoBehaviour
         //Cast a ray straight downwards, reads back where it leads
         if (Physics.Raycast(downRay, out hit))
         {
-            //print(hit.transform);
+            print(hit.transform);
         }
 
         QuadraticDrag(drag);
@@ -154,42 +149,33 @@ public class playerMovement : MonoBehaviour
 
     void StateHandler()
     {
-        // Mode - Climbing
-        if (climbing)
+        switch(state)
         {
-            state = MovementState.climbing;
-            desiredMoveSpeed = climbSpeed;
-            sprinting = false;
-            crouching = false;
-            drag = 1f;
-        }
+            case MovementState.walking:
+                desiredMoveSpeed = walkSpeed;
+                drag = 1.5f;
+                break;
+            case MovementState.wallrunning:
+                desiredMoveSpeed = wallrunSpeed;
+                drag = 3f;
+                break;
+            case MovementState.climbing:
+                desiredMoveSpeed = climbSpeed;
+                drag = 1f;
+                break;
+            case MovementState.air:
+                drag = 15f;
+                break;
+            case MovementState.boosted:
+                desiredMoveSpeed = walkSpeed * speedBoostMultiplier;
 
-        // Mode - Wallrunning
-        else if (wallrunning)
-        {
-            state = MovementState.wallrunning;
-            desiredMoveSpeed = wallrunSpeed;
-            //Debug.Log("wallrunning");
-            sprinting = false;
-            crouching = false;
-            drag = 3f;
-        }
-
-        // Mode - Walking
-        else if (grounded)
-        {
-            //Debug.Log("walking");
-            state = MovementState.walking;
-            desiredMoveSpeed = walkSpeed;
-            drag = 1.5f;
-        }
-
-        // Mode - Air
-        else
-        {
-            //Debug.Log("in air");
-            state = MovementState.air;
-            drag = 15f;
+                BoostTimeLeft -= Time.deltaTime;
+                if (BoostTimeLeft <= 0f)
+                {
+                    //Has_Boost = false;
+                    state = MovementState.walking;
+                }
+                break;
         }
 
         //check if desiredMoveSpeed has changed drastically
@@ -258,9 +244,9 @@ public class playerMovement : MonoBehaviour
         }
 
         // on ground
-        else if (grounded)
+        else if (grounded || wallrunning)
             rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f, ForceMode.Force);
-        
+
         // in air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f * airMultiplier, ForceMode.Force);
@@ -321,7 +307,7 @@ public class playerMovement : MonoBehaviour
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(transform.up * SetBounceStrength(), ForceMode.Impulse);
     }
     void ResetJump()
     {
@@ -356,6 +342,11 @@ public class playerMovement : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
     }
 
+    void GroundDetection()
+    {
+        // ground check
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+    }
     void OnTriggerEnter(Collider other)
     {
         //Death
@@ -363,9 +354,33 @@ public class playerMovement : MonoBehaviour
         {
             RespawnPlayer();
         }
-        if (other.gameObject.CompareTag("Hazard"))
+        if (other.gameObject.CompareTag("Boost"))
         {
-            RespawnPlayer();
+            state = MovementState.boosted;
+            BoostTimeLeft = Boost_Timer;
         }
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        Bounce_Pad bouncePad = other.gameObject.GetComponent<Bounce_Pad>();
+        if (bouncePad != null) 
+        {
+            Standing_On = bouncePad;
+        }
+    }
+    private void OnCollisionExit(Collision other)
+    {
+        Bounce_Pad bouncePad = other.gameObject.GetComponent<Bounce_Pad>();
+        if (bouncePad != null)
+        {
+            Standing_On = null;
+        }
+    }
+
+    public float SetBounceStrength()
+    {
+        if (Standing_On) return Standing_On.Bounce_Strength;
+        return jumpForce;
+        
     }
 }
