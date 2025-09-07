@@ -153,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
         {
             case MovementState.walking:
                 desiredMoveSpeed = walkSpeed;
-                drag = 1.5f;
+                drag = 1f;
                 break;
             case MovementState.wallrunning:
                 desiredMoveSpeed = wallrunSpeed;
