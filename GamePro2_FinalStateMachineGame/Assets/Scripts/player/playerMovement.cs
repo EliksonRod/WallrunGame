@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         //Cast a ray straight downwards, reads back where it leads
         if (Physics.Raycast(downRay, out hit))
         {
-            print(hit.transform);
+            print(hit.transform.tag);
         }
 
         QuadraticDrag(drag);
@@ -374,6 +374,11 @@ public class PlayerMovement : MonoBehaviour
         if (bouncePad != null)
         {
             Standing_On = null;
+        }
+
+        if (other.gameObject.CompareTag("Slope"))
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         }
     }
 
