@@ -27,23 +27,33 @@ public class changeLevel : MonoBehaviour
     {
         if (ParticleAmount == 1)
         {
-            Missing_Particles_UI[0].SetActive(false);
-            Found_Particles_UI[0].SetActive(true);
+            if (Missing_Particles_UI != null && Found_Particles_UI != null)
+            {
+                Missing_Particles_UI[0].SetActive(false);
+                Found_Particles_UI[0].SetActive(true);
+            }    
         }
         if (ParticleAmount == 2)
         {
-            Missing_Particles_UI[1].SetActive(false);
-            Found_Particles_UI[1].SetActive(true);
+            if (Missing_Particles_UI != null && Found_Particles_UI != null)
+            {
+                Missing_Particles_UI[1].SetActive(false);
+                Found_Particles_UI[1].SetActive(true);
+            }
         }
         if (ParticleAmount == 3)
         {
-            Missing_Particles_UI[2].SetActive(false);
-            Found_Particles_UI[2].SetActive(true);
+            if (Missing_Particles_UI != null && Found_Particles_UI != null)
+            {
+                Missing_Particles_UI[2].SetActive(false);
+                Found_Particles_UI[2].SetActive(true);
+            }
         }
 
         if (ParticleAmount >= 3)
         {
-            Goal_Barrier.SetActive(false);
+            if (Goal_Barrier != null)
+                Goal_Barrier.SetActive(false);
         }
     }
 }

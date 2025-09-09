@@ -56,6 +56,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject pauseMenu;
     public Transform orientation;
     [SerializeField] Animator deathAnim;
+    public playerCam cam;
+    //public ParticleSystem speedParticle;
+    public GameObject speedParticle;
 
     public float verticalVelocity = 0f;
 
@@ -81,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+        //speedParticle.Stop();
     }
 
     void Update()
@@ -168,11 +172,15 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case MovementState.boosted:
                 desiredMoveSpeed = walkSpeed * speedBoostMultiplier;
-
+                cam.DoFov(95f);
+                speedParticle.SetActive(true);
                 BoostTimeLeft -= Time.deltaTime;
+
                 if (BoostTimeLeft <= 0f)
                 {
                     //Has_Boost = false;
+                    cam.DoFov(80f);
+                    speedParticle.SetActive(false);
                     state = MovementState.walking;
                 }
                 break;
