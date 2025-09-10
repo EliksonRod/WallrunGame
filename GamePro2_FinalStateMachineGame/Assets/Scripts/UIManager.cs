@@ -41,6 +41,12 @@ public class UIManager : MonoBehaviour
         gameManager.ResumeTime();
         UI_Menu.SetActive(false);
     }
+    public void ReloadScene()
+    {
+        gameManager.ResumeTime();
+        UI_Menu.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }   
 
-    
+
 }

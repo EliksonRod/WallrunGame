@@ -10,12 +10,9 @@ EditorBuildSettings:
     guid: 9d3e83d0cb808f54d8256511a25b6e7f
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
-    guid: be6b85a8be0c6e647a60bf9cf5783942
+    guid: 74ddebbc0a71c4049a3948409da1862d
   - enabled: 1
-    path: Assets/Scenes/Galaxy Jam.unity
-    guid: cd42f5e02ecd1cb43ae8f590da1093f1
-  - enabled: 1
-    path: Assets/Scenes/Temple_Tutorial.unity
-    guid: 31d65cc9c68e9e54aa3dc9c15132f3ae
+    path: Assets/Scenes/Temple Entrance.unity
+    guid: ff18860b715da0e4ba2376894bf051e1
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

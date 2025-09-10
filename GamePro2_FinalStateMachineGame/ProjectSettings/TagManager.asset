@@ -18,6 +18,7 @@ TagManager:
   - Hazard
   - Boost
   - Slope
+  - Grass
   layers:
   - Default
   - TransparentFX

@@ -173,13 +173,15 @@ public class PlayerMovement : MonoBehaviour
             case MovementState.boosted:
                 desiredMoveSpeed = walkSpeed * speedBoostMultiplier;
                 cam.DoFov(95f);
-                speedParticle.SetActive(true);
+                if (speedParticle != null)
+                    speedParticle.SetActive(true);
                 BoostTimeLeft -= Time.deltaTime;
 
                 if (BoostTimeLeft <= 0f)
                 {
                     //Has_Boost = false;
                     cam.DoFov(80f);
+                    if(speedParticle != null)
                     speedParticle.SetActive(false);
                     state = MovementState.walking;
                 }
@@ -248,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * currentMoveSpeed * 20f, ForceMode.Force);
 
             if(rb.linearVelocity.y > 0)
-                rb.AddForce(Vector3.down * 110f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 1f, ForceMode.Force);
         }
 
         // on ground
@@ -362,12 +364,21 @@ public class PlayerMovement : MonoBehaviour
         {
             RespawnPlayer();
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
         if (other.gameObject.CompareTag("Boost"))
         {
             state = MovementState.boosted;
             BoostTimeLeft = Boost_Timer;
         }
-    }
+        if (other.gameObject.CompareTag("Grass"))
+        {
+            state = MovementState.boosted;
+            BoostTimeLeft = 3f;
+        }
+    }   
     private void OnCollisionEnter(Collision other)
     {
         Bounce_Pad bouncePad = other.gameObject.GetComponent<Bounce_Pad>();
