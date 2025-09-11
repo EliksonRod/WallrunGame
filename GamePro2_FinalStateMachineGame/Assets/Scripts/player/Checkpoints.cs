@@ -32,7 +32,7 @@ public class Checkpoints : MonoBehaviour
         return CheckpointAnim.GetCurrentAnimatorStateInfo(0).length > CheckpointAnim.GetCurrentAnimatorStateInfo(0).normalizedTime && CheckpointAnim.GetCurrentAnimatorStateInfo(0).IsName("CheckPointReached");
     }
 
-
+    //How to make it so that the checkpoint animation plays only once when the player hits the checkpoint, and not every time they hit it again?
     //hitmarker.com
     //workingwithindie.com
 }

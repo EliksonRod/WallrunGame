@@ -164,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
                 drag = 3f;
                 break;
             case MovementState.climbing:
+                //rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
                 desiredMoveSpeed = climbSpeed;
                 drag = 1f;
                 break;
