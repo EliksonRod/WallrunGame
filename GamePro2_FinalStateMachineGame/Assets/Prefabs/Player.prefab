@@ -977,9 +977,9 @@ MonoBehaviour:
   speedIncreaseMultiplier: 1.5
   speedBoostMultiplier: 2
   groundDrag: 5
-  jumpForce: 7.5
+  jumpForce: 7
   jumpCooldown: 0.25
-  airMultiplier: 1
+  airMultiplier: 0.8
   jumpKey: 32
   pauseKey: 27
   walkingSound_Timer: 0
@@ -1024,8 +1024,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   wallRunForce: 105
-  wallJumpUpForce: 4
-  wallJumpSideForce: 8
+  wallJumpUpForce: 5
+  wallJumpSideForce: 5
   wallClimbSpeed: 4.25
   maxWallRunTime: 4
   jumpKey: 32
@@ -2364,7 +2364,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.9
+      scalar: 0.8
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2417,7 +2417,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 4.75
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2470,7 +2470,7 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.9
+      scalar: 0.8
       minScalar: 1
       maxCurve:
         serializedVersion: 2

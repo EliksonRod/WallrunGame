@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System;
 using Unity.Burst;
+using System.Drawing;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     public bool grounded;
     Bounce_Pad Standing_On;
+    Checkpoints checkpoints;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -150,7 +152,6 @@ public class PlayerMovement : MonoBehaviour
             pauseMenu.SetActive(true);
         }
     }
-
     void StateHandler()
     {
         switch(state)
@@ -365,6 +366,11 @@ public class PlayerMovement : MonoBehaviour
         {
             RespawnPlayer();
         }
+
+        if (other.gameObject.GetComponent<Checkpoints>())
+        {
+            GameObject checkpoint = other.gameObject.GetComponent<GameObject>();
+        }
     }
 
     void OnTriggerStay(Collider other)
@@ -379,6 +385,8 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.boosted;
             BoostTimeLeft = 3f;
         }
+
+        //Checkpoints flag = other.gameObject.GetComponent<Checkpoints>();
     }   
     private void OnCollisionEnter(Collision other)
     {

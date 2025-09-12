@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ThrowingTutorial : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class ThrowingTutorial : MonoBehaviour
     public KeyCode throwKey = KeyCode.Mouse0;
     public float throwForce;
     public float throwUpwardForce;
+    
+    [SerializeField] TextMeshProUGUI BulletCounter;
 
     bool readyToThrow;
 
@@ -28,10 +31,12 @@ public class ThrowingTutorial : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey(throwKey) && readyToThrow && totalThrows > 0)
+   
+        if (Input.GetKey(throwKey) && readyToThrow && totalThrows > 0)
         {
             Throw();
         }
+        //BulletCounter.text = totalThrows.ToString();
     }
 
     private void Throw()
