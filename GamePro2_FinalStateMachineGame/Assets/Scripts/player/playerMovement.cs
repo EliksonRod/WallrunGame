@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Timers")]
     public float walkingSound_Timer = 0f, Boost_Timer = 5f;
-    float BoostTimeLeft;
+    public float BoostTimeLeft;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -53,17 +53,17 @@ public class PlayerMovement : MonoBehaviour
     public RaycastHit hit;
     public float offset;
 
+    [Header("Boost")]
+    public GameObject BoostBarMeter;
+    public GameObject speedParticle;
+
     [Header("References")]
     public Climbing climbingScript;
     public GameObject pauseMenu;
     public Transform orientation;
     [SerializeField] Animator deathAnim;
     public playerCam cam;
-    //public ParticleSystem speedParticle;
-    public GameObject speedParticle;
-
-    public float verticalVelocity = 0f;
-
+    
     Rigidbody rb;
     Vector3 spawnPoint;
     Vector3 moveDirection;
@@ -86,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-        //speedParticle.Stop();
     }
 
     void Update()
@@ -165,7 +164,6 @@ public class PlayerMovement : MonoBehaviour
                 drag = 3f;
                 break;
             case MovementState.climbing:
-                //rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
                 desiredMoveSpeed = climbSpeed;
                 drag = 1f;
                 break;
@@ -174,16 +172,19 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case MovementState.boosted:
                 desiredMoveSpeed = walkSpeed * speedBoostMultiplier;
+                BoostTimeLeft -= Time.deltaTime;
+
                 cam.DoFov(95f);
+                BoostBarMeter.gameObject.SetActive(true);
+
                 if (speedParticle != null)
                     speedParticle.SetActive(true);
-                BoostTimeLeft -= Time.deltaTime;
 
                 if (BoostTimeLeft <= 0f)
                 {
-                    //Has_Boost = false;
                     cam.DoFov(80f);
-                    if(speedParticle != null)
+                    BoostBarMeter.gameObject.SetActive(false);
+                    if (speedParticle != null)
                     speedParticle.SetActive(false);
                     state = MovementState.walking;
                 }
@@ -353,7 +354,6 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
-
     void GroundDetection()
     {
         // ground check

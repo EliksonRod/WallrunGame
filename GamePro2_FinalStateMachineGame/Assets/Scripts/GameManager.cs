@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject Pause_Menu;
+    [SerializeField] GameObject PlayerHUD;
     float originalTimeScale;
 
     public void Start()
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     {
         if (Pause_Menu != null && Pause_Menu.activeInHierarchy)
         {
+            PlayerHUD.SetActive(false);
             StopTime();
         }
     }
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
     }
     public void ResumeTime()
     {
+        PlayerHUD.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
