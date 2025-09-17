@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 
 public class ButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Animator animWhenHoverOver;
+    [SerializeField] GameObject UI_Manager;
 
-    bool mouseIsOverUI = false;
+    bool ButtonPressed = false;
     bool animPlayed = false;
 
-    void Start()
+    void OnEnable()
     {
+        Button buttonanim = gameObject.GetComponent<Button>();
         animWhenHoverOver.enabled = false;
     }
+
     private void FixedUpdate()
     {
-        if (mouseIsOverUI == false)
+        if (ButtonPressed == true)
         {
             //animWhenHoverOver.enabled = false;
         }
@@ -26,24 +29,23 @@ public class ButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         animWhenHoverOver.enabled = true;
-        mouseIsOverUI = true;
-
+        ButtonPressed = false;
         if (animPlayed != true)
         {
             animWhenHoverOver.enabled = true;
-            animWhenHoverOver.Play("HoverOverGrowShrink");
+            animWhenHoverOver.Play("Button Pop Out Right");
             animPlayed = true;
         }   
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        mouseIsOverUI = false;
         animPlayed = false;
-        animWhenHoverOver.Play("ReturnToNormalSize");   
+        animWhenHoverOver.Play("Return Button To Origin");   
     }
     public void returnSize()
     {
-        mouseIsOverUI = false;
-        animWhenHoverOver.Play("ReturnToNormalSize");
+        ButtonPressed = true;
+        animWhenHoverOver.Play("Return Button To Origin");
+        animWhenHoverOver.enabled = false;
     }
 }
