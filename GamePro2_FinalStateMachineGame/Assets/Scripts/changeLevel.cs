@@ -8,6 +8,7 @@ public class changeLevel : MonoBehaviour
     int buildindex;
     public int ParticleAmount;
     [SerializeField] GameObject Goal_Barrier;
+    public string SceneName;
 
     [SerializeField] GameObject[] Missing_Particles_UI;
     [SerializeField] GameObject[] Found_Particles_UI;
@@ -20,7 +21,7 @@ public class changeLevel : MonoBehaviour
     {
         if (ParticleAmount >= 3)
         {
-            SceneManager.LoadScene(buildindex + 1);
+            SceneManager.LoadScene(SceneName);
         }
     }
     void Update()

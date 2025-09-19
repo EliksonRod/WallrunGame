@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using UnityEngine.XR;
 using System.Linq;
 
-public class OneTimeUseTrap : MonoBehaviour
+public class SecretWall : MonoBehaviour
 {
     //Will NOT MOVE at start, activated by player collision, does NOT wait ATSTOP
     //It will loop between destinations (back and forth) as long as player is on it and will pause in its tracks when jumped off/exited

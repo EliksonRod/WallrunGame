@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrapTrigger : MonoBehaviour
 {
-    public OneTimeUseTrap trapScript;
+    public SecretWall trapScript;
     bool used = false;
 
     private void OnTriggerEnter(Collider other)

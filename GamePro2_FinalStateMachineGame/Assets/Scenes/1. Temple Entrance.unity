@@ -13563,6 +13563,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5118420998390149707, guid: 4dae8b254ebac2f41b0fd8068e203eb8, type: 3}
+      propertyPath: PlayerHUD
+      value: 
+      objectReference: {fileID: 2125039910}
+    - target: {fileID: 5118420998390149707, guid: 4dae8b254ebac2f41b0fd8068e203eb8, type: 3}
       propertyPath: Pause_Menu
       value: 
       objectReference: {fileID: 510223192}
@@ -27285,6 +27289,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106045115}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2125039910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6822363757916524360, guid: 70eb56b8eaebb3048bf78a549c9239e9, type: 3}
+  m_PrefabInstance: {fileID: 1291813235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2126497778
 GameObject:
   m_ObjectHideFlags: 0

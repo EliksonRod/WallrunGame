@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2. Hallways.unity
     guid: 2bad6c35a9f37da48aae133fad4c211b
+  - enabled: 1
+    path: Assets/Scenes/Secret Levels/Sim Scape.unity
+    guid: be6b85a8be0c6e647a60bf9cf5783942
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

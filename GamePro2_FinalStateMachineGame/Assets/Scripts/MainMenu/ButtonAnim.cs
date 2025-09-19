@@ -19,13 +19,6 @@ public class ButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         animWhenHoverOver.enabled = false;
     }
 
-    private void FixedUpdate()
-    {
-        if (ButtonPressed == true)
-        {
-            //animWhenHoverOver.enabled = false;
-        }
-    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         animWhenHoverOver.enabled = true;
