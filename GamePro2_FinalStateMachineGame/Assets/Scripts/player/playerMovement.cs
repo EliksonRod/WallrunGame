@@ -175,7 +175,8 @@ public class PlayerMovement : MonoBehaviour
                 BoostTimeLeft -= Time.deltaTime;
 
                 cam.DoFov(95f);
-                BoostBarMeter.gameObject.SetActive(true);
+                if (BoostBarMeter != null)
+                    BoostBarMeter.gameObject.SetActive(true);
 
                 if (speedParticle != null)
                     speedParticle.SetActive(true);
@@ -183,7 +184,8 @@ public class PlayerMovement : MonoBehaviour
                 if (BoostTimeLeft <= 0f)
                 {
                     cam.DoFov(80f);
-                    BoostBarMeter.gameObject.SetActive(false);
+                    if (BoostBarMeter != null)
+                        BoostBarMeter.gameObject.SetActive(false);
                     if (speedParticle != null)
                     speedParticle.SetActive(false);
                     state = MovementState.walking;
@@ -383,7 +385,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Grass"))
         {
             state = MovementState.boosted;
-            BoostTimeLeft = 3f;
+            BoostTimeLeft = 1.2f;
         }
 
         //Checkpoints flag = other.gameObject.GetComponent<Checkpoints>();
@@ -407,6 +409,11 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Slope"))
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        }
+
+        if (other.gameObject.CompareTag("Grass") && grounded)
+        {
+            state = MovementState.walking;
         }
     }
 
