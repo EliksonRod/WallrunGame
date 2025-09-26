@@ -421,6 +421,5 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Standing_On) return Standing_On.Bounce_Strength;
         return jumpForce;
-        
     }
 }

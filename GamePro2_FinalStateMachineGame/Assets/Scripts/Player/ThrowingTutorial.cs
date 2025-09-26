@@ -36,7 +36,7 @@ public class ThrowingTutorial : MonoBehaviour
         {
             Throw();
         }
-        //BulletCounter.text = totalThrows.ToString();
+        BulletCounter.text = totalThrows.ToString();
     }
 
     private void Throw()
