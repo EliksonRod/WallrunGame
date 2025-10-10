@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static PlayerMovement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class GameManager : MonoBehaviour
     {
         originalTimeScale = Time.timeScale;
     }
-    void Update()
+
+    private void Update()
     {
         if (Pause_Menu != null && Pause_Menu.activeInHierarchy)
         {

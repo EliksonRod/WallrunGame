@@ -30,7 +30,7 @@ public class Headbob : MonoBehaviour
         {
             normalHeadBob();
         }
-        if (pm.state == PlayerMovement.MovementState.boosted && pm.grounded)
+        if (pm.movementState == PlayerMovement.MovementState.boosted && pm.grounded)
         {
             sprintingHeadBob();
         }

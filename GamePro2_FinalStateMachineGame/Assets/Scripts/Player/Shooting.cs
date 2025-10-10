@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class ThrowingTutorial : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
     [Header("References")]
     public Transform cam;
