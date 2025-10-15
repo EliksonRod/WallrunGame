@@ -15,11 +15,11 @@ public class TeleportRefresh : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         // check if you hit an enemy
-        if (collision.gameObject.GetComponent<PlayerMovement>() != null)
+        if (collision.gameObject.GetComponent<AbilityManager>() != null)
         {
-            PlayerMovement playerScript = collision.gameObject.GetComponent<PlayerMovement>();
+            AbilityManager abilityScript = collision.gameObject.GetComponent<AbilityManager>();
             
-            playerScript.numberOfTeleports = 3;
+            abilityScript.numberOfTeleports = 3;
             gameObject.SetActive(false);
         }
     }

@@ -39,8 +39,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Timers")]
     public float walkingSound_Timer = 0f, Boost_Timer = 5f;
     public float BoostTimeLeft;
-    public float TeleportCooldown = 5f, TeleportTimer;
-    public float ReturnCooldown = 4f, ReturnTimer;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -65,17 +63,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     [SerializeField] Animator deathAnim;
     public playerCam cam;
-
-    [Header("Teleportation")]
-    public RawImage cursor;
-    UnityEngine.Color defaultColor;
-    public UnityEngine.Color teleportColor;
-    Vector3 positionBeforeTeleport;
-    public int numberOfTeleports;
-    public float teleportDistance;
-    public bool canTeleport = true, canReturnTeleport = true;
-    public bool teleportTarget = false;
-    public GameObject TeleportTargetIndicator;
 
     [Header("Boost")]
     public GameObject BoostBarMeter;
@@ -107,9 +94,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        defaultColor = cursor.color;
-        teleportColor.a = 1;
-
         spawnPoint = transform.position;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -129,23 +113,7 @@ public class PlayerMovement : MonoBehaviour
         //Manages the different player states
         StateHandler();
         //Handles timers for ability cooldowns
-        AbilityCooldownManager();
-
-        //Records last position on ground for return teleport ability
-        if (grounded)
-            positionBeforeTeleport = gameObject.transform.position;
-
-        //Pause menu and teleport timescale don't mess with each other
-        if (pauseMenu.activeInHierarchy == false && playerState == PlayerState.teleporting)
-        {
-            Time.timeScale = 0.2f;
-            TeleportTargetIndicator.SetActive(true);
-        }
-        else if (pauseMenu.activeInHierarchy == false && playerState != PlayerState.teleporting)
-        {
-            Time.timeScale = 1f;
-            TeleportTargetIndicator.SetActive(false);
-        }
+        //AbilityCooldownManager();
 
         // handle drag
         if (grounded)
@@ -202,14 +170,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Mode - Teleporting
-        if (playerState != PlayerState.teleporting && Input.GetKeyUp(KeyCode.Q) && numberOfTeleports > 0)
+        /*if (playerState != PlayerState.teleporting && Input.GetKeyUp(KeyCode.Q) && numberOfTeleports > 0)
         {
             playerState = PlayerState.teleporting;
         }
         else if (playerState == PlayerState.teleporting && Input.GetKeyUp(KeyCode.Q) && pauseMenu.activeInHierarchy == false)
         {
             playerState = PlayerState.None;
-        }
+        }*/
 
         //Pause
         if (Input.GetKeyDown(pauseKey))
@@ -247,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.None:
                 break;
             case PlayerState.teleporting:
-                TeleportSkill();
+                //TeleportSkill();
                 break;
         }
 
@@ -501,69 +469,8 @@ public class PlayerMovement : MonoBehaviour
             movementState = MovementState.walking;
         }
     }
-    void TeleportSkill()
+    void DashSkill()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (TeleportTargetIndicator != null)
-            {
-                TeleportTargetIndicator.transform.position = hit.point;
-            }
 
-            if (Physics.Raycast(ray, out hit, teleportDistance, whatIsGround))
-            {
-                cursor.color = teleportColor;
-
-                //LMB to teleport
-                if (Input.GetKeyDown(KeyCode.Mouse0) && canTeleport == true)
-                {
-                    canTeleport = false;
-                    TeleportTimer = TeleportCooldown;
-                    numberOfTeleports -= 1;
-
-                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-                    transform.position = hit.point;
-                    playerState = PlayerState.None;
-                }
-            }
-            else
-            {
-                cursor.color = defaultColor;
-            }
-
-            //RMB to teleport to position before teleport
-            if (Input.GetKeyDown(KeyCode.Mouse1) && canReturnTeleport == true)
-            {
-                canReturnTeleport = false;
-                ReturnTimer = ReturnCooldown;
-                gameObject.transform.position = positionBeforeTeleport;
-                playerState = PlayerState.None;
-            }
-        }
-    }
-
-    void AbilityCooldownManager()
-    {
-        if (canTeleport == false)
-        {
-            TeleportTimer -= Time.deltaTime;
-
-            if (TeleportTimer <= 0f)
-            {
-                canTeleport = true;
-            }
-        }
-
-        if (canReturnTeleport == false)
-        {
-            ReturnTimer -= Time.deltaTime;
-
-            if (ReturnTimer <= 0f)
-            {
-                canReturnTeleport = true;
-            }
-        }
     }
 }

@@ -18,14 +18,8 @@ public class ProjectileAddon : MonoBehaviour
         Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>());
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        // make sure only to stick to the first target you hit
-        if (targetHit)
-            return;
-        else
-            targetHit = true;
-
         // check if you hit an enemy
         if(collision.gameObject.GetComponent<BasicEnemy>() != null)
         {
@@ -36,11 +30,5 @@ public class ProjectileAddon : MonoBehaviour
             // destroy projectile
             Destroy(gameObject);
         }
-
-        // make sure projectile sticks to surface
-        rb.isKinematic = true;
-
-        // make sure projectile moves with target
-        transform.SetParent(collision.transform);
     }
 }
