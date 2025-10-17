@@ -19,6 +19,7 @@ TagManager:
   - Boost
   - Slope
   - Grass
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - CanClimb
+  - Climb
   - WallRun
   - 
   - 
