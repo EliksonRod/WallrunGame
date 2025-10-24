@@ -409,7 +409,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 5559445}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 0}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 0
 --- !u!95 &5559445
 Animator:
   serializedVersion: 7
@@ -547,18 +550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
-  levelMenu: {fileID: 0}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 0}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 0}
-  tutorialMenu: {fileID: 0}
-  shoddyMenu: {fileID: 0}
-  jumpyMenu: {fileID: 0}
-  hugWallMenu: {fileID: 0}
-  clockWorkMenu: {fileID: 0}
-  dawningMenu: {fileID: 0}
 --- !u!1 &8463312
 GameObject:
   m_ObjectHideFlags: 0
@@ -6143,7 +6134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &163902325
@@ -12587,7 +12579,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &344336413
@@ -16238,7 +16231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 469677697}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 0}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 0
 --- !u!95 &469677697
 Animator:
   serializedVersion: 7
@@ -16274,7 +16270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &469677699
@@ -29854,7 +29851,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &735432825
@@ -29961,10 +29959,9 @@ GameObject:
   - component: {fileID: 738191268}
   - component: {fileID: 738191267}
   - component: {fileID: 738191266}
-  - component: {fileID: 738191265}
   - component: {fileID: 738191264}
+  - component: {fileID: 738191265}
   - component: {fileID: 738191263}
-  - component: {fileID: 738191262}
   m_Layer: 5
   m_Name: Options Button
   m_TagString: Untagged
@@ -29991,30 +29988,6 @@ RectTransform:
   m_AnchoredPosition: {x: -825, y: -335}
   m_SizeDelta: {x: 340, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &738191262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 738191260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
-  levelMenu: {fileID: 0}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 0}
-  shoddyMenu: {fileID: 0}
-  jumpyMenu: {fileID: 0}
-  hugWallMenu: {fileID: 0}
-  clockWorkMenu: {fileID: 0}
-  dawningMenu: {fileID: 0}
 --- !u!111 &738191263
 Animation:
   m_ObjectHideFlags: 0
@@ -30045,7 +30018,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 738191265}
+  Sweeping_UI_Anim: {fileID: 738191265}
+  GrowShrink_UI_Anim: {fileID: 0}
+  UseSwipeAnimation: 1
+  UseGrowShrinkAnimation: 0
 --- !u!95 &738191265
 Animator:
   serializedVersion: 7
@@ -30081,7 +30057,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &738191267
@@ -30167,7 +30144,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 738191262}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
         m_MethodName: OpenLevelMenu
         m_Mode: 1
@@ -31708,10 +31685,9 @@ GameObject:
   - component: {fileID: 761159960}
   - component: {fileID: 761159959}
   - component: {fileID: 761159958}
-  - component: {fileID: 761159957}
   - component: {fileID: 761159956}
+  - component: {fileID: 761159957}
   - component: {fileID: 761159955}
-  - component: {fileID: 761159954}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -31738,30 +31714,6 @@ RectTransform:
   m_AnchoredPosition: {x: -825, y: -405}
   m_SizeDelta: {x: 340, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &761159954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 761159952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
-  levelMenu: {fileID: 0}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 0}
-  shoddyMenu: {fileID: 0}
-  jumpyMenu: {fileID: 0}
-  hugWallMenu: {fileID: 0}
-  clockWorkMenu: {fileID: 0}
-  dawningMenu: {fileID: 0}
 --- !u!111 &761159955
 Animation:
   m_ObjectHideFlags: 0
@@ -31792,7 +31744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 761159957}
+  Sweeping_UI_Anim: {fileID: 761159957}
+  GrowShrink_UI_Anim: {fileID: 0}
+  UseSwipeAnimation: 1
+  UseGrowShrinkAnimation: 0
 --- !u!95 &761159957
 Animator:
   serializedVersion: 7
@@ -31828,7 +31783,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &761159959
@@ -31914,7 +31870,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 761159954}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
         m_MethodName: OpenLevelMenu
         m_Mode: 1
@@ -40854,10 +40810,9 @@ GameObject:
   - component: {fileID: 957648717}
   - component: {fileID: 957648716}
   - component: {fileID: 957648715}
-  - component: {fileID: 957648714}
   - component: {fileID: 957648713}
+  - component: {fileID: 957648714}
   - component: {fileID: 957648712}
-  - component: {fileID: 957648711}
   m_Layer: 5
   m_Name: Level Select Button
   m_TagString: Untagged
@@ -40884,30 +40839,6 @@ RectTransform:
   m_AnchoredPosition: {x: -825, y: -265}
   m_SizeDelta: {x: 340, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &957648711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957648709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
-  levelMenu: {fileID: 0}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 0}
-  shoddyMenu: {fileID: 0}
-  jumpyMenu: {fileID: 0}
-  hugWallMenu: {fileID: 0}
-  clockWorkMenu: {fileID: 0}
-  dawningMenu: {fileID: 0}
 --- !u!111 &957648712
 Animation:
   m_ObjectHideFlags: 0
@@ -40938,7 +40869,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 957648714}
+  Sweeping_UI_Anim: {fileID: 957648714}
+  GrowShrink_UI_Anim: {fileID: 0}
+  UseSwipeAnimation: 1
+  UseGrowShrinkAnimation: 0
 --- !u!95 &957648714
 Animator:
   serializedVersion: 7
@@ -40974,7 +40908,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI:
+  - {fileID: 1909127657}
+  NextUI:
+  - {fileID: 1646525890}
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &957648716
@@ -41060,9 +40997,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 957648711}
-        m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
-        m_MethodName: OpenLevelMenu
+      - m_Target: {fileID: 957648715}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SwitchUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -46370,7 +46307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &1039452470
@@ -51347,8 +51285,8 @@ GameObject:
   - component: {fileID: 1141070055}
   - component: {fileID: 1141070054}
   - component: {fileID: 1141070053}
-  - component: {fileID: 1141070056}
   - component: {fileID: 1141070057}
+  - component: {fileID: 1141070059}
   - component: {fileID: 1141070058}
   m_Layer: 5
   m_Name: JumpyJamButton
@@ -51447,9 +51385,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1141070056}
-        m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
-        m_MethodName: JumpySelect
+      - m_Target: {fileID: 1141070059}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SwitchUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -51467,30 +51405,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141070048}
   m_CullTransparentMesh: 1
---- !u!114 &1141070056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1141070048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1141070057}
-  levelMenu: {fileID: 1071299268}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!95 &1141070057
 Animator:
   serializedVersion: 7
@@ -51520,14 +51434,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141070048}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1141070057}
-  levelMenu: {fileID: 262196634}
-  levelCanvas: {fileID: 1646525890}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 1141070057}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 1
+--- !u!114 &1141070059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141070048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  PreviousUI:
+  - {fileID: 627205447}
+  - {fileID: 8463312}
+  - {fileID: 1071299268}
+  - {fileID: 2102052772}
+  - {fileID: 945414901}
+  - {fileID: 1073749981}
+  NextUI:
+  - {fileID: 262196634}
+  playerScript: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &1146004617
 GameObject:
   m_ObjectHideFlags: 0
@@ -58886,8 +58825,8 @@ GameObject:
   - component: {fileID: 1334110140}
   - component: {fileID: 1334110139}
   - component: {fileID: 1334110138}
-  - component: {fileID: 1334110141}
   - component: {fileID: 1334110142}
+  - component: {fileID: 1334110144}
   - component: {fileID: 1334110143}
   m_Layer: 5
   m_Name: DawningButton
@@ -58986,7 +58925,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1334110141}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
         m_MethodName: DawningSelect
         m_Mode: 1
@@ -59006,30 +58945,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334110133}
   m_CullTransparentMesh: 1
---- !u!114 &1334110141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334110133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1334110142}
-  levelMenu: {fileID: 1073749981}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!95 &1334110142
 Animator:
   serializedVersion: 7
@@ -59059,14 +58974,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334110133}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1334110142}
-  levelMenu: {fileID: 1073749981}
-  levelCanvas: {fileID: 1646525890}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 1334110142}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 1
+--- !u!114 &1334110144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334110133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
+  playerScript: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!43 &1347177052
 Mesh:
   m_ObjectHideFlags: 0
@@ -71332,8 +71265,8 @@ GameObject:
   - component: {fileID: 1643461288}
   - component: {fileID: 1643461287}
   - component: {fileID: 1643461286}
-  - component: {fileID: 1643461289}
   - component: {fileID: 1643461290}
+  - component: {fileID: 1643461292}
   - component: {fileID: 1643461291}
   m_Layer: 5
   m_Name: ClockWorkButton
@@ -71432,9 +71365,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1643461289}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
-        m_MethodName: ClockWorkSelect
+        m_MethodName: SwitchUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -71452,30 +71385,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643461281}
   m_CullTransparentMesh: 1
---- !u!114 &1643461289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1643461281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1643461290}
-  levelMenu: {fileID: 945414901}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!95 &1643461290
 Animator:
   serializedVersion: 7
@@ -71505,14 +71414,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643461281}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1643461290}
-  levelMenu: {fileID: 945414901}
-  levelCanvas: {fileID: 1646525890}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 1643461290}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 1
+--- !u!114 &1643461292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643461281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
+  playerScript: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &1646525890
 GameObject:
   m_ObjectHideFlags: 0
@@ -71543,16 +71470,16 @@ RectTransform:
   m_Children:
   - {fileID: 1010398974}
   - {fileID: 1931283033}
-  - {fileID: 1997856201}
   - {fileID: 1141070049}
+  - {fileID: 1997856201}
   - {fileID: 1759709933}
   - {fileID: 1643461282}
   - {fileID: 1334110134}
-  - {fileID: 627205448}
   - {fileID: 1815608590}
+  - {fileID: 627205448}
   - {fileID: 8463313}
-  - {fileID: 1071299269}
   - {fileID: 262196635}
+  - {fileID: 1071299269}
   - {fileID: 2102052773}
   - {fileID: 945414902}
   - {fileID: 1073749982}
@@ -74787,18 +74714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
-  levelMenu: {fileID: 0}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!114 &1734383576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74812,7 +74727,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &1734383577
@@ -75988,8 +75904,8 @@ GameObject:
   - component: {fileID: 1759709939}
   - component: {fileID: 1759709938}
   - component: {fileID: 1759709937}
-  - component: {fileID: 1759709940}
   - component: {fileID: 1759709941}
+  - component: {fileID: 1759709943}
   - component: {fileID: 1759709942}
   m_Layer: 5
   m_Name: HugWallButton
@@ -76088,7 +76004,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1759709940}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
         m_MethodName: HugWallSelect
         m_Mode: 1
@@ -76108,30 +76024,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759709932}
   m_CullTransparentMesh: 1
---- !u!114 &1759709940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759709932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1759709941}
-  levelMenu: {fileID: 2102052772}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!95 &1759709941
 Animator:
   serializedVersion: 7
@@ -76161,14 +76053,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759709932}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1759709941}
-  levelMenu: {fileID: 2102052772}
-  levelCanvas: {fileID: 1646525890}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 1759709941}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 1
+--- !u!114 &1759709943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759709932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
+  playerScript: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!43 &1764520956
 Mesh:
   m_ObjectHideFlags: 0
@@ -78164,18 +78074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
-  levelMenu: {fileID: 1815608589}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!1 &1816283143
 GameObject:
   m_ObjectHideFlags: 0
@@ -84583,7 +84481,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &1930347744
@@ -84690,9 +84589,9 @@ GameObject:
   - component: {fileID: 1931283039}
   - component: {fileID: 1931283038}
   - component: {fileID: 1931283034}
-  - component: {fileID: 1931283041}
   - component: {fileID: 1931283042}
-  - component: {fileID: 1931283043}
+  - component: {fileID: 1931283045}
+  - component: {fileID: 1931283044}
   m_Layer: 5
   m_Name: TutorialButton
   m_TagString: Untagged
@@ -84809,9 +84708,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1931283041}
-        m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
-        m_MethodName: TutorialSelect
+      - m_Target: {fileID: 1931283045}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SwitchUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -84829,30 +84728,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931283032}
   m_CullTransparentMesh: 1
---- !u!114 &1931283041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931283032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1931283042}
-  levelMenu: {fileID: 8463312}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!95 &1931283042
 Animator:
   serializedVersion: 7
@@ -84875,21 +84750,46 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1931283043
+--- !u!114 &1931283044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931283032}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1931283042}
-  levelMenu: {fileID: 8463312}
-  levelCanvas: {fileID: 1646525890}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 1931283042}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 1
+--- !u!114 &1931283045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931283032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  PreviousUI:
+  - {fileID: 627205447}
+  - {fileID: 1071299268}
+  - {fileID: 262196634}
+  - {fileID: 2102052772}
+  - {fileID: 945414901}
+  - {fileID: 1073749981}
+  NextUI:
+  - {fileID: 8463312}
+  playerScript: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &1934514297
 GameObject:
   m_ObjectHideFlags: 0
@@ -87304,8 +87204,8 @@ GameObject:
   - component: {fileID: 1997856207}
   - component: {fileID: 1997856206}
   - component: {fileID: 1997856205}
-  - component: {fileID: 1997856208}
   - component: {fileID: 1997856209}
+  - component: {fileID: 1997856211}
   - component: {fileID: 1997856210}
   m_Layer: 5
   m_Name: ShoddyTemple Button
@@ -87404,9 +87304,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1997856208}
-        m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
-        m_MethodName: ShoddySelect
+      - m_Target: {fileID: 1997856211}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SwitchUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -87424,30 +87324,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997856200}
   m_CullTransparentMesh: 1
---- !u!114 &1997856208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997856200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1997856209}
-  levelMenu: {fileID: 1071299268}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 8463312}
-  shoddyMenu: {fileID: 1071299268}
-  jumpyMenu: {fileID: 262196634}
-  hugWallMenu: {fileID: 2102052772}
-  clockWorkMenu: {fileID: 945414901}
-  dawningMenu: {fileID: 1073749981}
 --- !u!95 &1997856209
 Animator:
   serializedVersion: 7
@@ -87477,14 +87353,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997856200}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e75f1422e3b1ae4cb12bb6af47b8ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 1997856209}
-  levelMenu: {fileID: 1071299268}
-  levelCanvas: {fileID: 1646525890}
+  Sweeping_UI_Anim: {fileID: 0}
+  GrowShrink_UI_Anim: {fileID: 1997856209}
+  UseSwipeAnimation: 0
+  UseGrowShrinkAnimation: 1
+--- !u!114 &1997856211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997856200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  PreviousUI:
+  - {fileID: 627205447}
+  - {fileID: 8463312}
+  - {fileID: 262196634}
+  - {fileID: 2102052772}
+  - {fileID: 945414901}
+  - {fileID: 1073749981}
+  NextUI:
+  - {fileID: 1071299268}
+  playerScript: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &2017663862
 GameObject:
   m_ObjectHideFlags: 0
@@ -88461,7 +88362,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &2023347772
@@ -91181,10 +91083,9 @@ GameObject:
   - component: {fileID: 2078952637}
   - component: {fileID: 2078952636}
   - component: {fileID: 2078952635}
-  - component: {fileID: 2078952634}
   - component: {fileID: 2078952633}
+  - component: {fileID: 2078952634}
   - component: {fileID: 2078952632}
-  - component: {fileID: 2078952631}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -91211,30 +91112,6 @@ RectTransform:
   m_AnchoredPosition: {x: -825, y: -195}
   m_SizeDelta: {x: 340, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2078952631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078952629}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 0}
-  levelMenu: {fileID: 0}
-  MainMenuCanvas: {fileID: 1909127657}
-  LvlSelectCanvas: {fileID: 1646525890}
-  SettingsCanvas: {fileID: 640624968}
-  defaultMenu: {fileID: 627205447}
-  tutorialMenu: {fileID: 0}
-  shoddyMenu: {fileID: 0}
-  jumpyMenu: {fileID: 0}
-  hugWallMenu: {fileID: 0}
-  clockWorkMenu: {fileID: 0}
-  dawningMenu: {fileID: 0}
 --- !u!111 &2078952632
 Animation:
   m_ObjectHideFlags: 0
@@ -91265,7 +91142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1954f001fc0cf754b8d3764a0ff08d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animWhenHoverOver: {fileID: 2078952634}
+  Sweeping_UI_Anim: {fileID: 2078952634}
+  GrowShrink_UI_Anim: {fileID: 0}
+  UseSwipeAnimation: 1
+  UseGrowShrinkAnimation: 0
 --- !u!95 &2078952634
 Animator:
   serializedVersion: 7
@@ -91301,7 +91181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  UI_Menu: {fileID: 0}
+  PreviousUI: []
+  NextUI: []
   playerScript: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!114 &2078952636
