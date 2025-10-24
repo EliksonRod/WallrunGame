@@ -20,7 +20,7 @@ public class ArenaSpawner : MonoBehaviour
     public float spawnCooldown = 1.5f;
     private float spawnTime;
 
-    public GameObject[] spawners;
+    GameObject[] spawners;
     public GameObject[] enemies;
 
     public activeState spawnMode;

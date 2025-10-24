@@ -31,7 +31,6 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-   
         if (Input.GetKey(throwKey) && readyToThrow && totalThrows > 0)
         {
             Throw();

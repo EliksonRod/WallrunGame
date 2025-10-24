@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     public float normalSpeed;
     public float wallrunSpeed;
     public float climbSpeed;
-    float drag;
 
     public float speedIncreaseMultiplier;
     public float speedBoostMultiplier;
@@ -41,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     public float BoostTimeLeft;
 
     [Header("Ground Check")]
-    public float playerHeight;
     public LayerMask whatIsGround;
     public bool grounded;
     //For Teleport Return Ability
@@ -104,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //defaultColor = cursor.color;
         //teleportColor.a = 1;
+        Physics.gravity = new Vector3(0, -30f, 0);
 
         spawnPoint = transform.position;
         rb = GetComponent<Rigidbody>();
@@ -113,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        GroundDetection();
+        GroundCheck();
 
         walking = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
@@ -125,12 +124,6 @@ public class PlayerMovement : MonoBehaviour
         StateHandler();
         //Handles timers for ability cooldowns
         //AbilityCooldownManager();
-
-        // handle drag
-        if (grounded)
-            rb.linearDamping = groundDrag;
-        else
-            rb.linearDamping = 0;
 
         if (gameObject.transform.position.y < -25f)
         {
@@ -153,25 +146,37 @@ public class PlayerMovement : MonoBehaviour
         {
             print(hit.transform.tag);
         }
-
-        QuadraticDrag(drag);
     }
 
     void MyInput()
     {
         if (Input.GetKey(KeyCode.P) || movementState == MovementState.confused)
         {
+            //Reverse inputs when in confused state(A key moves player right, etc)
             horizontalInput = -Input.GetAxisRaw("Horizontal");
             verticalInput = -Input.GetAxisRaw("Vertical");
         }
         else
         {
+            //Normal Inputs(A key move player left, etc)
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
         }
 
+        if (climbing)
+        {
+            // Prevent left or right movement while climbing
+            //moveDirection = orientation.forward * verticalInput; 
+            moveDirection = new Vector3(0.0f, rb.linearVelocity.y, 0.0f);
+            Debug.Log("ItWorks");
+        }
+            
+        else
+            // Calculate direction and walk in the direction you are looking
+            moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyUp(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -207,19 +212,15 @@ public class PlayerMovement : MonoBehaviour
         {
             case MovementState.walking:
                 desiredMoveSpeed = normalSpeed;
-                drag = 1f;
                 break;
             case MovementState.wallrunning:
                 desiredMoveSpeed = wallrunSpeed;
-                drag = 1f;
                 break;
             case MovementState.climbing:
                 desiredMoveSpeed = climbSpeed;
-                drag = 1f;
                 break;
             case MovementState.air:
                 desiredMoveSpeed = normalSpeed;
-                drag = 15f;
                 break;
             case MovementState.boosted:
                 Boosted();
@@ -234,47 +235,11 @@ public class PlayerMovement : MonoBehaviour
                 TeleportSkill();
                 break;
         }
-
-        //check if desiredMoveSpeed has changed drastically
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 20f && currentMoveSpeed != 0)
-        {
-            StopAllCoroutines();
-            StartCoroutine(SmoothlyLerpMoveSpeed());
-        }
-        else
-        {
             currentMoveSpeed = desiredMoveSpeed;
-        }
 
         lastDesiredMoveSpeed = desiredMoveSpeed;
     }
 
-    IEnumerator SmoothlyLerpMoveSpeed()
-    {
-        //smooothly lerp movementSpeed to desired value
-        float time = 0;
-        float difference = Mathf.Abs(desiredMoveSpeed - currentMoveSpeed);
-        float startValue = currentMoveSpeed;
-
-        while (time < difference)
-        {
-            currentMoveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-
-            if (OnSlope())
-            {
-                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
-
-                time += Time.deltaTime * speedIncreaseMultiplier * slopeAngleIncrease;//slopeIncreaseMultiplier 
-            }
-            else
-                time += Time.deltaTime * speedIncreaseMultiplier;
-
-            yield return null;
-        }
-
-        currentMoveSpeed = desiredMoveSpeed;
-    }
 
     IEnumerator DeathScene()
     {
@@ -288,22 +253,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (climbingScript.exitingWall) return;
 
-        // calculate movement direction and walk in the direction you are looking
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
         //on slope
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection(moveDirection) * currentMoveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection() * currentMoveSpeed * 20f, ForceMode.Force);
 
             if(rb.linearVelocity.y > 0)
                 rb.AddForce(Vector3.down * 1f, ForceMode.Force);
         }
-
         // on ground
         else if (grounded || wallrunning)
+        {
             rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f, ForceMode.Force);
-
+            //rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, desiredMoveSpeed);
+        }
         // in air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f * airMultiplier, ForceMode.Force);
@@ -335,47 +298,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Method to calculate drag force
-    public static double CalculateDragForce(double dragCoefficient, double airDensity, double crossSectionalArea, double velocity)
-    {
-        // Applying the drag equation: Fd = 0.5 * Cd * rho * A * v^2
-        double dragForce = 0.5 * dragCoefficient * airDensity * crossSectionalArea * Math.Pow(velocity, 2);
-        return dragForce;
-    }
-
-    public double QuadraticDrag(double dragCoefficient)
-    {
-        // Example values for the drag force calculation
-        //double dragCoefficient = 1;//0.47; // for a typical car
-        double airDensity = 1.225;     // air density at sea level in kg/m³
-        double crossSectionalArea = 2.5;  // in m² (example car)
-        double velocity = currentMoveSpeed;      // speed in m/s
-
-        double dragForce = CalculateDragForce(dragCoefficient, airDensity, crossSectionalArea, velocity);
-        return -dragForce / 1;
-    }
-
     void Jump()
     {
         exitingSlope = true;
-
-        //SoundManager.PlaySound(SoundSource.Player, SoundType.Player_Jumping, 0.2f, System.Random(0.9f, 1.2f);
 
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * SetBounceStrength(), ForceMode.Impulse);
+        //SoundManager.PlaySound(SoundSource.Player, SoundType.Player_Jumping, 0.2f, System.Random(0.9f, 1.2f);
     }
     void ResetJump()
     {
         readyToJump = true;
-
         exitingSlope = false;
     }
 
     public bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, 1.2f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
@@ -383,9 +324,9 @@ public class PlayerMovement : MonoBehaviour
 
         return false;
     }
-    public Vector3 GetSlopeMoveDirection(Vector3 direction)
+    public Vector3 GetSlopeMoveDirection()
     {
-        return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
    public void UpdateCheckpoint(Vector3 pos)
@@ -398,10 +339,14 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
-    void GroundDetection()
+    void GroundCheck()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        // Ground Check 
+        grounded = Physics.BoxCast(transform.position, transform.localScale * 0.25f, Vector3.down, transform.rotation, 1.2f, whatIsGround);
+        //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - 1.2f, transform.position.z), Color.magenta);
+
+        // Handle drag
+        rb.linearDamping = (grounded) ? groundDrag : 0;
     }
     void OnTriggerEnter(Collider other)
     {
@@ -437,6 +382,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Standing_On = bouncePad;
         }
+
+        /*if (other.gameObject.LayerMask("Ladder"))
+        {
+            if (Input.GetKey(jumpKey) && readyToJump && grounded)
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        }*/
     }
 
     private void OnCollisionExit(Collision other)
@@ -449,6 +400,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Slope"))
         {
+            if (Input.GetKey(jumpKey) && readyToJump && grounded)
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         }
 

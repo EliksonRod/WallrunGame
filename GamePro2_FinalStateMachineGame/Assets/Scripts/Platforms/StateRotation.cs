@@ -39,7 +39,7 @@ public class StateRotation : MonoBehaviour
         if (!Riders.Contains(other.transform))
             Riders.Add(other.transform);
 
-        rotatingMode = rotateMode.ROTATING;
+            rotatingMode = rotateMode.ROTATING;
     }
 
     private void OnCollisionExit(Collision other)

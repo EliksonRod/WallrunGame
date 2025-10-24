@@ -267,7 +267,6 @@ GameObject:
   - component: {fileID: 2393978831482774503}
   - component: {fileID: 3264293391506515063}
   - component: {fileID: 1634743344612996489}
-  - component: {fileID: -6024139706457699727}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -392,7 +391,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &1634743344612996489
 MonoBehaviour:
@@ -408,26 +407,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   healthBar: {fileID: 6842137984174874716}
---- !u!136 &-6024139706457699727
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8899870761593761084}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
