@@ -10,6 +10,7 @@ public class Shooting : MonoBehaviour
     public Transform cam;
     public Transform attackPoint;
     public GameObject objectToThrow;
+    public Animator shootCounterAnim;
 
     [Header("Settings")]
     public int totalThrows;
@@ -27,12 +28,16 @@ public class Shooting : MonoBehaviour
     private void Start()
     {
         readyToThrow = true;
+
+        shootCounterAnim.enabled = false;
     }
 
     private void Update()
     {
         if (Input.GetKey(throwKey) && readyToThrow && totalThrows > 0)
         {
+            shootCounterAnim.enabled = true;
+            shootCounterAnim.Play("BulletCounterShake", -1, 0f);
             Throw();
         }
         BulletCounter.text = totalThrows.ToString();

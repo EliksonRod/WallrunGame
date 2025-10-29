@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
         walking = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
-
+        if (!pauseMenu.activeInHierarchy)
         MyInput();
         //Manages drag and different player speeds
         SpeedControl();
@@ -163,20 +163,11 @@ public class PlayerMovement : MonoBehaviour
             verticalInput = Input.GetAxisRaw("Vertical");
         }
 
-        if (climbing)
-        {
-            // Prevent left or right movement while climbing
-            //moveDirection = orientation.forward * verticalInput; 
-            moveDirection = new Vector3(0.0f, rb.linearVelocity.y, 0.0f);
-            Debug.Log("ItWorks");
-        }
-            
-        else
-            // Calculate direction and walk in the direction you are looking
-            moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        // Calculate direction and walk in the direction you are looking
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // when to jump
-        if (Input.GetKeyUp(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -189,16 +180,6 @@ public class PlayerMovement : MonoBehaviour
         {
             UseAbility(AbilityHolder.Teleport);
         }
-
-        // Mode - Teleporting
-        /*if (playerState != PlayerState.teleporting && Input.GetKeyUp(KeyCode.Q) && numberOfTeleports > 0)
-        {
-            playerState = PlayerState.teleporting;
-        }
-        else if (playerState == PlayerState.teleporting && Input.GetKeyUp(KeyCode.Q) && pauseMenu.activeInHierarchy == false)
-        {
-            playerState = PlayerState.None;
-        }*/
 
         //Pause
         if (Input.GetKeyDown(pauseKey))
