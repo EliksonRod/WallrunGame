@@ -15,11 +15,11 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     float currentMoveSpeed;
-    float desiredMoveSpeed;
-    float lastDesiredMoveSpeed;
     public float normalSpeed;
-    public float wallrunSpeed;
-    public float climbSpeed;
+    public float dashSpeed;
+
+    [HideInInspector]
+    public float maxYSpeed;
 
     public float speedIncreaseMultiplier;
     public float speedBoostMultiplier;
@@ -63,16 +63,11 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     [SerializeField] Animator deathAnim;
     public playerCam cam;
+    Collider coll;
 
     [Header("Boost")]
     public GameObject BoostBarMeter;
     public GameObject speedParticle;
-
-    [Header("Crosshair")]
-    public RawImage[] Crosshair;
-    int currentCrosshair;
-    //UnityEngine.Color defaultColor;
-    //public UnityEngine.Color teleportColor;
 
     Rigidbody rb;
     Vector3 spawnPoint;
@@ -83,29 +78,19 @@ public class PlayerMovement : MonoBehaviour
     public MovementState movementState;
     public enum MovementState
     {
-        walking,
-        wallrunning,
-        climbing,
-        air,
-        boosted,
+        NormalSpeed,
+        BoostedSpeed,
         confused
     }
-    public AbilityState abilityState;
-    public enum AbilityState
-    {
-        None,
-        Teleport
-    }
-    public bool walking, inAir, wallrunning, climbing, playerIsMoving;
+    public bool walking, inAir, wallrunning, climbing, playerIsMoving, dashing;
 
     void Start()
     {
-        //defaultColor = cursor.color;
-        //teleportColor.a = 1;
         Physics.gravity = new Vector3(0, -30f, 0);
 
         spawnPoint = transform.position;
         rb = GetComponent<Rigidbody>();
+        coll = GetComponent<Collider>();
         rb.freezeRotation = true;
         readyToJump = true;
     }
@@ -116,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
         walking = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
+
         if (!pauseMenu.activeInHierarchy)
         MyInput();
         //Manages drag and different player speeds
@@ -129,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(DeathScene());
         }
+
+        
     }
     void FixedUpdate()
     {
@@ -176,11 +164,6 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            UseAbility(AbilityHolder.Teleport);
-        }
-
         //Pause
         if (Input.GetKeyDown(pauseKey))
         {
@@ -189,39 +172,28 @@ public class PlayerMovement : MonoBehaviour
     }
     void StateHandler()
     {
-        switch(movementState)
+        switch (movementState)
         {
-            case MovementState.walking:
-                desiredMoveSpeed = normalSpeed;
+            case MovementState.NormalSpeed:
+                currentMoveSpeed = normalSpeed;
                 break;
-            case MovementState.wallrunning:
-                desiredMoveSpeed = wallrunSpeed;
-                break;
-            case MovementState.climbing:
-                desiredMoveSpeed = climbSpeed;
-                break;
-            case MovementState.air:
-                desiredMoveSpeed = normalSpeed;
-                break;
-            case MovementState.boosted:
+            case MovementState.BoostedSpeed:
                 Boosted();
                 break;
         }
 
-        switch (abilityState)
+
+        if (grounded || wallrunning || climbing)
         {
-            case AbilityState.None:
-                break;
-            case AbilityState.Teleport:
-                TeleportSkill();
-                break;
+            coll.material.frictionCombine = PhysicsMaterialCombine.Average;
+            Debug.Log("Average Friction");
         }
-            currentMoveSpeed = desiredMoveSpeed;
-
-        lastDesiredMoveSpeed = desiredMoveSpeed;
+        else
+        {
+            coll.material.frictionCombine = PhysicsMaterialCombine.Minimum;
+            Debug.Log("Minimum Friction");
+        }
     }
-
-
     IEnumerator DeathScene()
     {
         deathAnim.Play("ScreenFade_In");
@@ -277,6 +249,10 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
             }
         }
+
+        //limit max y velocity
+        if (maxYSpeed != 0  && rb.linearVelocity.y > maxYSpeed)
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxYSpeed, rb.linearVelocity.z);
     }
 
     void Jump()
@@ -346,12 +322,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Boost"))
         {
-            movementState = MovementState.boosted;
+            movementState = MovementState.BoostedSpeed;
             BoostTimeLeft = Boost_Timer;
         }
         if (other.gameObject.CompareTag("Grass"))
         {
-            movementState = MovementState.boosted;
+            movementState = MovementState.BoostedSpeed;
             BoostTimeLeft = 1.2f;
         }
     }
@@ -387,7 +363,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Grass") && grounded)
         {
-            movementState = MovementState.walking;
+            movementState = MovementState.NormalSpeed;
         }
     }
     public float SetBounceStrength()
@@ -398,7 +374,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Boosted()
     {
-        desiredMoveSpeed = normalSpeed * speedBoostMultiplier;
+        currentMoveSpeed = normalSpeed * speedBoostMultiplier;
         BoostTimeLeft -= Time.deltaTime;
 
         cam.DoFov(95f);
@@ -415,117 +391,7 @@ public class PlayerMovement : MonoBehaviour
                 BoostBarMeter.gameObject.SetActive(false);
             if (speedParticle != null)
                 speedParticle.SetActive(false);
-            movementState = MovementState.walking;
-        }
-    }
-
-    [Header("Ability Manager")]
-    public int currentAbilitySelected;
-    public enum AbilityHolder
-    {
-        None,
-        Teleport,
-        Dash
-    }
-    //SoundManager.PlaySound(SoundSource.Player, SoundType.Player_Jumping, 0.2f, System.Random(0.9f, 1.2f);
-
-
-    [Header("Ability Cooldowns")]
-    public float TeleportCooldown = 5f, TeleportTimer;
-    public float ReturnCooldown = 4f, ReturnTimer;
-
-    [Header("Teleportation")]
-    public int numberOfTeleports = 0;
-    public float teleportDistance = 45;
-
-
-    Vector3 positionBeforeTeleport;
-    public bool canTeleport = true, canReturnTeleport = true;
-    public bool teleportTarget = false;
-    public GameObject TeleportTargetIndicator;
-
-    public void UseAbility(AbilityHolder abilityToUse)
-    {
-        if ((int)abilityToUse == 0)
-        {
-            //TeleportSkill();
-            Debug.Log("Power");
-        }
-        else if ((int)abilityToUse == 1)
-        {
-            TeleportSkill();
-        }
-
-    }
-
-
-    void TeleportSkill()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        //Crosshair[0].SetActive(true);
-        //currentCrosshair = 0;
-
-        //Displays where you are looking at
-        /*if (Physics.Raycast(ray, out hit))
-        {
-            if (TeleportTargetIndicator != null)
-            {
-                TeleportTargetIndicator.transform.position = hit.point;
-            }*/
-
-        if (Physics.Raycast(ray, out hit, teleportDistance, whatIsGround))
-        {
-                //cursor.color = teleportColor;
-
-                //LMB to teleport
-                //if (Input.GetKeyDown(KeyCode.Mouse0) && canTeleport == true)
-                //{
-                    //canTeleport = false;
-                    //TeleportTimer = TeleportCooldown;
-                    numberOfTeleports -= 1;
-
-                    //rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-                    transform.position = hit.point;
-                    rb.linearVelocity = new Vector3(0, 0, 0);
-            //playerState = PlayerState.None;
-            //}
-        }
-            else
-            {
-                //cursor.color = defaultColor;
-            }
-
-            //RMB to teleport to position before teleport
-            if (Input.GetKeyDown(KeyCode.Mouse1) && canReturnTeleport == true)
-            {
-                canReturnTeleport = false;
-                ReturnTimer = ReturnCooldown;
-                gameObject.transform.position = positionBeforeTeleport;
-                //playerState = PlayerState.None;
-            }
-        }
-    void AbilityCooldownManager()
-    {
-        if (canTeleport == false)
-        {
-            TeleportTimer -= Time.deltaTime;
-
-            if (TeleportTimer <= 0f)
-            {
-                canTeleport = true;
-            }
-        }
-
-        if (canReturnTeleport == false)
-        {
-            ReturnTimer -= Time.deltaTime;
-
-            if (ReturnTimer <= 0f)
-            {
-                canReturnTeleport = true;
-            }
+            movementState = MovementState.NormalSpeed;
         }
     }
 }

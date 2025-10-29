@@ -19,7 +19,6 @@ public class TeleportRefresh : MonoBehaviour
         {
             PlayerMovement pm = collision.gameObject.GetComponent<PlayerMovement>();
             
-            pm.numberOfTeleports = 3;
             gameObject.SetActive(false);
         }
     }
