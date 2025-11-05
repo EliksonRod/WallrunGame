@@ -41,18 +41,14 @@ public class Dashing : MonoBehaviour
     public bool resetVel = true;
 
     [Header("Cooldown")]
-    public float dashCd;
-    private float dashCdTimer;
-
-    [Header("Input")]
-    public KeyCode dashKey = KeyCode.E;
-
-    float barWidth;
-
-    int numberOfDashes = 3;
     public float TimeBeforeDashRecharge = 1f;
     public float dashCooldown;
 
+    [Header("Input")]
+    public KeyCode dashKey = KeyCode.LeftShift;
+
+    float barWidth;
+    int numberOfDashes = 3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -69,36 +65,21 @@ public class Dashing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(dashKey))
+        if (Input.GetKeyUp(dashKey) && !pm.wallrunning && numberOfDashes > 0)
+        {
+            numberOfDashes -= 1;
             Dash();
 
-        if (dashCdTimer > 0)
-            dashCdTimer -= Time.deltaTime;
-        DashUI();
-        AbilityInputs();
-    }
-
-    void AbilityInputs()
-    {
-        if (Input.GetKeyUp(KeyCode.LeftShift)/* && !pm.grounded && !pm.wallrunning && numberOfDashes > 0*/)
-        {
-            DashAbility();
+            //Reset dash cooldown timer and start recharge coroutine
+            StopAllCoroutines();
+            StartCoroutine(DashCooldown());
         }
+
+        DashUI();
     }
 
-    void DashAbility()
-    {
-        // Dash Ability
-        numberOfDashes -= 1;
-
-
-        StopAllCoroutines();
-        StartCoroutine(DashCooldown());
-    }
     private void Dash()
     {
-        if (dashCdTimer > 0) return;
-        else dashCdTimer = dashCd;
 
         pm.dashing = true;
         pm.maxYSpeed = maxDashYSpeed;
@@ -112,7 +93,7 @@ public class Dashing : MonoBehaviour
         else
             forwardT = orientation; /// where you're facing (no up or down)
 
-        //Vector3 direction = GetDirection(forwardT);
+        Vector3 direction = GetDirection(forwardT);
 
         Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardForce ;
 
@@ -120,8 +101,8 @@ public class Dashing : MonoBehaviour
             rb.useGravity = false;
 
         delayedForceToApply = forceToApply;
-        //DelayedDashForce();
-        Invoke(nameof(DelayedDashForce), 0.025f);
+        DelayedDashForce();
+        //Invoke(nameof(DelayedDashForce), 0.025f);
 
         Invoke(nameof(ResetDash), dashDuration);
     }
@@ -145,6 +126,7 @@ public class Dashing : MonoBehaviour
             rb.useGravity = true;
     }
 
+    //Multidirectional dash support
     private Vector3 GetDirection(Transform forwardT)
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
