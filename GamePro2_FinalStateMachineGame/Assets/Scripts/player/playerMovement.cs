@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements.Experimental;
 using UnityEngine.Rendering;
 using DG.Tweening.Core.Easing;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -58,28 +59,52 @@ public class PlayerMovement : MonoBehaviour
     public float offset;
 
     [Header("References")]
-    public Climbing climbingScript;
-    public GameObject pauseMenu;
-    public Transform orientation;
-    [SerializeField] Animator deathAnim;
     public playerCam cam;
-    Collider coll;
+    public Transform orientation;
+    public Climbing climbingScript; 
+    public GameObject pauseMenu;
+    public Animator deathAnim;
 
     [Header("Boost")]
     public GameObject BoostBarMeter;
     public GameObject speedParticle;
 
+    Collider coll;
     Rigidbody rb;
+    
+    Vector2 moveInput;
     Vector3 spawnPoint;
     Vector3 moveDirection;
-    float horizontalInput;
-    float verticalInput;
+
+    [Header("Dash Settings")]
+    public float dashForce;
+    public float dashUpwardForce;
+    public float maxDashYSpeed;
+    public float dashDuration;
+    public RectTransform[] DashCounters;
+    float barWidth;
+    int numberOfDashes = 3;
+
+    [Header("Dash Options")]
+    [SerializeField] bool InfiniteDashes = false;
+    public bool useCameraForward = true;
+    public bool allowAllDirections = true;
+    public bool disableGravity = false;
+    public bool resetVel = true;
+
+    [Header("Dash Cam Effects")]
+    public float dashFov;
+
+    [Header("Dash Cooldown")]
+    public float TimeBeforeDashRecharge = 1f;
+    public float DashRechargeTimer;
 
     public MovementState movementState;
     public enum MovementState
     {
-        NormalSpeed,
-        BoostedSpeed,
+        Normal,
+        Boosted,
+        dashing,
         confused
     }
     public bool walking, inAir, wallrunning, climbing, playerIsMoving, dashing;
@@ -93,6 +118,17 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<Collider>();
         rb.freezeRotation = true;
         readyToJump = true;
+
+        //Dash UI Setup
+        for (int i = 0; i < DashCounters.Length; i++)
+        {
+            barWidth = DashCounters[i].anchorMax.y;
+        }
+    }
+    public void Move(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+        Debug.Log(moveInput);
     }
 
     void Update()
@@ -109,18 +145,17 @@ public class PlayerMovement : MonoBehaviour
         //Manages the different player states
         StateHandler();
         //Handles timers for ability cooldowns
-        //AbilityCooldownManager();
+        DashUI();
 
-        if (gameObject.transform.position.y < -25f)
+        if (gameObject.transform.position.y < -35f)
         {
-            StartCoroutine(DeathScene());
+            StartCoroutine(Die());
         }
-
-        
     }
     void FixedUpdate()
     {
-        MovePlayer();
+        if (movementState != MovementState.dashing)
+            MovePlayer();
         
         Ray downRay = new Ray(new Vector3(this.transform.position.x, this.transform.position.y - offset, this.transform.position.z), -Vector3.up);
 
@@ -135,34 +170,47 @@ public class PlayerMovement : MonoBehaviour
             print(hit.transform.tag);
         }
     }
+    void StateHandler()
+    {
+        switch (movementState)
+        {
+            case MovementState.Normal:
+                currentMoveSpeed = normalSpeed;
+                break;
+            case MovementState.Boosted:
+                Boosted();
+                break;
+        }
+
+        if (grounded || wallrunning || climbing)
+        {
+            coll.material.frictionCombine = PhysicsMaterialCombine.Average;
+            //Debug.Log("Average Friction");
+        }
+        else
+        {
+            coll.material.frictionCombine = PhysicsMaterialCombine.Minimum;
+            //Debug.Log("Minimum Friction");
+        }
+    }
 
     void MyInput()
     {
         if (Input.GetKey(KeyCode.P) || movementState == MovementState.confused)
         {
             //Reverse inputs when in confused state(A key moves player right, etc)
-            horizontalInput = -Input.GetAxisRaw("Horizontal");
-            verticalInput = -Input.GetAxisRaw("Vertical");
+            //horizontalInput = -Input.GetAxisRaw("Horizontal");
+            //verticalInput = -Input.GetAxisRaw("Vertical");
         }
         else
         {
             //Normal Inputs(A key move player left, etc)
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            verticalInput = Input.GetAxisRaw("Vertical");
+            //horizontalInput = Input.GetAxisRaw("Horizontal");
+            //verticalInput = Input.GetAxisRaw("Vertical");
         }
 
         // Calculate direction and walk in the direction you are looking
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
-        {
-            readyToJump = false;
-
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
+        moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
 
         //Pause
         if (Input.GetKeyDown(pauseKey))
@@ -170,38 +218,6 @@ public class PlayerMovement : MonoBehaviour
             pauseMenu.SetActive(true);
         }
     }
-    void StateHandler()
-    {
-        switch (movementState)
-        {
-            case MovementState.NormalSpeed:
-                currentMoveSpeed = normalSpeed;
-                break;
-            case MovementState.BoostedSpeed:
-                Boosted();
-                break;
-        }
-
-
-        if (grounded || wallrunning || climbing)
-        {
-            coll.material.frictionCombine = PhysicsMaterialCombine.Average;
-            Debug.Log("Average Friction");
-        }
-        else
-        {
-            coll.material.frictionCombine = PhysicsMaterialCombine.Minimum;
-            Debug.Log("Minimum Friction");
-        }
-    }
-    IEnumerator DeathScene()
-    {
-        deathAnim.Play("ScreenFade_In");
-        yield return new WaitForSeconds(1.45f);
-        RespawnPlayer();
-        deathAnim.Play("ScreenFade_Out");
-    }
-
     void MovePlayer()
     {
         if (climbingScript.exitingWall) return;
@@ -211,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(GetSlopeMoveDirection() * currentMoveSpeed * 20f, ForceMode.Force);
 
-            if(rb.linearVelocity.y > 0)
+            if (rb.linearVelocity.y > 0)
                 rb.AddForce(Vector3.down * 1f, ForceMode.Force);
         }
         // on ground
@@ -255,22 +271,6 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxYSpeed, rb.linearVelocity.z);
     }
 
-    void Jump()
-    {
-        exitingSlope = true;
-
-        // reset y velocity
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-        rb.AddForce(transform.up * SetBounceStrength(), ForceMode.Impulse);
-        //SoundManager.PlaySound(SoundSource.Player, SoundType.Player_Jumping, 0.2f, System.Random(0.9f, 1.2f);
-    }
-    void ResetJump()
-    {
-        readyToJump = true;
-        exitingSlope = false;
-    }
-
     public bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, 1.2f))
@@ -286,16 +286,6 @@ public class PlayerMovement : MonoBehaviour
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
-   public void UpdateCheckpoint(Vector3 pos)
-    {
-        spawnPoint = pos;
-    } 
-    public void RespawnPlayer()
-    {
-        gameObject.transform.position = spawnPoint;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-    }
     void GroundCheck()
     {
         // Ground Check 
@@ -305,12 +295,32 @@ public class PlayerMovement : MonoBehaviour
         // Handle drag
         rb.linearDamping = (grounded) ? groundDrag : 0;
     }
+
+    public void UpdateCheckpoint(Vector3 pos)
+    {
+        spawnPoint = pos;
+    } 
+    public void Respawn()
+    {
+        gameObject.transform.position = spawnPoint;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+    }
+
+    IEnumerator Die()
+    {
+        deathAnim.Play("ScreenFade_In");
+        yield return new WaitForSeconds(1.45f);
+        Respawn();
+        deathAnim.Play("ScreenFade_Out");
+    }
+
     void OnTriggerEnter(Collider other)
     {
         //Death
         if (other.gameObject.CompareTag("Void"))
         {
-            RespawnPlayer();
+            Respawn();
         }
 
         if (other.gameObject.GetComponent<Checkpoints>())
@@ -322,12 +332,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Boost"))
         {
-            movementState = MovementState.BoostedSpeed;
+            movementState = MovementState.Boosted;
             BoostTimeLeft = Boost_Timer;
         }
         if (other.gameObject.CompareTag("Grass"))
         {
-            movementState = MovementState.BoostedSpeed;
+            movementState = MovementState.Boosted;
             BoostTimeLeft = 1.2f;
         }
     }
@@ -363,8 +373,28 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Grass") && grounded)
         {
-            movementState = MovementState.NormalSpeed;
+            movementState = MovementState.Normal;
         }
+    }
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed && readyToJump && grounded)
+        {
+            readyToJump = false;
+            exitingSlope = true;
+
+            // reset y velocity
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+            rb.AddForce(transform.up * SetBounceStrength(), ForceMode.Impulse);
+            //SoundManager.PlaySound(SoundSource.Player, SoundType.Player_Jumping, 0.2f, System.Random(0.9f, 1.2f);
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
+    }
+    void ResetJump()
+    {
+        readyToJump = true;
+        exitingSlope = false;
     }
     public float SetBounceStrength()
     {
@@ -372,6 +402,132 @@ public class PlayerMovement : MonoBehaviour
         return jumpForce;
     }
 
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if ((wallrunning) || numberOfDashes <= 0) return;
+            numberOfDashes -= 1;
+
+        StopAllCoroutines();
+        StartCoroutine(DashCooldown());
+
+        movementState = MovementState.dashing;
+        maxYSpeed = maxDashYSpeed;
+
+        cam.DoFov(dashFov);
+
+        Transform forwardT;
+
+        if (useCameraForward)
+            forwardT = cam.camHolder; /// where you're looking
+        else
+            forwardT = orientation; /// where you're facing (no up or down)
+
+        Vector3 direction = GetDashDirection(forwardT);
+
+        Vector3 forceToApply = orientation.forward * (dashForce * 10) + orientation.up * dashUpwardForce;
+
+        if (disableGravity)
+            rb.useGravity = false;
+
+        delayedForceToApply = forceToApply;
+
+        //DelayedDashForce();
+        Invoke(nameof(DelayedDashForce), 0.025f);
+
+        Invoke(nameof(ResetDash), dashDuration);
+    }
+    private Vector3 delayedForceToApply;
+    private void DelayedDashForce()
+    {
+        if (resetVel)
+            rb.linearVelocity = Vector3.zero;
+
+        rb.AddForce(delayedForceToApply, ForceMode.Impulse);
+
+        movementState = MovementState.Normal;
+    }
+    private void ResetDash()
+    {
+        maxYSpeed = 0;
+
+        cam.DoFov(85f);
+
+        if (disableGravity)
+            rb.useGravity = true;
+    }
+
+    //Multidirectional dash support
+    private Vector3 GetDashDirection(Transform forwardT)
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        Vector3 direction = new Vector3();
+
+        if (allowAllDirections)
+            direction = forwardT.forward * verticalInput + forwardT.right * horizontalInput;
+        else
+            direction = forwardT.forward;
+
+        if (verticalInput == 0 && horizontalInput == 0)
+            direction = forwardT.forward;
+
+        return direction.normalized;
+    }
+    ///Replenish dash charges over time with delay before starting recharge
+    IEnumerator DashCooldown()
+    {
+        yield return new WaitForSeconds(TimeBeforeDashRecharge);
+        yield return new WaitForSeconds(DashRechargeTimer);
+
+        if (numberOfDashes < 3)
+        {
+            numberOfDashes += 1;
+        }
+
+        yield return new WaitForSeconds(DashRechargeTimer);
+
+        if (numberOfDashes < 3)
+        {
+            numberOfDashes += 1;
+        }
+
+        yield return new WaitForSeconds(DashRechargeTimer);
+
+        if (numberOfDashes < 3)
+        {
+            numberOfDashes += 1;
+        }
+    }
+
+    //Handle dash counter UI
+    void DashUI()
+    {
+        if (numberOfDashes == 3)
+        {
+            DashCounters[0].anchorMax = new Vector2(DashCounters[0].anchorMax.x, barWidth);
+            DashCounters[1].anchorMax = new Vector2(DashCounters[1].anchorMax.x, barWidth);
+            DashCounters[2].anchorMax = new Vector2(DashCounters[2].anchorMax.x, barWidth);
+        }
+        else if (numberOfDashes == 2)
+        {
+            DashCounters[0].anchorMax = new Vector2(DashCounters[0].anchorMax.x, 0f);
+            DashCounters[1].anchorMax = new Vector2(DashCounters[1].anchorMax.x, barWidth);
+            DashCounters[2].anchorMax = new Vector2(DashCounters[2].anchorMax.x, barWidth);
+        }
+        else if (numberOfDashes == 1)
+        {
+            DashCounters[0].anchorMax = new Vector2(DashCounters[0].anchorMax.x, 0f);
+            DashCounters[1].anchorMax = new Vector2(DashCounters[1].anchorMax.x, 0f);
+            DashCounters[2].anchorMax = new Vector2(DashCounters[2].anchorMax.x, barWidth);
+        }
+        else if (numberOfDashes <= 0)
+        {
+            DashCounters[0].anchorMax = new Vector2(DashCounters[0].anchorMax.x, 0f);
+            DashCounters[1].anchorMax = new Vector2(DashCounters[1].anchorMax.x, 0f);
+            DashCounters[2].anchorMax = new Vector2(DashCounters[2].anchorMax.x, 0f);
+        }
+    }
     void Boosted()
     {
         currentMoveSpeed = normalSpeed * speedBoostMultiplier;
@@ -391,7 +547,7 @@ public class PlayerMovement : MonoBehaviour
                 BoostBarMeter.gameObject.SetActive(false);
             if (speedParticle != null)
                 speedParticle.SetActive(false);
-            movementState = MovementState.NormalSpeed;
+            movementState = MovementState.Normal;
         }
     }
 }

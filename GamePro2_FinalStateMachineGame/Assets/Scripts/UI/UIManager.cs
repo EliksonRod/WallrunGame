@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     }
     public void ResetToCheckpoint()
     {
-        playerScript.RespawnPlayer();
+        playerScript.Respawn();
         gameManager.ResumeTime();
 
         if (PreviousUI != null)
