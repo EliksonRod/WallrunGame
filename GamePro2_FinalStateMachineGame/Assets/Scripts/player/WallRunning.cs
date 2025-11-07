@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallRunning : MonoBehaviour
+public class WallRunning : PlayerActions
 {
     [Header("Wallrunning")]
     public LayerMask whatIsWall;
@@ -156,7 +156,7 @@ public class WallRunning : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, -wallClimbSpeed, rb.linearVelocity.z);
 
         // push to wall force
-        if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))
+        if (!(wallLeft && pm.moveInput.x > 0) && !(wallRight && pm.moveInput.x < 0))
             rb.AddForce(-wallNormal * 100, ForceMode.Force);
 
         // weaken gravity

@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     bool readyToJump;
 
     [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
     public KeyCode pauseKey = KeyCode.Escape;
 
     [Header("Timers")]
@@ -70,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject speedParticle;
 
     Collider coll;
-    Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     
     Vector2 moveInput;
     Vector3 spawnPoint;
@@ -102,11 +101,19 @@ public class PlayerMovement : MonoBehaviour
     public MovementState movementState;
     public enum MovementState
     {
-        Normal,
-        Boosted,
-        dashing,
-        confused
+        Default,
+        Wallrunning,
+        Climbing,
+        Dashing
     }
+    public PlayerState playerState;
+    public enum PlayerState
+    {
+        Nothing,
+        Boosted,
+        Confused,
+    }
+
     public bool walking, inAir, wallrunning, climbing, playerIsMoving, dashing;
 
     void Start()
@@ -154,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (movementState != MovementState.dashing)
+        if (movementState != MovementState.Dashing)
             MovePlayer();
         
         Ray downRay = new Ray(new Vector3(this.transform.position.x, this.transform.position.y - offset, this.transform.position.z), -Vector3.up);
@@ -174,12 +181,12 @@ public class PlayerMovement : MonoBehaviour
     {
         switch (movementState)
         {
-            case MovementState.Normal:
+            case MovementState.Default:
                 currentMoveSpeed = normalSpeed;
                 break;
-            case MovementState.Boosted:
-                Boosted();
-                break;
+            //case MovementState.Boosted:
+                //Boosted();
+                //break;
         }
 
         if (grounded || wallrunning || climbing)
@@ -196,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MyInput()
     {
-        if (Input.GetKey(KeyCode.P) || movementState == MovementState.confused)
+        if (Input.GetKey(KeyCode.P) || playerState == PlayerState.Confused)
         {
             //Reverse inputs when in confused state(A key moves player right, etc)
             //horizontalInput = -Input.GetAxisRaw("Horizontal");
@@ -332,12 +339,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Boost"))
         {
-            movementState = MovementState.Boosted;
+            playerState = PlayerState.Boosted;
             BoostTimeLeft = Boost_Timer;
         }
         if (other.gameObject.CompareTag("Grass"))
         {
-            movementState = MovementState.Boosted;
+            playerState = PlayerState.Boosted;
             BoostTimeLeft = 1.2f;
         }
     }
@@ -367,13 +374,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Slope"))
         {
-            if (Input.GetKey(jumpKey) && readyToJump && grounded)
+            if (readyToJump && grounded)
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         }
 
         if (other.gameObject.CompareTag("Grass") && grounded)
         {
-            movementState = MovementState.Normal;
+            movementState = MovementState.Default;
         }
     }
     public void Jump(InputAction.CallbackContext context)
@@ -410,7 +417,7 @@ public class PlayerMovement : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(DashCooldown());
 
-        movementState = MovementState.dashing;
+        movementState = MovementState.Dashing;
         maxYSpeed = maxDashYSpeed;
 
         cam.DoFov(dashFov);
@@ -444,7 +451,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(delayedForceToApply, ForceMode.Impulse);
 
-        movementState = MovementState.Normal;
+        movementState = MovementState.Default;
     }
     private void ResetDash()
     {
@@ -547,7 +554,7 @@ public class PlayerMovement : MonoBehaviour
                 BoostBarMeter.gameObject.SetActive(false);
             if (speedParticle != null)
                 speedParticle.SetActive(false);
-            movementState = MovementState.Normal;
+            movementState = MovementState.Default;
         }
     }
 }
