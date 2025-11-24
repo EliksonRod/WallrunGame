@@ -14,23 +14,48 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Settings")]
+    public float normalSpeed = 11;
+    public float groundDrag = 5;
+    public float dashSpeed = 12;
+    public float jumpForce = 13;
+    [SerializeField] float airMovementMultiplier;
+    [SerializeField] float Gravity = -30f;
+    public bool canUseInput = true;
+
     [Header("Movement")]
     float currentMoveSpeed;
-    public float normalSpeed;
-    public float dashSpeed;
+
+    [Header("Jumping")]
+    float jumpCooldown = 0.25f;
+    bool readyToJump;
+
+    [Header("Dash Settings")]
+    public float dashForce;
+    public float dashFov;
+    public float dashUpwardForce;
+    public float maxDashYSpeed;
+    public float dashDuration;
+    public RectTransform[] DashCounters;
+    float barWidth;
+    int numberOfDashes = 3;
+
+    [Header("Dash Options")]
+    [SerializeField] bool InfiniteDashes = false;
+    public bool useCameraForward = true;
+    public bool allowAllDirections = true;
+    public bool disableGravity = false;
+    public bool resetVel = true;
+
+    [Header("Dash Cooldown")]
+    public float TimeBeforeDashRecharge = 1f;
+    public float DashRechargeTimer;
+
+    [Header("Power Settings")]
+    public float speedBoostMultiplier;
 
     [HideInInspector]
     public float maxYSpeed;
-
-    public float speedIncreaseMultiplier;
-    public float speedBoostMultiplier;
-    public float groundDrag;
-
-    [Header("Jumping")]
-    public float jumpForce;
-    public float jumpCooldown;
-    [SerializeField] float airMultiplier;
-    bool readyToJump;
 
     [Header("Keybinds")]
     public KeyCode pauseKey = KeyCode.Escape;
@@ -71,32 +96,9 @@ public class PlayerMovement : MonoBehaviour
     Collider coll;
     [HideInInspector] public Rigidbody rb;
     
-    Vector2 moveInput;
+    [HideInInspector] public Vector2 moveInput;
     Vector3 spawnPoint;
     Vector3 moveDirection;
-
-    [Header("Dash Settings")]
-    public float dashForce;
-    public float dashUpwardForce;
-    public float maxDashYSpeed;
-    public float dashDuration;
-    public RectTransform[] DashCounters;
-    float barWidth;
-    int numberOfDashes = 3;
-
-    [Header("Dash Options")]
-    [SerializeField] bool InfiniteDashes = false;
-    public bool useCameraForward = true;
-    public bool allowAllDirections = true;
-    public bool disableGravity = false;
-    public bool resetVel = true;
-
-    [Header("Dash Cam Effects")]
-    public float dashFov;
-
-    [Header("Dash Cooldown")]
-    public float TimeBeforeDashRecharge = 1f;
-    public float DashRechargeTimer;
 
     public MovementState movementState;
     public enum MovementState
@@ -118,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        Physics.gravity = new Vector3(0, -30f, 0);
+        Physics.gravity = new Vector3(0, Gravity, 0);
 
         spawnPoint = transform.position;
         rb = GetComponent<Rigidbody>();
@@ -134,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Move(InputAction.CallbackContext context)
     {
+        if (canUseInput == false) return;
         moveInput = context.ReadValue<Vector2>();
         Debug.Log(moveInput);
     }
@@ -141,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         GroundCheck();
-
+        ChangeGravity(Gravity);
         walking = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
 
@@ -206,24 +209,17 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.P) || playerState == PlayerState.Confused)
         {
             //Reverse inputs when in confused state(A key moves player right, etc)
-            //horizontalInput = -Input.GetAxisRaw("Horizontal");
-            //verticalInput = -Input.GetAxisRaw("Vertical");
+            moveDirection = orientation.forward * -moveInput.y + orientation.right * -moveInput.x;
         }
         else
         {
             //Normal Inputs(A key move player left, etc)
-            //horizontalInput = Input.GetAxisRaw("Horizontal");
-            //verticalInput = Input.GetAxisRaw("Vertical");
+            moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
         }
-
-        // Calculate direction and walk in the direction you are looking
-        moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
-
-        //Pause
-        if (Input.GetKeyDown(pauseKey))
-        {
-            pauseMenu.SetActive(true);
-        }
+    }
+    public void PauseGame(InputAction.CallbackContext context)
+    {
+        pauseMenu.SetActive(true);
     }
     void MovePlayer()
     {
@@ -245,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
         }
         // in air
         else if (!grounded)
-            rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f * airMovementMultiplier, ForceMode.Force);
 
         //turn gravity off while on slope
         if (!wallrunning) rb.useGravity = !OnSlope();
@@ -322,6 +318,11 @@ public class PlayerMovement : MonoBehaviour
         deathAnim.Play("ScreenFade_Out");
     }
 
+    public void ChangeGravity(float gravityValue)
+    {
+        Physics.gravity = new Vector3(0, gravityValue, 0);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         //Death
@@ -356,12 +357,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Standing_On = bouncePad;
         }
-
-        /*if (other.gameObject.LayerMask("Ladder"))
-        {
-            if (Input.GetKey(jumpKey) && readyToJump && grounded)
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        }*/
     }
 
     private void OnCollisionExit(Collision other)
@@ -372,12 +367,6 @@ public class PlayerMovement : MonoBehaviour
             Standing_On = null;
         }
 
-        if (other.gameObject.CompareTag("Slope"))
-        {
-            if (readyToJump && grounded)
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        }
-
         if (other.gameObject.CompareTag("Grass") && grounded)
         {
             movementState = MovementState.Default;
@@ -385,7 +374,9 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && readyToJump && grounded)
+        if (!canUseInput) return;
+
+        if (readyToJump && grounded)
         {
             readyToJump = false;
             exitingSlope = true;
@@ -411,8 +402,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
+        if (!canUseInput) return;
+
         if ((wallrunning) || numberOfDashes <= 0) return;
-            numberOfDashes -= 1;
+
+        canUseInput = false;
+        numberOfDashes -= 1;
 
         StopAllCoroutines();
         StartCoroutine(DashCooldown());
@@ -439,7 +434,7 @@ public class PlayerMovement : MonoBehaviour
         delayedForceToApply = forceToApply;
 
         //DelayedDashForce();
-        Invoke(nameof(DelayedDashForce), 0.025f);
+        Invoke(nameof(DelayedDashForce), 0.035f);
 
         Invoke(nameof(ResetDash), dashDuration);
     }
@@ -461,6 +456,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (disableGravity)
             rb.useGravity = true;
+
+        canUseInput = true;
     }
 
     //Multidirectional dash support
