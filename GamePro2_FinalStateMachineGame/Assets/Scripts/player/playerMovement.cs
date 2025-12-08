@@ -51,14 +51,14 @@ public class PlayerMovement : MonoBehaviour
     public float TimeBeforeDashRecharge = 1f;
     public float DashRechargeTimer;
 
+    [Header("SpeedBoost Options")]
+    public bool InfiniteBoost;
+
     [Header("Power Settings")]
     public float speedBoostMultiplier;
 
     [HideInInspector]
     public float maxYSpeed;
-
-    [Header("Keybinds")]
-    public KeyCode pauseKey = KeyCode.Escape;
 
     [Header("Timers")]
     public float walkingSound_Timer = 0f, Boost_Timer = 5f;
@@ -93,9 +93,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject BoostBarMeter;
     public GameObject speedParticle;
 
+    [Header("Effects")]
+    bool SpeedBoosted;
+    bool Confused;
+
     Collider coll;
     [HideInInspector] public Rigidbody rb;
-    
     [HideInInspector] public Vector2 moveInput;
     Vector3 spawnPoint;
     Vector3 moveDirection;
@@ -105,14 +108,13 @@ public class PlayerMovement : MonoBehaviour
     {
         Default,
         Wallrunning,
-        Climbing,
         Dashing
     }
     public PlayerState playerState;
     public enum PlayerState
     {
         Nothing,
-        Boosted,
+        //Boosted,
         Confused,
     }
 
@@ -156,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
         StateHandler();
         //Handles timers for ability cooldowns
         DashUI();
+        Boosted();
 
         if (gameObject.transform.position.y < -35f)
         {
@@ -335,17 +338,23 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject checkpoint = other.gameObject.GetComponent<GameObject>();
         }
+
+        //Instantly ends boost state if touched
+        if (other.gameObject.CompareTag("EndBoost"))
+        {
+            StopBoost();
+        }
     }
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Boost"))
         {
-            playerState = PlayerState.Boosted;
+            SpeedBoosted = true;
             BoostTimeLeft = Boost_Timer;
         }
         if (other.gameObject.CompareTag("Grass"))
         {
-            playerState = PlayerState.Boosted;
+            //playerState = PlayerState.Boosted;
             BoostTimeLeft = 1.2f;
         }
     }
@@ -534,24 +543,47 @@ public class PlayerMovement : MonoBehaviour
     }
     void Boosted()
     {
+        //If Infinite, boost ends when colliding with tag
+        if (!SpeedBoosted) return;
+
         currentMoveSpeed = normalSpeed * speedBoostMultiplier;
-        BoostTimeLeft -= Time.deltaTime;
 
         cam.DoFov(95f);
-        if (BoostBarMeter != null)
-            BoostBarMeter.gameObject.SetActive(true);
-
         if (speedParticle != null)
             speedParticle.SetActive(true);
 
-        if (BoostTimeLeft <= 0f)
+        //If timed, use timer bar and state will end
+        if (!InfiniteBoost)
         {
-            cam.DoFov(80f);
+            BoostTimeLeft = Mathf.Clamp(BoostTimeLeft, 0, Boost_Timer);
+            BoostTimeLeft -= Time.deltaTime;
+
             if (BoostBarMeter != null)
-                BoostBarMeter.gameObject.SetActive(false);
-            if (speedParticle != null)
-                speedParticle.SetActive(false);
-            movementState = MovementState.Default;
+                BoostBarMeter.gameObject.SetActive(true);
+
+            if (BoostTimeLeft <= 0f)
+            {
+                cam.DoFov(80f);
+                if (BoostBarMeter != null)
+                    BoostBarMeter.gameObject.SetActive(false);
+                if (speedParticle != null)
+                    speedParticle.SetActive(false);
+
+                SpeedBoosted = false;
+            }
         }
+    }
+
+    void StopBoost()
+    {
+        cam.DoFov(80f);
+
+        if (BoostBarMeter != null)
+            BoostBarMeter.gameObject.SetActive(false);
+
+        if (speedParticle != null)
+            speedParticle.SetActive(false);
+
+        SpeedBoosted = false;
     }
 }

@@ -35,13 +35,48 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(throwKey) && readyToThrow && totalThrows > 0)
+        /*if (Input.GetKey(throwKey) && readyToThrow && totalThrows > 0)
         {
             shootCounterAnim.enabled = true;
             shootCounterAnim.Play("BulletCounterShake", -1, 0f);
             Throw();
-        }
+        }*/
         BulletCounter.text = totalThrows.ToString();
+    }
+
+    public void Shoot(InputAction.CallbackContext context)
+    {
+        shootCounterAnim.enabled = true;
+        shootCounterAnim.Play("BulletCounterShake", -1, 0f);
+
+        //readyToThrow = false;
+
+        // instantiate object to throw
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
+
+        // get rigidbody component
+        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+
+        // calculate direction
+        Vector3 forceDirection = cam.transform.forward;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(cam.position, cam.forward, out hit, 500f))
+        {
+            forceDirection = (hit.point - attackPoint.position).normalized;
+        }
+
+        // add force
+        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+
+        projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+
+        totalThrows--;
+
+        // implement throwCooldown
+        //Invoke(nameof(ResetThrow), throwCooldown);
+
     }
 
     private void Throw()

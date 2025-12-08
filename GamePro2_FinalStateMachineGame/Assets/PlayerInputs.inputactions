@@ -31,7 +31,7 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap(pressPoint=0.1)",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Shoot",
@@ -39,8 +39,8 @@
                     "id": "3e52b200-d236-46df-b892-2f1316ad31aa",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold",
-                    "initialStateCheck": false
+                    "interactions": "Press(pressPoint=1)",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "WallrunUp",

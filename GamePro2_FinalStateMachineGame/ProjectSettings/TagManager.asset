@@ -20,6 +20,7 @@ TagManager:
   - Slope
   - Grass
   - Enemy
+  - EndBoost
   layers:
   - Default
   - TransparentFX
