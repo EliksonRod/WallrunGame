@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.ProBuilder;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class Shooting : MonoBehaviour
 {
@@ -12,44 +13,43 @@ public class Shooting : MonoBehaviour
     public Transform attackPoint;
     public GameObject objectToThrow;
     public Animator shootCounterAnim;
+    [SerializeField] TextMeshProUGUI BulletCounter;
+    [SerializeField] GameObject PauseMenu;
 
     [Header("Settings")]
-    public int totalThrows;
-    public float throwCooldown;
+    public int MaxThrows;
+    int currentThrows;
+    public float FireRate;
+    public float BulletVelocity;
+    public float UpwardThrowForce;
 
-    [Header("Throwing")]
+    [Header("Keybinds")]
     public KeyCode throwKey = KeyCode.Mouse0;
-    public float throwForce;
-    public float throwUpwardForce;
-    
-    [SerializeField] TextMeshProUGUI BulletCounter;
 
     bool readyToThrow;
-
     private void Start()
     {
         readyToThrow = true;
-
         shootCounterAnim.enabled = false;
     }
 
     private void Update()
     {
-        /*if (Input.GetKey(throwKey) && readyToThrow && totalThrows > 0)
+        Debug.Log(readyToThrow);
+        if (Input.GetKey(throwKey) && readyToThrow && MaxThrows > 0 && !PauseMenu.activeInHierarchy)
         {
             shootCounterAnim.enabled = true;
             shootCounterAnim.Play("BulletCounterShake", -1, 0f);
-            Throw();
-        }*/
-        BulletCounter.text = totalThrows.ToString();
+
+            Shoot();
+        }
+
+        BulletCounter.text = MaxThrows.ToString();
     }
 
-    public void Shoot(InputAction.CallbackContext context)
-    {
-        shootCounterAnim.enabled = true;
-        shootCounterAnim.Play("BulletCounterShake", -1, 0f);
-
-        //readyToThrow = false;
+    public void Shoot()
+    {   
+        readyToThrow = false;
 
         // instantiate object to throw
         GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
@@ -68,46 +68,14 @@ public class Shooting : MonoBehaviour
         }
 
         // add force
-        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+        Vector3 forceToAdd = forceDirection * BulletVelocity + transform.up * UpwardThrowForce;
 
         projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
 
-        totalThrows--;
+        MaxThrows--;
 
         // implement throwCooldown
-        //Invoke(nameof(ResetThrow), throwCooldown);
-
-    }
-
-    private void Throw()
-    {
-        readyToThrow = false;
-
-        // instantiate object to throw
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
-
-        // get rigidbody component
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-
-        // calculate direction
-        Vector3 forceDirection = cam.transform.forward;
-
-        RaycastHit hit;
-
-        if(Physics.Raycast(cam.position, cam.forward, out hit, 500f))
-        {
-            forceDirection = (hit.point - attackPoint.position).normalized;
-        }
-
-        // add force
-        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
-
-        projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
-
-        totalThrows--;
-
-        // implement throwCooldown
-        Invoke(nameof(ResetThrow), throwCooldown);
+        Invoke(nameof(ResetThrow), FireRate);
     }
 
     private void ResetThrow()

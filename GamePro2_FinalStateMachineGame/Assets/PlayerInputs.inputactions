@@ -34,15 +34,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "3e52b200-d236-46df-b892-2f1316ad31aa",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Press(pressPoint=1)",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "WallrunUp",
                     "type": "Button",
                     "id": "f8f27f56-ba26-4e4d-be1a-02029a0bb90b",
@@ -178,28 +169,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "63998db2-f28c-4a67-9405-2797e4c87e8b",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9b87f7fc-5819-47d0-8d4a-2111ac3e4b8e",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

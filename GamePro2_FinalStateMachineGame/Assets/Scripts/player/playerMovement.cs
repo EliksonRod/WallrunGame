@@ -85,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     public playerCam cam;
     public Transform orientation;
-    public Climbing climbingScript; 
     public GameObject pauseMenu;
     public Animator deathAnim;
 
@@ -220,14 +219,12 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
         }
     }
-    public void PauseGame(InputAction.CallbackContext context)
+    public void TogglePauseMenu(InputAction.CallbackContext context)
     {
         pauseMenu.SetActive(true);
     }
     void MovePlayer()
     {
-        if (climbingScript.exitingWall) return;
-
         //on slope
         if (OnSlope() && !exitingSlope)
         {
