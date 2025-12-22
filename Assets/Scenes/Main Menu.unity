@@ -47841,6 +47841,17 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &1071061066 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5486218262558278505, guid: 875b51d87d77584488c37328bd71ff1c, type: 3}
+  m_PrefabInstance: {fileID: 1710476495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1a74fce0b54834985a2178de29c927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1071299268
 GameObject:
   m_ObjectHideFlags: 0
@@ -78043,8 +78054,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1815608596}
-        m_TargetAssemblyTypeName: LvlSelectUIManager, Assembly-CSharp
-        m_MethodName: OpenMainMenu
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SwitchUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -78071,9 +78082,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1815608589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241d439ae0f1a647a4f98a8fff0a8e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 17dacdf8779525f45909649eaaea52bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  PreviousUI:
+  - {fileID: 1646525890}
+  NextUI:
+  - {fileID: 1909127657}
+  playerScript: {fileID: 0}
+  gameManager: {fileID: 1071061066}
 --- !u!1 &1816283143
 GameObject:
   m_ObjectHideFlags: 0

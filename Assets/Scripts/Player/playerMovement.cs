@@ -14,6 +14,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
+    [SerializeField] float currentMoveSpeed;
+
     [Header("Player Settings")]
     public float normalSpeed = 11;
     public float groundDrag = 5;
@@ -22,9 +25,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float airMovementMultiplier;
     [SerializeField] float Gravity = -30f;
     public bool canUseInput = true;
-
-    [Header("Movement")]
-    float currentMoveSpeed;
 
     [Header("Jumping")]
     float jumpCooldown = 0.25f;
@@ -349,11 +349,6 @@ public class PlayerMovement : MonoBehaviour
             SpeedBoosted = true;
             BoostTimeLeft = Boost_Timer;
         }
-        if (other.gameObject.CompareTag("Grass"))
-        {
-            //playerState = PlayerState.Boosted;
-            BoostTimeLeft = 1.2f;
-        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -373,10 +368,6 @@ public class PlayerMovement : MonoBehaviour
             Standing_On = null;
         }
 
-        if (other.gameObject.CompareTag("Grass") && grounded)
-        {
-            movementState = MovementState.Default;
-        }
     }
     public void Jump(InputAction.CallbackContext context)
     {

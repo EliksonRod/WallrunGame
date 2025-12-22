@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 public class changeLevel : MonoBehaviour
 {
     int buildindex;
-    public int ParticleAmount;
-    [SerializeField] GameObject Goal_Barrier;
+    
+    [SerializeField] bool LevelUsesBarrier;
+    [SerializeField] GameObject GoalBarrier;
     public string SceneName;
 
+    [HideInInspector] public int ParticleAmountNeeded;
     [SerializeField] GameObject[] Missing_Particles_UI;
     [SerializeField] GameObject[] Found_Particles_UI;
     void Start()
@@ -19,22 +21,30 @@ public class changeLevel : MonoBehaviour
 
     void OnTriggerEnter(Collider myCollision)
     {
-        if (ParticleAmount >= 3)
+        if (ParticleAmountNeeded >= 3 || !LevelUsesBarrier)
         {
             SceneManager.LoadScene(SceneName);
         }
     }
     void Update()
     {
-        if (ParticleAmount == 1)
+        //ParticleAmountNeeded = PlayerPrefs.GetInt("ParticlesCollected_" + buildindex, 0);
+        ParticleUI();
+    }
+
+    void ParticleUI()
+    {
+        if (!LevelUsesBarrier) return;
+
+        if (ParticleAmountNeeded == 1)
         {
             if (Missing_Particles_UI != null && Found_Particles_UI != null)
             {
                 Missing_Particles_UI[0].SetActive(false);
                 Found_Particles_UI[0].SetActive(true);
-            }    
+            }
         }
-        if (ParticleAmount == 2)
+        if (ParticleAmountNeeded == 2)
         {
             if (Missing_Particles_UI != null && Found_Particles_UI != null)
             {
@@ -42,7 +52,7 @@ public class changeLevel : MonoBehaviour
                 Found_Particles_UI[1].SetActive(true);
             }
         }
-        if (ParticleAmount == 3)
+        if (ParticleAmountNeeded == 3)
         {
             if (Missing_Particles_UI != null && Found_Particles_UI != null)
             {
@@ -51,10 +61,10 @@ public class changeLevel : MonoBehaviour
             }
         }
 
-        if (ParticleAmount >= 3)
+        if (ParticleAmountNeeded >= 3)
         {
-            if (Goal_Barrier != null)
-                Goal_Barrier.SetActive(false);
+            if (GoalBarrier != null)
+                GoalBarrier.SetActive(false);
         }
     }
 }
