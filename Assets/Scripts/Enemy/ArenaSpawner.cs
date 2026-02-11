@@ -8,8 +8,8 @@ using UnityEngine;
 public class ArenaSpawner : MonoBehaviour
 {
     [Header("Wave")]
-    public int totalNumberOfWaves;
-    public int currentWaveNumber = 0;
+    public int totalWaves;
+    public int currentWave = 0;
 
     [Header("Enemies")]
     public int totalEnemiesInWave;
@@ -83,7 +83,7 @@ public class ArenaSpawner : MonoBehaviour
     private void StartWave()
     {
         loopVar = 0;
-        currentWaveNumber++;
+        currentWave++;
         totalEnemiesInWave += Random.Range(2, 5);
         enemiesRemaining = totalEnemiesInWave;
     }
