@@ -7,26 +7,26 @@ public class UIManager : MonoBehaviour
 {
     public AudioSource audioSource;
 
-    public GameObject[] PreviousUI;
-    public GameObject[] NextUI;
+    public GameObject[] CloseUI;
+    public GameObject[] OpenUI;
     [SerializeField] PlayerMovement playerScript;
     [SerializeField] GameManager gameManager;
 
     // Switch UIs
     public void SwitchUI()
     {
-        if (PreviousUI != null)
+        if (CloseUI != null)
         {
             //Disable all animators at start
-            for (int i = 0; i < PreviousUI.Length; i++)
-                PreviousUI[i].SetActive(false);
+            for (int i = 0; i < CloseUI.Length; i++)
+                CloseUI[i].SetActive(false);
         }
 
-        if (NextUI != null)
+        if (OpenUI != null)
         {
             //Disable all animators at start
-            for (int i = 0; i < NextUI.Length; i++)
-                NextUI[i].SetActive(true);
+            for (int i = 0; i < OpenUI.Length; i++)
+                OpenUI[i].SetActive(true);
         }
     }
 
@@ -50,36 +50,38 @@ public class UIManager : MonoBehaviour
     //Pause Menu Functions
     public void ClosePauseUI()
     {
-        gameManager.ResumeTime();
+        gameManager.NormalTime();
+        gameManager.TurnOnNormalUI();
+        gameManager.currentGameState = GameManager.GameState.Normal;   
 
-        if (PreviousUI != null)
+        if (CloseUI != null)
         {
             //Close all previous UIs
-            for (int i = 0; i < PreviousUI.Length; i++)
-                PreviousUI[i].SetActive(false);
+            for (int i = 0; i < CloseUI.Length; i++)
+                CloseUI[i].SetActive(false);
         }
     }
     public void ResetToCheckpoint()
     {
         playerScript.Respawn();
-        gameManager.ResumeTime();
+        gameManager.NormalTime();
 
-        if (PreviousUI != null)
+        if (CloseUI != null)
         {
             //Close all previous UIs
-            for (int i = 0; i < PreviousUI.Length; i++)
-                PreviousUI[i].SetActive(false);
+            for (int i = 0; i < CloseUI.Length; i++)
+                CloseUI[i].SetActive(false);
         }
     }
     public void ReloadScene()
     {
-        gameManager.ResumeTime();
+        gameManager.NormalTime();
 
-        if (PreviousUI != null)
+        if (CloseUI != null)
         {
             //Close all previous UIs
-            for (int i = 0; i < PreviousUI.Length; i++)
-                PreviousUI[i].SetActive(false);
+            for (int i = 0; i < CloseUI.Length; i++)
+                CloseUI[i].SetActive(false);
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }   

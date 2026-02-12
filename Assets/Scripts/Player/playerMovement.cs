@@ -87,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     public GameObject pauseMenu;
     public Animator deathAnim;
+    [SerializeField] GameManager gm;
 
     [Header("Boost")]
     public GameObject BoostBarMeter;
@@ -217,6 +218,15 @@ public class PlayerMovement : MonoBehaviour
         {
             //Normal Inputs(A key move player left, etc)
             moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            gm.SlowTime();
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            gm.NormalTime();
         }
     }
     public void TogglePauseMenu(InputAction.CallbackContext context)
@@ -373,7 +383,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canUseInput) return;
 
-        if (readyToJump && grounded)
+        if (readyToJump && grounded && context.performed)
         {
             readyToJump = false;
             exitingSlope = true;
@@ -400,8 +410,8 @@ public class PlayerMovement : MonoBehaviour
     public void Dash(InputAction.CallbackContext context)
     {
         if (!canUseInput) return;
-
         if ((wallrunning) || numberOfDashes <= 0) return;
+        if (!context.performed) return;
 
         canUseInput = false;
         numberOfDashes -= 1;
