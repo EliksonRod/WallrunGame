@@ -10,7 +10,13 @@ public class UIManager : MonoBehaviour
     public GameObject[] CloseUI;
     public GameObject[] OpenUI;
     [SerializeField] PlayerMovement playerScript;
-    [SerializeField] GameManager gameManager;
+    public static UIManager instance;
+    GameManager gm;
+
+    private void Awake()
+    {
+        gm = GameManager.instance;
+    }
 
     // Switch UIs
     public void SwitchUI()
@@ -29,7 +35,6 @@ public class UIManager : MonoBehaviour
                 OpenUI[i].SetActive(true);
         }
     }
-
 
     //Main Menu Functions
     public void PlayNextScene()
@@ -50,9 +55,9 @@ public class UIManager : MonoBehaviour
     //Pause Menu Functions
     public void ClosePauseUI()
     {
-        gameManager.NormalTime();
-        gameManager.TurnOnNormalUI();
-        gameManager.currentGameState = GameManager.GameState.Normal;   
+        gm.NormalTime();
+        gm.TurnOnNormalUI();
+        gm.currentGameState = GameManager.GameState.Normal;   
 
         if (CloseUI != null)
         {
@@ -64,7 +69,7 @@ public class UIManager : MonoBehaviour
     public void ResetToCheckpoint()
     {
         playerScript.Respawn();
-        gameManager.NormalTime();
+        gm.NormalTime();
 
         if (CloseUI != null)
         {
@@ -75,7 +80,7 @@ public class UIManager : MonoBehaviour
     }
     public void ReloadScene()
     {
-        gameManager.NormalTime();
+        gm.NormalTime();
 
         if (CloseUI != null)
         {

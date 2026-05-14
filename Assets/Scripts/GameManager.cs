@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static PlayerMovement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [SerializeField] GameObject Pause_Menu;
     [SerializeField] GameObject PlayerHUD;
     float originalTimeScale;
-    [SerializeField] float slowTimeScale = 0.3f;
 
     public enum GameState
     {
@@ -21,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        instance = this;
         originalTimeScale = Time.timeScale;
     }
 
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = originalTimeScale;
     }
 
-    public void SlowTime()
+    public void SlowTime(float slowTimeScale)
     {
         Time.timeScale = slowTimeScale;
     }

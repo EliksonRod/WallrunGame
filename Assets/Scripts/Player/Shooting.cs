@@ -35,12 +35,10 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(readyToThrow);
         if (Input.GetKey(throwKey) && readyToThrow && MaxThrows > 0 && !PauseMenu.activeInHierarchy)
         {
             shootCounterAnim.enabled = true;
             shootCounterAnim.Play("BulletCounterShake", -1, 0f);
-
             Shoot();
         }
 

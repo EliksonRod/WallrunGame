@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jumping")]
     float jumpCooldown = 0.25f;
-    bool readyToJump;
+    bool readyToJump = true;
 
     [Header("Dash Settings")]
     public float dashForce;
@@ -51,6 +51,13 @@ public class PlayerMovement : MonoBehaviour
     public float TimeBeforeDashRecharge = 1f;
     public float DashRechargeTimer;
 
+    [Header("Slow Time Settings")]
+    [SerializeField] float slowTimeRate = 0.35f;
+    [SerializeField] float slowTimeDuration = 1.5f;
+    float slowTimeDurationTimer;
+    [SerializeField] float slowTimeDelayCooldown = 5f;
+    bool SlowingTime;
+
     [Header("SpeedBoost Options")]
     public bool InfiniteBoost;
 
@@ -67,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public LayerMask whatIsGround;
     public bool grounded;
-    //For Teleport Return Ability
     public bool overGround;
     Bounce_Pad Standing_On;
     Checkpoints checkpoints;
@@ -118,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         Confused,
     }
 
-    public bool walking, inAir, wallrunning, climbing, playerIsMoving, dashing;
+    public bool wallrunning, playerIsMoving, climbing;
 
     void Start()
     {
@@ -128,7 +134,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
         rb.freezeRotation = true;
-        readyToJump = true;
+
+        slowTimeDurationTimer = slowTimeDuration;
 
         //Dash UI Setup
         for (int i = 0; i < DashCounters.Length; i++)
@@ -147,7 +154,6 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
         ChangeGravity(Gravity);
-        walking = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
         playerIsMoving = (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f);
 
         if (!pauseMenu.activeInHierarchy)
@@ -160,9 +166,16 @@ public class PlayerMovement : MonoBehaviour
         DashUI();
         Boosted();
 
+        slowTimeDurationTimer = Mathf.Clamp(slowTimeDurationTimer, 0, slowTimeDuration);
         if (gameObject.transform.position.y < -35f)
         {
             StartCoroutine(Die());
+        }
+
+        if (slowTimeDurationTimer < slowTimeDuration && !SlowingTime)
+        {
+            Debug.Log("Recharging Slow Time Ability" + slowTimeDurationTimer);
+            Invoke(nameof(RechargeSlowTimeAbility), slowTimeDelayCooldown);
         }
     }
     void FixedUpdate()
@@ -180,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
         //Cast a ray straight downwards, reads back where it leads
         if (Physics.Raycast(downRay, out hit))
         {
-            print(hit.transform.tag);
+            //print(hit.transform.tag);
         }
     }
     void StateHandler()
@@ -190,12 +203,12 @@ public class PlayerMovement : MonoBehaviour
             case MovementState.Default:
                 currentMoveSpeed = normalSpeed;
                 break;
-            //case MovementState.Boosted:
-                //Boosted();
-                //break;
+            case MovementState.Dashing:
+                currentMoveSpeed = 0;
+                break;
         }
 
-        if (grounded || wallrunning || climbing)
+        if (grounded || wallrunning)
         {
             coll.material.frictionCombine = PhysicsMaterialCombine.Average;
             //Debug.Log("Average Friction");
@@ -207,6 +220,26 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    void SlowTimeAbility()
+    {
+        slowTimeDurationTimer -= Time.deltaTime * (1 + slowTimeRate);
+        if (slowTimeDurationTimer <= 0)
+        {
+            gm.NormalTime();
+            SlowingTime = false;
+        }
+        else
+        {
+            SlowingTime = true;
+            gm.SlowTime(slowTimeRate);
+            Debug.Log("Time Slowed" + slowTimeDurationTimer);
+        }
+    }
+    void RechargeSlowTimeAbility()
+    {
+        slowTimeDurationTimer += Time.deltaTime;
+    }
     void MyInput()
     {
         if (Input.GetKey(KeyCode.P) || playerState == PlayerState.Confused)
@@ -220,12 +253,13 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1))
         {
-            gm.SlowTime();
+            SlowTimeAbility();
         }
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
+            SlowingTime = false;
             gm.NormalTime();
         }
     }
