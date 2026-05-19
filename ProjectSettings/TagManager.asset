@@ -21,6 +21,7 @@ TagManager:
   - Grass
   - Enemy
   - EndBoost
+  - Projectile
   layers:
   - Default
   - TransparentFX

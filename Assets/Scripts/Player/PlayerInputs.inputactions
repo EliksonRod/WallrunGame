@@ -25,6 +25,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "DoubleJump",
+                    "type": "Button",
+                    "id": "a2d3a9b5-132c-4487-a249-912dbe78855b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "7ff6ac12-1252-4413-8f56-ad0cb65b30e9",
@@ -55,6 +64,24 @@
                     "name": "PauseGame",
                     "type": "Button",
                     "id": "82dbaf9e-ee22-424b-bc50-70ec0e48d77d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability1",
+                    "type": "Button",
+                    "id": "04a86853-ac2c-410a-b95f-8bfcbf2011c6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability2",
+                    "type": "Button",
+                    "id": "f3a88f83-f06a-446a-a895-bc72d12e797c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -152,6 +179,28 @@
                 },
                 {
                     "name": "",
+                    "id": "2462a654-dafe-46fc-bbc1-35f5e0842d37",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fde4b92a-bb9b-4b35-8f84-3fcb86c53996",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a788b5a0-1997-415c-86db-5c2c2ee4c314",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
@@ -235,6 +284,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43115283-037f-4d4e-a17b-7fd7c1e12f3c",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "362c7b84-df6d-4a53-bab4-54b571e647d2",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -21,13 +21,14 @@ public class PlayerMovement : MonoBehaviour
     public float normalSpeed = 11;
     public float groundDrag = 5;
     public float dashSpeed = 12;
-    public float jumpForce = 13;
     [SerializeField] float airMovementMultiplier;
     [SerializeField] float Gravity = -30f;
     public bool canUseInput = true;
 
-    [Header("Jumping")]
+    [Header("Jump Settings")]
+    float jumpForce = 13;
     float jumpCooldown = 0.25f;
+    bool canDoubleJump = false;
     bool readyToJump = true;
 
     [Header("Dash Settings")]
@@ -50,13 +51,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash Cooldown")]
     public float TimeBeforeDashRecharge = 1f;
     public float DashRechargeTimer;
-
-    [Header("Slow Time Settings")]
-    [SerializeField] float slowTimeRate = 0.35f;
-    [SerializeField] float slowTimeDuration = 1.5f;
-    float slowTimeDurationTimer;
-    [SerializeField] float slowTimeDelayCooldown = 5f;
-    bool SlowingTime;
 
     [Header("SpeedBoost Options")]
     public bool InfiniteBoost;
@@ -135,8 +129,6 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<Collider>();
         rb.freezeRotation = true;
 
-        slowTimeDurationTimer = slowTimeDuration;
-
         //Dash UI Setup
         for (int i = 0; i < DashCounters.Length; i++)
         {
@@ -166,16 +158,9 @@ public class PlayerMovement : MonoBehaviour
         DashUI();
         Boosted();
 
-        slowTimeDurationTimer = Mathf.Clamp(slowTimeDurationTimer, 0, slowTimeDuration);
         if (gameObject.transform.position.y < -35f)
         {
             StartCoroutine(Die());
-        }
-
-        if (slowTimeDurationTimer < slowTimeDuration && !SlowingTime)
-        {
-            Debug.Log("Recharging Slow Time Ability" + slowTimeDurationTimer);
-            Invoke(nameof(RechargeSlowTimeAbility), slowTimeDelayCooldown);
         }
     }
     void FixedUpdate()
@@ -220,26 +205,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    void SlowTimeAbility()
-    {
-        slowTimeDurationTimer -= Time.deltaTime * (1 + slowTimeRate);
-        if (slowTimeDurationTimer <= 0)
-        {
-            gm.NormalTime();
-            SlowingTime = false;
-        }
-        else
-        {
-            SlowingTime = true;
-            gm.SlowTime(slowTimeRate);
-            Debug.Log("Time Slowed" + slowTimeDurationTimer);
-        }
-    }
-    void RechargeSlowTimeAbility()
-    {
-        slowTimeDurationTimer += Time.deltaTime;
-    }
     void MyInput()
     {
         if (Input.GetKey(KeyCode.P) || playerState == PlayerState.Confused)
@@ -251,16 +216,6 @@ public class PlayerMovement : MonoBehaviour
         {
             //Normal Inputs(A key move player left, etc)
             moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
-        }
-
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-            SlowTimeAbility();
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            SlowingTime = false;
-            gm.NormalTime();
         }
     }
     public void TogglePauseMenu(InputAction.CallbackContext context)
@@ -338,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
         // Ground Check 
         grounded = Physics.BoxCast(transform.position, transform.localScale * 0.25f, Vector3.down, transform.rotation, 1.2f, whatIsGround);
         //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - 1.2f, transform.position.z), Color.magenta);
-
+        
         // Handle drag
         rb.linearDamping = (grounded) ? groundDrag : 0;
     }
@@ -417,10 +372,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canUseInput) return;
 
+        if (canDoubleJump && context.performed && !grounded && !wallrunning)
+        {
+            // reset y velocity
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            rb.AddForce(transform.up * SetBounceStrength(), ForceMode.Impulse);
+            canDoubleJump = false;
+        }
+
         if (readyToJump && grounded && context.performed)
         {
             readyToJump = false;
             exitingSlope = true;
+            canDoubleJump = true;
 
             // reset y velocity
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
@@ -434,6 +398,7 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
         exitingSlope = false;
+
     }
     public float SetBounceStrength()
     {
